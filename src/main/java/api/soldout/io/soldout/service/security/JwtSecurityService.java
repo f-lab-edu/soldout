@@ -1,4 +1,4 @@
-package api.soldout.io.soldout.service;
+package api.soldout.io.soldout.service.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

@@ -1,12 +1,10 @@
-package api.soldout.io.soldout.controller;
+package api.soldout.io.soldout.controller.user;
 
 import api.soldout.io.soldout.dtos.user.UserDTO;
 import api.soldout.io.soldout.dtos.user.request.RequestDTO;
 import api.soldout.io.soldout.dtos.user.response.ResponseDTO;
-import api.soldout.io.soldout.service.SecurityService;
-import api.soldout.io.soldout.service.UserService;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import api.soldout.io.soldout.service.security.SecurityService;
+import api.soldout.io.soldout.service.user.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserController {
 
-  private final UserService userService;
+  private final UserServiceImpl userService;
 
   private final SecurityService securityService;
 

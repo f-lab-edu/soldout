@@ -1,4 +1,4 @@
-package api.soldout.io.soldout.repository;
+package api.soldout.io.soldout.repository.user;
 
 import api.soldout.io.soldout.dtos.user.UserDTO;
 
