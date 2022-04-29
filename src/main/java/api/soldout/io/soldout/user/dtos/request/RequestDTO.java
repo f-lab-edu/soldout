@@ -1,6 +1,5 @@
-package api.soldout.io.soldout.controller.request;
+package api.soldout.io.soldout.user.dtos.request;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,4 +8,7 @@ import lombok.NoArgsConstructor;
 public class RequestDTO {
   private String email;
   private String password;
+  private String name;
+  private String phone;
+  private String address;
 }

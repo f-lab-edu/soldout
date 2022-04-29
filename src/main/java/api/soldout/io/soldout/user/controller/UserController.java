@@ -1,9 +1,9 @@
-package api.soldout.io.soldout.controller;
+package api.soldout.io.soldout.user.controller;
 
-import api.soldout.io.soldout.controller.request.RequestDTO;
-import api.soldout.io.soldout.controller.response.ResponseDTO;
-import api.soldout.io.soldout.dtos.UserDTO;
-import api.soldout.io.soldout.service.UserService;
+import api.soldout.io.soldout.user.dtos.request.RequestDTO;
+import api.soldout.io.soldout.user.dtos.response.ResponseDTO;
+import api.soldout.io.soldout.user.dtos.UserDTO;
+import api.soldout.io.soldout.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,16 +25,17 @@ public class UserController {
 
   @PostMapping("/signin")
   public ResponseEntity<ResponseDTO> signIn(@RequestBody RequestDTO request){
-    UserDTO user = userService.signIn(request.getEmail(), request.getPassword());
-    if (user.getEmail().equals("test@test.com")) {
+    UserDTO user = userService.signIn(request);
     return ResponseEntity
         .status(HttpStatus.OK)
-        .body(ResponseDTO.success(user));
-    } else {
-      return ResponseEntity
-          .status(HttpStatus.UNAUTHORIZED)
-          .body(ResponseDTO.fail());
-    }
+        .body(ResponseDTO.successSignIn(user));
   }
 
+  @PostMapping("/signup")
+  public ResponseEntity<ResponseDTO> signUp(@RequestBody RequestDTO request){
+    UserDTO user = userService.signUp(request);
+    return ResponseEntity
+        .status(HttpStatus.OK)
+        .body(ResponseDTO.successSignUp(user));
+  }
 }
