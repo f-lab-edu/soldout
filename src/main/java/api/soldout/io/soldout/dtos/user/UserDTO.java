@@ -1,30 +1,24 @@
-package api.soldout.io.soldout.user.dtos;
+package api.soldout.io.soldout.dtos.user;
 
-import api.soldout.io.soldout.user.dtos.request.RequestDTO;
+import api.soldout.io.soldout.dtos.user.request.RequestDTO;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
+@AllArgsConstructor
 public class UserDTO {
   private String email;
-  private int password;
+  private String password;
   private String name;
   private String phone;
   private String address;
 
-  @Builder
-  public UserDTO(String email, int password, String name, String phone, String address){
-    this.email = email;
-    this.password = password;
-    this.name = name;
-    this.phone = phone;
-    this.address = address;
-  }
-
   public static UserDTO buildUser(RequestDTO request){
     return UserDTO.builder()
         .email(request.getEmail())
-        .password(request.getPassword().hashCode())
+        .password(request.getPassword())
         .name(request.getName())
         .phone(request.getPhone())
         .address(request.getAddress())
@@ -32,7 +26,7 @@ public class UserDTO {
   }
 
   public boolean isValid(String email, String password){
-    if (this.getEmail().equals(email) && this.getPassword() == password.hashCode()){
+    if (this.getEmail().equals(email) && this.getPassword().equals(password)){
       return true;
     }
     return false;

@@ -1,6 +1,6 @@
-package api.soldout.io.soldout.user;
+package api.soldout.io.soldout.config;
 
-import api.soldout.io.soldout.user.dtos.UserDTO;
+import api.soldout.io.soldout.dtos.user.UserDTO;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.context.annotation.Bean;

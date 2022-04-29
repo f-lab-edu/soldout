@@ -1,7 +1,7 @@
-package api.soldout.io.soldout.user.dtos.response.data;
+package api.soldout.io.soldout.dtos.user.response.data;
 
 
-import api.soldout.io.soldout.user.dtos.UserDTO;
+import api.soldout.io.soldout.dtos.user.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -9,14 +9,14 @@ import lombok.Getter;
 @AllArgsConstructor
 public class SignUpData {
   private String email;
-  private int password;
+  private String password;
   private String name;
   private String phone;
   private String address;
 
   public static SignUpData from(UserDTO user){
     String email = user.getEmail();
-    int password = user.getPassword();
+    String  password = user.getPassword();
     String name = user.getName();
     String phone = user.getPhone();
     String address = user.getAddress();

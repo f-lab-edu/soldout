@@ -1,8 +1,8 @@
-package api.soldout.io.soldout.user.dtos.response;
+package api.soldout.io.soldout.dtos.user.response;
 
-import api.soldout.io.soldout.user.dtos.UserDTO;
-import api.soldout.io.soldout.user.dtos.response.data.SignInData;
-import api.soldout.io.soldout.user.dtos.response.data.SignUpData;
+import api.soldout.io.soldout.dtos.user.UserDTO;
+import api.soldout.io.soldout.dtos.user.response.data.SignInData;
+import api.soldout.io.soldout.dtos.user.response.data.SignUpData;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -22,9 +22,8 @@ public class ResponseDTO<T> {
     return new ResponseDTO(true, SignUpData.from(user), "Ok", null);
   }
 
-  // data -> tokenMessage
-  public static ResponseDTO successSignIn(UserDTO user){
-    return new ResponseDTO(true, SignInData.from(user), "Ok", null);
+  public static ResponseDTO successSignIn(String token){
+    return new ResponseDTO(true, SignInData.from(token), "Ok", null);
   }
 
   public static ResponseDTO fail() {

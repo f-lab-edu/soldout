@@ -1,6 +1,6 @@
-package api.soldout.io.soldout.user.repository;
+package api.soldout.io.soldout.repository;
 
-import api.soldout.io.soldout.user.dtos.UserDTO;
+import api.soldout.io.soldout.dtos.user.UserDTO;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class HashMapUserRepository implements UserRepositoryInterface {
+public class HashMapUserRepository implements UserRepository {
 
   private final ConcurrentHashMap<Long, UserDTO> database;
   private final AtomicLong sequence;
