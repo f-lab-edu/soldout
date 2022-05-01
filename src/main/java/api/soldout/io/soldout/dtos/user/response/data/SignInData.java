@@ -8,7 +8,7 @@ import lombok.Getter;
 public class SignInData {
   private String password;
 
-  public static SignInData from(String token){
-    return new SignInData(token);
+  public static SignInData from(String email){
+    return new SignInData(email);
   }
 }

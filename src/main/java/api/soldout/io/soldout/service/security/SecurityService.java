@@ -1,7 +1,7 @@
 package api.soldout.io.soldout.service.security;
 
-public interface SecurityService {
-  String createToken(String subject, long ttlMillis);
+import api.soldout.io.soldout.dtos.user.UserDTO;
 
-  String getSubject(String token);
+public interface SecurityService {
+  String signIn(UserDTO user);
 }

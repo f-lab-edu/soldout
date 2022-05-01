@@ -3,8 +3,10 @@ package api.soldout.io.soldout.repository.user;
 import api.soldout.io.soldout.dtos.user.UserDTO;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
+@Slf4j
 @Repository
 public class HashMapUserRepository implements UserRepository {
 
@@ -18,7 +20,7 @@ public class HashMapUserRepository implements UserRepository {
   }
 
   @Override
-  public UserDTO findUser(String email, String password) {
+  public UserDTO findByIdPw(String email, String password) {
     for (UserDTO tempUser : database.values()) {
       if(tempUser.isValid(email, password)) {
         return tempUser;

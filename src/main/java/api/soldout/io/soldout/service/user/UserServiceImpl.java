@@ -4,8 +4,10 @@ import api.soldout.io.soldout.dtos.user.request.RequestDTO;
 import api.soldout.io.soldout.dtos.user.UserDTO;
 import api.soldout.io.soldout.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
@@ -13,12 +15,12 @@ public class UserServiceImpl implements UserService{
   private final UserRepository userRepository;
 
   @Override
-  public UserDTO signUp(RequestDTO request){
+  public UserDTO save(RequestDTO request){
     return userRepository.save(UserDTO.buildUser(request));
   }
 
   @Override
-  public UserDTO findByIdPw(RequestDTO request){
-    return userRepository.findUser(request.getEmail(), request.getPassword());
+  public UserDTO findByIdPw(String email, String password){
+    return userRepository.findByIdPw(email, password);
   }
 }

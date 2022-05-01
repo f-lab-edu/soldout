@@ -22,8 +22,8 @@ public class ResponseDTO<T> {
     return new ResponseDTO(true, SignUpData.from(user), "Ok", null);
   }
 
-  public static ResponseDTO successSignIn(String token){
-    return new ResponseDTO(true, SignInData.from(token), "Ok", null);
+  public static ResponseDTO successSignIn(String email){
+    return new ResponseDTO(true, SignInData.from(email), "Ok", null);
   }
 
   public static ResponseDTO fail() {

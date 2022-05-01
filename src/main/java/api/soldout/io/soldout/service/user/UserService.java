@@ -5,7 +5,7 @@ import api.soldout.io.soldout.dtos.user.request.RequestDTO;
 
 public interface UserService {
 
-  UserDTO signUp(RequestDTO request);
+  UserDTO save(RequestDTO request);
 
-  UserDTO findByIdPw(RequestDTO request);
+  UserDTO findByIdPw(String email, String password);
 }

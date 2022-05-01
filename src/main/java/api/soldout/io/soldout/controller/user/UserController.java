@@ -5,7 +5,9 @@ import api.soldout.io.soldout.dtos.user.request.RequestDTO;
 import api.soldout.io.soldout.dtos.user.response.ResponseDTO;
 import api.soldout.io.soldout.service.security.SecurityService;
 import api.soldout.io.soldout.service.user.UserServiceImpl;
+import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * .
  */
 
+@Slf4j
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
@@ -28,7 +31,7 @@ public class UserController {
 
   @PostMapping("/signup")
   public ResponseEntity<ResponseDTO> signUp(@RequestBody RequestDTO request){
-    UserDTO user = userService.signUp(request);
+    UserDTO user = userService.save(request);
     return ResponseEntity
         .status(HttpStatus.OK)
         .body(ResponseDTO.successSignUp(user));
@@ -36,28 +39,12 @@ public class UserController {
 
   @PostMapping("/signin")
   public ResponseEntity<ResponseDTO> signIn(@RequestBody RequestDTO request){
-    UserDTO user = userService.findByIdPw(request);
-    String token = securityService.createToken(user.getEmail(), (2 * 1000 * 60));
+    // 회원 조회
+    UserDTO user = userService.findByIdPw(request.getEmail(), request.getPassword());
+    // 회원 로그인
+    String sessionId = securityService.signIn(user);
     return ResponseEntity
         .status(HttpStatus.OK)
-        .body(ResponseDTO.successSignIn(token));
+        .body(ResponseDTO.successSignIn(sessionId));
   }
-
-/*
-  @GetMapping("/get/token")
-  public Map<String, Object> genToken(@RequestParam(value="subject") String subject) {
-    String token = securityService.createToken(subject, (2 * 1000 * 60));
-    Map<String, Object> map = new LinkedHashMap<String, Object>();
-    map.put("result", token);
-    return map;
-  }
-
-  @GetMapping("/get/subject")
-  public Map<String, Object> getSubject(@RequestParam("token") String token) {
-    String subject = securityService.getSubject(token);
-    Map<String, Object> map = new LinkedHashMap<String, Object>();
-    map.put("result", subject);
-    return map;
-  }
-*/
 }
