@@ -4,4 +4,6 @@ import api.soldout.io.soldout.dtos.user.UserDTO;
 
 public interface SecurityService {
   String signIn(UserDTO user);
+
+  void logOut();
 }

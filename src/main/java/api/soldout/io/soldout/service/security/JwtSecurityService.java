@@ -9,6 +9,11 @@ import java.util.Date;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 
+/**
+ * JWT 방식의 Service 구현체.
+ * 추후 인증방식 변경 가능성을 가지고 있다고 가정하여 구현체의 기본 형식만 작성
+ */
+
 // @Service
 public class JwtSecurityService implements SecurityService {
 
@@ -31,7 +36,11 @@ public class JwtSecurityService implements SecurityService {
         .compact();
   }
 
-  public String getSubject(String token) {
+  @Override
+  public void logOut(){
+  }
+
+  public String getUserId(String token) {
     Claims claims = Jwts.parserBuilder()
         .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
         .build()

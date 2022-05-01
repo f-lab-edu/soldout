@@ -1,6 +1,6 @@
 package api.soldout.io.soldout.dtos.user;
 
-import api.soldout.io.soldout.dtos.user.request.RequestDTO;
+import api.soldout.io.soldout.dtos.user.request.RequestSignUpDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +15,7 @@ public class UserDTO {
   private String phone;
   private String address;
 
-  public static UserDTO buildUser(RequestDTO request){
+  public static UserDTO buildUser(RequestSignUpDTO request){
     return UserDTO.builder()
         .email(request.getEmail())
         .password(request.getPassword())
