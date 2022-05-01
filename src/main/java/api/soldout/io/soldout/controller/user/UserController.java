@@ -37,7 +37,7 @@ public class UserController {
   @PostMapping("/signin")
   public ResponseEntity<ResponseDTO> signIn(@RequestBody RequestDTO request){
     UserDTO user = userService.findByIdPw(request);
-    String token = securityService.createToken(user.getPassword(), (2 * 1000 * 60));
+    String token = securityService.createToken(user.getEmail(), (2 * 1000 * 60));
     return ResponseEntity
         .status(HttpStatus.OK)
         .body(ResponseDTO.successSignIn(token));
