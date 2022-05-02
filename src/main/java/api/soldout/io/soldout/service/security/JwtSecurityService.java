@@ -21,7 +21,7 @@ public class JwtSecurityService implements SecurityService {
   private static final long TTL_MILLIS = (2 * 1000 * 60);
 
   @Override
-  public String signIn(UserDTO user) {
+  public void signIn(UserDTO user) {
     if (TTL_MILLIS <= 0) {
       throw new RuntimeException("Expiry time must be greater than Zero : ["+TTL_MILLIS+"] ");
     }
@@ -29,7 +29,8 @@ public class JwtSecurityService implements SecurityService {
     SignatureAlgorithm signatureAlgorithm= SignatureAlgorithm.HS256;
     byte[] secretKeyBytes = DatatypeConverter.parseBase64Binary(SECRET_KEY);
     Key signingKey = new SecretKeySpec(secretKeyBytes, signatureAlgorithm.getJcaName());
-    return Jwts.builder()
+    // return 할 경우, 토큰 문자열이 리턴된다. 세션 방식은 리턴값이 불필요해서 "void"로 임시 변경한 상태
+    Jwts.builder()
         .setSubject(user.getEmail())
         .signWith(signingKey, signatureAlgorithm)
         .setExpiration(new Date(System.currentTimeMillis()+TTL_MILLIS))

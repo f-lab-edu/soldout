@@ -31,32 +31,28 @@ public class UserController {
   private final SecurityService securityService;
 
   @PostMapping("/signup")
-  public ResponseEntity<ResponseDTO> signUp(@RequestBody RequestSignUpDTO request) {
+  public ResponseDTO signUp(@RequestBody RequestSignUpDTO request) {
     // 회원 가입
     UserDTO user = userService.save(request);
 
-    return ResponseEntity
-        .status(HttpStatus.OK)
-        .body(ResponseDTO.successSignUp(user));
+    return ResponseDTO.successSignUp(user);
   }
 
   @PostMapping("/signin")
-  public ResponseEntity<ResponseDTO> signIn(@RequestBody RequestSignInDTO request) {
+  public ResponseDTO signIn(@RequestBody RequestSignInDTO request) {
     // 회원 조회
     UserDTO user = userService.findByIdPw(request.getEmail(), request.getPassword());
     // 회원 로그인
-    String sessionId = securityService.signIn(user);
+    securityService.signIn(user);
 
-    return ResponseEntity
-        .status(HttpStatus.OK)
-        .body(ResponseDTO.successSignIn(sessionId));
+    return ResponseDTO.successSignIn();
   }
 
   @PostMapping("/logout")
-  public HttpStatus logOut() {
+  public ResponseDTO logOut() {
     // 로그아웃
     securityService.logOut();
 
-    return HttpStatus.OK;
+    return ResponseDTO.successLogOut();
   }
 }

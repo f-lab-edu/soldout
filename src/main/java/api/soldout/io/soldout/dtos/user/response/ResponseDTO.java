@@ -19,11 +19,15 @@ public class ResponseDTO<T> {
   private ErrorDTO error;
 
   public static ResponseDTO successSignUp(UserDTO user){
-    return new ResponseDTO(true, SignUpData.from(user), "Ok", null);
+    return new ResponseDTO(true, SignUpData.from(user), "SignUp", null);
   }
 
-  public static ResponseDTO successSignIn(String email){
-    return new ResponseDTO(true, SignInData.from(email), "Ok", null);
+  public static ResponseDTO successSignIn(){
+    return new ResponseDTO(true, null, "SignIn", null);
+  }
+
+  public static ResponseDTO successLogOut(){
+    return new ResponseDTO(true, null, "LogOut", null);
   }
 
   public static ResponseDTO fail() {

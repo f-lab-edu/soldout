@@ -15,21 +15,20 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SessionSecurityService implements SecurityService{
 
-  private final static String SESSION_ID = "SessionId";
-
   private final HttpSession session;
 
   private ConcurrentHashMap<String, UserDTO> sessionDB = new ConcurrentHashMap<>();
 
+  private final static String SESSION_ID = "SESSION_ID";
+
   @Override
-  public String signIn(UserDTO user) {
+  public void signIn(UserDTO user) {
     // 세션 아이디 생성
     String sessionId = UUID.randomUUID().toString();
     // 쿠키에 세션 아이디 저장
     session.setAttribute(SESSION_ID, sessionId);
-    // 세션 DB에 저징
+    // 세션 DB에 저장
     sessionDB.put(sessionId, user);
-    return sessionId;
   }
 
   @Override
