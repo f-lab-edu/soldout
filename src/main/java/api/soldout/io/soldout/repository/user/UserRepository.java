@@ -10,4 +10,6 @@ public interface UserRepository {
   UserDTO save(UserDTO user);
 
   UserDTO findByIdPw(String email, String password);
+
+  UserDTO findById(String email);
 }

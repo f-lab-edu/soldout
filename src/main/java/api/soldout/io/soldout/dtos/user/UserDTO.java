@@ -16,6 +16,7 @@ public class UserDTO {
   private String address;
 
   public static UserDTO buildUser(RequestSignUpDTO request){
+
     return UserDTO.builder()
         .email(request.getEmail())
         .password(request.getPassword())
@@ -23,9 +24,17 @@ public class UserDTO {
         .phone(request.getPhone())
         .address(request.getAddress())
         .build();
+
   }
 
-  public boolean isValid(String email, String password){
+  public boolean isExistId(String email){
+    if (this.getEmail().equals(email)) {
+      return true;
+    }
+    return false;
+  }
+
+  public boolean isExistIdPw(String email, String password){
     if (this.getEmail().equals(email) && this.getPassword().equals(password)){
       return true;
     }

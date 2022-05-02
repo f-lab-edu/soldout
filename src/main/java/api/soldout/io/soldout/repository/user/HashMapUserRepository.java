@@ -17,9 +17,26 @@ public class HashMapUserRepository implements UserRepository {
   @Override
   public UserDTO save(UserDTO user){
 
+    if (isExistEmail(user)) {
+      return null;
+    }
+
     database.put(sequence.incrementAndGet(), user);
 
     return database.get(sequence.get());
+  }
+
+  @Override
+  public UserDTO findById(String email) {
+
+    for (UserDTO tempUser : database.values()) {
+
+      if(tempUser.isExistId(email)) {
+        return tempUser;
+      }
+
+    }
+    return null;
   }
 
   @Override
@@ -27,13 +44,18 @@ public class HashMapUserRepository implements UserRepository {
 
     for (UserDTO tempUser : database.values()) {
 
-      if(tempUser.isValid(email, password)) {
+      if(tempUser.isExistIdPw(email, password)) {
         return tempUser;
       }
 
     }
+    return null;
+  }
 
-    throw new NullPointerException("회원 정보가 없습니다.");
-
+  private boolean isExistEmail(UserDTO user) {
+    if (database.size() != 0 && findById(user.getEmail()) != null) {
+      return true;
+    }
+    return false;
   }
 }

@@ -1,6 +1,8 @@
 package api.soldout.io.soldout.service.security;
 
 import api.soldout.io.soldout.dtos.user.UserDTO;
+import api.soldout.io.soldout.exception.AlreadySignInUserException;
+import api.soldout.io.soldout.exception.NotExistSignInUserException;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.http.HttpSession;
@@ -23,6 +25,12 @@ public class SessionSecurityService implements SecurityService{
 
   @Override
   public void signIn(UserDTO user) {
+    // 세션 아이디가 이미 존재할 경우, 예외처리
+    if (session.getAttribute(SESSION_ID) != null) {
+
+      throw new AlreadySignInUserException("이미 로그인된 회원입니다");
+
+    }
     // 세션 아이디 생성
     String sessionId = UUID.randomUUID().toString();
     // 쿠키에 세션 아이디 저장
@@ -33,13 +41,13 @@ public class SessionSecurityService implements SecurityService{
 
   @Override
   public void logOut() {
-    // 해당 세션 아이디로 저장된 값이 있다면 로그아웃 로직 실행
-    if(session.getAttribute(SESSION_ID) != null) {
-      session.invalidate();
-    }
-  }
+    // 생성된 session Id가 없는 경우, 예외처리
+    if(session.getAttribute(SESSION_ID) == null) {
 
-  public String getUserId() {
-    return sessionDB.get(session.getAttribute(SESSION_ID)).getEmail();
+      throw new NotExistSignInUserException("로그인한 회원이 아닙니다.");
+
+    }
+
+    session.invalidate();
   }
 }

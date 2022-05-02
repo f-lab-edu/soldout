@@ -18,21 +18,25 @@ public class ResponseDTO<T> {
   private String message;
   private ErrorDTO error;
 
-  public static ResponseDTO successSignUp(UserDTO user){
-    return new ResponseDTO(true, SignUpData.from(user), "SignUp", null);
+  public static ResponseDTO successSignUp(UserDTO user) {
+    return new ResponseDTO(true, SignUpData.from(user), "회원가입 성공", null);
   }
 
-  public static ResponseDTO successSignIn(){
-    return new ResponseDTO(true, null, "SignIn", null);
+  public static ResponseDTO successSignIn() {
+    return new ResponseDTO(true, null, "로그인 성공", null);
   }
 
-  public static ResponseDTO successLogOut(){
-    return new ResponseDTO(true, null, "LogOut", null);
+  public static ResponseDTO successLogOut() {
+    return new ResponseDTO(true, null, "로그아웃 성공", null);
   }
 
-  public static ResponseDTO fail() {
-    return new ResponseDTO(true, null, "",
-        ErrorDTO.from("error code", "error message"));
+  public static ResponseDTO successCheckEmail(boolean canUseEmail) {
+    return new ResponseDTO(true, null, "사용 가능한 이메일", null);
+  }
+
+  public static ResponseDTO fail(String code, String message) {
+    return new ResponseDTO(false, null, "",
+        ErrorDTO.from(code, message));
   }
 
   /**

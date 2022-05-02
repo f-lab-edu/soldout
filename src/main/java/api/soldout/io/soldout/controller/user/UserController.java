@@ -8,8 +8,6 @@ import api.soldout.io.soldout.service.security.SecurityService;
 import api.soldout.io.soldout.service.user.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +30,7 @@ public class UserController {
 
   @PostMapping("/signup")
   public ResponseDTO signUp(@RequestBody RequestSignUpDTO request) {
-    // 회원 가입
+
     UserDTO user = userService.save(request);
 
     return ResponseDTO.successSignUp(user);
@@ -40,9 +38,9 @@ public class UserController {
 
   @PostMapping("/signin")
   public ResponseDTO signIn(@RequestBody RequestSignInDTO request) {
-    // 회원 조회
+
     UserDTO user = userService.findByIdPw(request.getEmail(), request.getPassword());
-    // 회원 로그인
+
     securityService.signIn(user);
 
     return ResponseDTO.successSignIn();
@@ -50,7 +48,7 @@ public class UserController {
 
   @PostMapping("/logout")
   public ResponseDTO logOut() {
-    // 로그아웃
+
     securityService.logOut();
 
     return ResponseDTO.successLogOut();
