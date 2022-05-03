@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
  * Session 인증 방식에 대한 비즈니스 로직을 담당하는 서비스 객체.
  */
 
+@Service(value = "securityService")
 @RequiredArgsConstructor
 public class SessionSecurityService implements SecurityService {
 

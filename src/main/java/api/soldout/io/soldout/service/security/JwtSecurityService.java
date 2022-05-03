@@ -1,7 +1,5 @@
 package api.soldout.io.soldout.service.security;
 
-import api.soldout.io.soldout.dtos.user.UserDTO;
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.security.Key;
@@ -10,12 +8,14 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 /**
  * JWT 방식의 Service 구현체.
  * 추후 인증방식 변경 가능성을 가지고 있다고 가정하여 구현체의 기본 형식만 작성
  */
 
+@Service
 public class JwtSecurityService implements SecurityService {
 
   @Value("${SECRET_KEY}")

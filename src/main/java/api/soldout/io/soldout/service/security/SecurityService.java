@@ -1,6 +1,7 @@
 package api.soldout.io.soldout.service.security;
 
 import javax.servlet.http.HttpSession;
+import org.springframework.stereotype.Service;
 
 /**
  * .
