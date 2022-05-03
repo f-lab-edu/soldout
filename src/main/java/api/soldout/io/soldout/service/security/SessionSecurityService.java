@@ -14,11 +14,10 @@ import org.springframework.stereotype.Service;
  * Session 인증 방식에 대한 비즈니스 로직을 담당하는 서비스 객체.
  */
 
-@Service
 @RequiredArgsConstructor
-public class SessionSecurityService implements SecurityService{
+public class SessionSecurityService implements SecurityService {
 
-  private ConcurrentHashMap<String, String> sessionDB = new ConcurrentHashMap<>();
+  private ConcurrentHashMap<String, String> sessionDadaBase = new ConcurrentHashMap<>();
 
   @Override
   public void signIn(String email, HttpSession session) {
@@ -35,14 +34,14 @@ public class SessionSecurityService implements SecurityService{
     session.setAttribute(SESSION_ID, sessionId);
 
     // 세션 DB에 저장
-    sessionDB.put(sessionId, email);
+    sessionDadaBase.put(sessionId, email);
   }
 
   @Override
   public void logOut(HttpSession session) {
 
     // 세션 아이디가 존재하지 않는 경우 -> 로그인하지 않는 경우
-    if(session.getAttribute(SESSION_ID) == null) {
+    if (session.getAttribute(SESSION_ID) == null) {
       throw new NotSignInUserException("로그인한 회원이 아닙니다.");
     }
 
