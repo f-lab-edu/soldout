@@ -27,17 +27,18 @@ public class UserDTO {
 
   }
 
-  public boolean isExistId(String email){
+  public boolean isExistEmail(String email){
     if (this.getEmail().equals(email)) {
       return true;
     }
     return false;
   }
 
-  public boolean isExistIdPw(String email, String password){
-    if (this.getEmail().equals(email) && this.getPassword().equals(password)){
+  public boolean isExistPw(String password){
+    if (this.getPassword().equals(password)){
       return true;
     }
     return false;
   }
+
 }

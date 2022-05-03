@@ -27,24 +27,11 @@ public class HashMapUserRepository implements UserRepository {
   }
 
   @Override
-  public UserDTO findById(String email) {
+  public UserDTO findByEmail(String email) {
 
     for (UserDTO tempUser : database.values()) {
 
-      if(tempUser.isExistId(email)) {
-        return tempUser;
-      }
-
-    }
-    return null;
-  }
-
-  @Override
-  public UserDTO findByIdPw(String email, String password) {
-
-    for (UserDTO tempUser : database.values()) {
-
-      if(tempUser.isExistIdPw(email, password)) {
+      if(tempUser.isExistEmail(email)) {
         return tempUser;
       }
 
@@ -53,7 +40,8 @@ public class HashMapUserRepository implements UserRepository {
   }
 
   private boolean isExistEmail(UserDTO user) {
-    if (database.size() != 0 && findById(user.getEmail()) != null) {
+    if (database.size() != 0 &&
+        findByEmail(user.getEmail()) != null) {
       return true;
     }
     return false;

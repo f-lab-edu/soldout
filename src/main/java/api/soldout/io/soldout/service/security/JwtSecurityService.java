@@ -7,6 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import java.security.Key;
 import java.util.Date;
 import javax.crypto.spec.SecretKeySpec;
+import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 
 /**
@@ -21,7 +22,7 @@ public class JwtSecurityService implements SecurityService {
   private static final long TTL_MILLIS = (2 * 1000 * 60);
 
   @Override
-  public void signIn(UserDTO user) {
+  public void signIn(String email, HttpSession session) {
     if (TTL_MILLIS <= 0) {
       throw new RuntimeException("Expiry time must be greater than Zero : ["+TTL_MILLIS+"] ");
     }
@@ -29,16 +30,21 @@ public class JwtSecurityService implements SecurityService {
     SignatureAlgorithm signatureAlgorithm= SignatureAlgorithm.HS256;
     byte[] secretKeyBytes = DatatypeConverter.parseBase64Binary(SECRET_KEY);
     Key signingKey = new SecretKeySpec(secretKeyBytes, signatureAlgorithm.getJcaName());
-    // return 할 경우, 토큰 문자열이 리턴된다. 세션 방식은 리턴값이 불필요해서 "void"로 임시 변경한 상태
-    Jwts.builder()
-        .setSubject(user.getEmail())
+    // 토큰 생성
+    String token = Jwts.builder()
+        .setSubject(email)
         .signWith(signingKey, signatureAlgorithm)
         .setExpiration(new Date(System.currentTimeMillis()+TTL_MILLIS))
         .compact();
+    // 세션에 저장
+    session.setAttribute("TOKEN", token);
   }
 
   @Override
-  public void logOut(){
+  public void logOut(HttpSession session) {
+
+    session.invalidate();
+
   }
 
   public String getUserId(String token) {

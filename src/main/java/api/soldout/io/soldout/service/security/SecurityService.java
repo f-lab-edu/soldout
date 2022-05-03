@@ -1,9 +1,9 @@
 package api.soldout.io.soldout.service.security;
 
-import api.soldout.io.soldout.dtos.user.UserDTO;
+import javax.servlet.http.HttpSession;
 
 public interface SecurityService {
-  void signIn(UserDTO user);
+  void signIn(String email, HttpSession session);
 
-  void logOut();
+  void logOut(HttpSession session);
 }

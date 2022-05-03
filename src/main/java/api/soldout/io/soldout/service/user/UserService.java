@@ -7,5 +7,5 @@ public interface UserService {
 
   UserDTO save(RequestSignUpDTO request);
 
-  UserDTO findByIdPw(String email, String password);
+  UserDTO findByEmail(String email);
 }
