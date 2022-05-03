@@ -9,9 +9,11 @@ import api.soldout.io.soldout.dtos.user.request.RequestSignUpDto;
 
 public interface UserService {
 
-  UserDto save(RequestSignUpDto request);
+  UserDto signUp(RequestSignUpDto request);
 
   UserDto findByEmail(String email);
 
   boolean isExistEmail(String email);
+
+  boolean isValidPassword(String encodedPassword, String password);
 }

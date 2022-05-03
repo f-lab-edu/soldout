@@ -42,7 +42,7 @@ public class UserController {
   @PostMapping("/signup")
   public ResponseDTO signUp(@RequestBody RequestSignUpDto request) {
 
-    UserDto user = userService.save(request);
+    UserDto user = userService.signUp(request);
 
     return new ResponseDTO(true, SignUpData.from(user), "회원가입 성공", null);
   }
@@ -76,8 +76,8 @@ public class UserController {
       throw new NotValidEmailException("이메일이 틀렸습니다.");
     }
 
-    // 이메일은 맞지만 사용자가 입력한 비밀번호가 다를 경우
-    if (!user.isExistPw(request.getPassword())) {
+    // 이메일은 맞지만 사용자가 입력한 비밀번호가 다를 경우 -> 다른 API로 구현??
+    if (!userService.isValidPassword(request.getPassword(), user.getPassword())) {
       throw new NotValidPasswordException("비밀번호가 틀렸습니다.");
     }
 

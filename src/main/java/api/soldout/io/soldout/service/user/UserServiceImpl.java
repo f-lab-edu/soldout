@@ -5,6 +5,7 @@ import api.soldout.io.soldout.dtos.user.request.RequestSignUpDto;
 import api.soldout.io.soldout.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,12 +19,22 @@ public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
 
+  private final PasswordEncoder passwordEncoder;
+
   @Override
-  public UserDto save(RequestSignUpDto request) {
+  public UserDto signUp(RequestSignUpDto request) {
 
-    UserDto user = userRepository.save(UserDto.buildUser(request));
+    String encodedPassword = passwordEncoder.encode(request.getPassword());
 
-    return user;
+    UserDto user = UserDto.builder()
+        .email(request.getEmail())
+        .password(encodedPassword)
+        .name(request.getName())
+        .phone(request.getPhone())
+        .address(request.getPassword())
+        .build();
+
+    return userRepository.save(user);
   }
 
   @Override
@@ -39,5 +50,13 @@ public class UserServiceImpl implements UserService {
 
     return userRepository.isExistEmail(email);
 
+  }
+
+  @Override
+  public boolean isValidPassword(String password, String encodedPassword) {
+    if (passwordEncoder.matches(password, encodedPassword)) {
+      return true;
+    }
+    return false;
   }
 }

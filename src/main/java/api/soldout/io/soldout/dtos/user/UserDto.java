@@ -23,9 +23,9 @@ public class UserDto {
    *.
    */
 
-  public static UserDto buildUser(RequestSignUpDto request) {
+  public UserDto(RequestSignUpDto request) {
 
-    return UserDto.builder()
+    UserDto.builder()
         .email(request.getEmail())
         .password(request.getPassword())
         .name(request.getName())
