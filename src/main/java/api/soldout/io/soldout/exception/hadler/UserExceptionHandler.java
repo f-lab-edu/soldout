@@ -11,31 +11,35 @@ import api.soldout.io.soldout.exception.NotValidPasswordException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ *.
+ */
+
 @RestControllerAdvice(basePackageClasses = UserController.class)
 public class UserExceptionHandler {
 
   @ExceptionHandler(AlreadyExistEmailException.class)
-  public ResponseDTO sameEmailException(AlreadyExistEmailException e){
+  public ResponseDTO sameEmailException(AlreadyExistEmailException e) {
     return fail("", e.getMessage());
   }
 
   @ExceptionHandler(NotValidPasswordException.class)
-  public ResponseDTO notValidPasswordException (NotValidPasswordException e) {
+  public ResponseDTO notValidPasswordException(NotValidPasswordException e) {
     return fail("", e.getMessage());
   }
 
   @ExceptionHandler(NotValidEmailException.class)
-  public ResponseDTO notValidEmailException(NotValidEmailException e){
+  public ResponseDTO notValidEmailException(NotValidEmailException e) {
     return fail("", e.getMessage());
   }
 
   @ExceptionHandler(AlreadySignInUserException.class)
-  public ResponseDTO noUserException(AlreadySignInUserException e){
+  public ResponseDTO noUserException(AlreadySignInUserException e) {
     return fail("", e.getMessage());
   }
 
   @ExceptionHandler(NotSignInUserException.class)
-  public ResponseDTO noUserException(NotSignInUserException e){
+  public ResponseDTO noUserException(NotSignInUserException e) {
     return fail("", e.getMessage());
   }
 

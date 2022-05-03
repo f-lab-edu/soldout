@@ -1,23 +1,31 @@
 package api.soldout.io.soldout.dtos.user;
 
-import api.soldout.io.soldout.dtos.user.request.RequestSignUpDTO;
+import api.soldout.io.soldout.dtos.user.request.RequestSignUpDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ *.
+ */
+
 @Getter
 @Builder
 @AllArgsConstructor
-public class UserDTO {
+public class UserDto {
   private String email;
   private String password;
   private String name;
   private String phone;
   private String address;
 
-  public static UserDTO buildUser(RequestSignUpDTO request){
+  /**
+   *.
+   */
 
-    return UserDTO.builder()
+  public static UserDto buildUser(RequestSignUpDto request) {
+
+    return UserDto.builder()
         .email(request.getEmail())
         .password(request.getPassword())
         .name(request.getName())
@@ -27,15 +35,23 @@ public class UserDTO {
 
   }
 
-  public boolean isExistEmail(String email){
+  /**
+   *.
+   */
+
+  public boolean isExistEmail(String email) {
     if (this.getEmail().equals(email)) {
       return true;
     }
     return false;
   }
 
-  public boolean isExistPw(String password){
-    if (this.getPassword().equals(password)){
+  /**
+   *.
+   */
+
+  public boolean isExistPw(String password) {
+    if (this.getPassword().equals(password)) {
       return true;
     }
     return false;

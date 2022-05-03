@@ -1,13 +1,17 @@
 package api.soldout.io.soldout.service.user;
 
-import api.soldout.io.soldout.dtos.user.UserDTO;
-import api.soldout.io.soldout.dtos.user.request.RequestSignUpDTO;
+import api.soldout.io.soldout.dtos.user.UserDto;
+import api.soldout.io.soldout.dtos.user.request.RequestSignUpDto;
+
+/**
+ *.
+ */
 
 public interface UserService {
 
-  UserDTO save(RequestSignUpDTO request);
+  UserDto save(RequestSignUpDto request);
 
-  UserDTO findByEmail(String email);
+  UserDto findByEmail(String email);
 
   boolean isExistEmail(String email);
 }

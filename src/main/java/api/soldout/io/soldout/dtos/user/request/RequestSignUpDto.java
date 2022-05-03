@@ -3,9 +3,13 @@ package api.soldout.io.soldout.dtos.user.request;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ *.
+ */
+
 @Getter
 @NoArgsConstructor
-public class RequestSignUpDTO {
+public class RequestSignUpDto {
   private String email;
   private String password;
   private String name;

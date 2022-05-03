@@ -1,15 +1,11 @@
 package api.soldout.io.soldout.controller.user;
 
-import static api.soldout.io.soldout.util.SessionUtil.SESSION_ID;
-
-import api.soldout.io.soldout.dtos.user.UserDTO;
-import api.soldout.io.soldout.dtos.user.request.RequestSignInDTO;
-import api.soldout.io.soldout.dtos.user.request.RequestSignUpDTO;
+import api.soldout.io.soldout.dtos.user.UserDto;
+import api.soldout.io.soldout.dtos.user.request.RequestSignInDto;
+import api.soldout.io.soldout.dtos.user.request.RequestSignUpDto;
 import api.soldout.io.soldout.dtos.user.response.ResponseDTO;
 import api.soldout.io.soldout.dtos.user.response.data.SignUpData;
 import api.soldout.io.soldout.exception.AlreadyExistEmailException;
-import api.soldout.io.soldout.exception.AlreadySignInUserException;
-import api.soldout.io.soldout.exception.NotSignInUserException;
 import api.soldout.io.soldout.exception.NotValidEmailException;
 import api.soldout.io.soldout.exception.NotValidPasswordException;
 import api.soldout.io.soldout.service.security.SecurityService;
@@ -25,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * userService : 회원 정보에 대한 비즈니스 로직을 담당
+ * userService : 회원 정보에 대한 비즈니스 로직을 담당.
  * securityService : 로그인, 로그아웃을 위한 세션 관리를 담당
  */
 
@@ -39,29 +35,41 @@ public class UserController {
 
   private final SecurityService securityService;
 
-  @PostMapping("/signup")
-  public ResponseDTO signUp(@RequestBody RequestSignUpDTO request) {
+  /**
+   *.
+   */
 
-    UserDTO user = userService.save(request);
+  @PostMapping("/signup")
+  public ResponseDTO signUp(@RequestBody RequestSignUpDto request) {
+
+    UserDto user = userService.save(request);
 
     return new ResponseDTO(true, SignUpData.from(user), "회원가입 성공", null);
   }
+
+  /**
+   *.
+   */
 
   @GetMapping("/{email}/exists")
   public ResponseDTO checkEmail(@PathVariable String email) {
 
     // 이미 존재하는 이메일일 경우
-    if(userService.isExistEmail(email)) {
+    if (userService.isExistEmail(email)) {
       throw new AlreadyExistEmailException("이미 가입된 이메일입니다.");
     }
 
     return new ResponseDTO(true, null, "사용 가능한 이메일", null);
   }
 
-  @PostMapping("/signin")
-  public ResponseDTO signIn(@RequestBody RequestSignInDTO request, HttpSession session) {
+  /**
+   *.
+   */
 
-    UserDTO user = userService.findByEmail(request.getEmail());
+  @PostMapping("/signin")
+  public ResponseDTO signIn(@RequestBody RequestSignInDto request, HttpSession session) {
+
+    UserDto user = userService.findByEmail(request.getEmail());
 
     // 확인한 이메일로 가입된 회원이 없는 경우
     if (user == null) {
@@ -77,6 +85,10 @@ public class UserController {
 
     return new ResponseDTO(true, null, "로그인 성공", null);
   }
+
+  /**
+   *.
+   */
 
   @PostMapping("/logout")
   public ResponseDTO logOut(HttpSession session) {

@@ -1,15 +1,15 @@
 package api.soldout.io.soldout.repository.user;
 
-import api.soldout.io.soldout.dtos.user.UserDTO;
+import api.soldout.io.soldout.dtos.user.UserDto;
 
 /**
  * .
  */
 
 public interface UserRepository {
-  UserDTO save(UserDTO user);
+  UserDto save(UserDto user);
 
-  UserDTO findByEmail(String email);
+  UserDto findByEmail(String email);
 
   boolean isExistEmail(String email);
 }
