@@ -17,6 +17,8 @@ import api.soldout.io.soldout.service.user.UserServiceImpl;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,12 +44,18 @@ public class UserController {
 
     UserDTO user = userService.save(request);
 
-    // 이미 존재하는 이메일일 경우, 예외처리
-    if (user == null) {
+    return new ResponseDTO(true, SignUpData.from(user), "회원가입 성공", null);
+  }
+
+  @GetMapping("/{email}/exists")
+  public ResponseDTO checkEmail(@PathVariable String email) {
+
+    // 이미 존재하는 이메일일 경우
+    if(userService.isExistEmail(email)) {
       throw new AlreadyExistEmailException("이미 가입된 이메일입니다.");
     }
 
-    return new ResponseDTO(true, SignUpData.from(user), "회원가입 성공", null);
+    return new ResponseDTO(true, null, "사용 가능한 이메일", null);
   }
 
   @PostMapping("/signin")
@@ -57,12 +65,12 @@ public class UserController {
 
     // 확인한 이메일로 가입된 회원이 없는 경우
     if (user == null) {
-      throw new NotValidEmailException("잘못 입력된 이메일입니다.");
+      throw new NotValidEmailException("이메일이 틀렸습니다.");
     }
 
     // 이메일은 맞지만 사용자가 입력한 비밀번호가 다를 경우
     if (!user.isExistPw(request.getPassword())) {
-      throw new NotValidPasswordException("잘못 입력된 비밀번호 입니다.");
+      throw new NotValidPasswordException("비밀번호가 틀렸습니다.");
     }
 
     securityService.signIn(user.getEmail(), session);

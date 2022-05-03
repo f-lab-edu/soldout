@@ -17,10 +17,6 @@ public class HashMapUserRepository implements UserRepository {
   @Override
   public UserDTO save(UserDTO user){
 
-    if (isExistEmail(user)) {
-      return null;
-    }
-
     database.put(sequence.incrementAndGet(), user);
 
     return database.get(sequence.get());
@@ -36,14 +32,17 @@ public class HashMapUserRepository implements UserRepository {
       }
 
     }
+
     return null;
   }
 
-  private boolean isExistEmail(UserDTO user) {
-    if (database.size() != 0 &&
-        findByEmail(user.getEmail()) != null) {
+  @Override
+  public boolean isExistEmail(String email) {
+
+    if (database.size() != 0 && findByEmail(email) != null) {
       return true;
     }
+
     return false;
   }
 }

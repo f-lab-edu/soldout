@@ -10,4 +10,6 @@ public interface UserRepository {
   UserDTO save(UserDTO user);
 
   UserDTO findByEmail(String email);
+
+  boolean isExistEmail(String email);
 }

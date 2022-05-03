@@ -8,4 +8,6 @@ public interface UserService {
   UserDTO save(RequestSignUpDTO request);
 
   UserDTO findByEmail(String email);
+
+  boolean isExistEmail(String email);
 }
