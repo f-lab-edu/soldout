@@ -2,6 +2,8 @@ package api.soldout.io.soldout.service.user;
 
 import api.soldout.io.soldout.dtos.user.UserDto;
 import api.soldout.io.soldout.dtos.user.request.RequestSignUpDto;
+import api.soldout.io.soldout.exception.NotValidEmailException;
+import api.soldout.io.soldout.exception.NotValidPasswordException;
 import api.soldout.io.soldout.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,23 +28,10 @@ public class UserServiceImpl implements UserService {
 
     String encodedPassword = passwordEncoder.encode(request.getPassword());
 
-    UserDto user = UserDto.builder()
-        .email(request.getEmail())
-        .password(encodedPassword)
-        .name(request.getName())
-        .phone(request.getPhone())
-        .address(request.getPassword())
-        .build();
+    UserDto user = UserDto.buildUser(request, encodedPassword);
 
     return userRepository.save(user);
-  }
 
-  @Override
-  public UserDto findByEmail(String email) {
-
-    UserDto user = userRepository.findByEmail(email);
-
-    return user;
   }
 
   @Override
@@ -53,10 +42,29 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public boolean isValidPassword(String password, String encodedPassword) {
-    if (passwordEncoder.matches(password, encodedPassword)) {
-      return true;
+  public UserDto findByEmail(String email) {
+
+    UserDto user = userRepository.findByEmail(email);
+
+    if (user == null) {
+
+      throw new NotValidEmailException("이메일을 잘못 입력했습니다.");
+
     }
-    return false;
+
+    return user;
+
+  }
+
+  @Override
+  public void isValidPassword(String password, String encodedPassword) {
+
+    boolean validPassword = passwordEncoder.matches(password, encodedPassword);
+
+    if (!validPassword) {
+
+      throw new NotValidPasswordException("비밀번호를 잘못 입력했습니다.");
+
+    }
   }
 }

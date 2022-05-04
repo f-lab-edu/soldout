@@ -15,5 +15,5 @@ public interface UserService {
 
   boolean isExistEmail(String email);
 
-  boolean isValidPassword(String encodedPassword, String password);
+  void isValidPassword(String encodedPassword, String password);
 }

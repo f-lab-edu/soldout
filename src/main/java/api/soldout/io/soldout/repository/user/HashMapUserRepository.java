@@ -24,6 +24,20 @@ public class HashMapUserRepository implements UserRepository {
     database.put(sequence.incrementAndGet(), user);
 
     return database.get(sequence.get());
+
+  }
+
+  @Override
+  public boolean isExistEmail(String email) {
+
+    if (database.size() != 0 && findByEmail(email) != null) {
+
+      return true;
+
+    }
+
+    return false;
+
   }
 
   @Override
@@ -31,22 +45,15 @@ public class HashMapUserRepository implements UserRepository {
 
     for (UserDto tempUser : database.values()) {
 
-      if (tempUser.isExistEmail(email)) {
+      if (tempUser.isSameEmail(email)) {
+
         return tempUser;
+
       }
 
     }
 
     return null;
-  }
 
-  @Override
-  public boolean isExistEmail(String email) {
-
-    if (database.size() != 0 && findByEmail(email) != null) {
-      return true;
-    }
-
-    return false;
   }
 }

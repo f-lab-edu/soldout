@@ -10,8 +10,6 @@ import lombok.Getter;
  */
 
 @Getter
-@Builder
-@AllArgsConstructor
 public class UserDto {
   private String email;
   private String password;
@@ -20,18 +18,17 @@ public class UserDto {
   private String address;
 
   /**
-   *.
+   * .
    */
 
-  public UserDto(RequestSignUpDto request) {
+  @Builder
+  public UserDto(String email, String password, String name, String phone, String address) {
 
-    UserDto.builder()
-        .email(request.getEmail())
-        .password(request.getPassword())
-        .name(request.getName())
-        .phone(request.getPhone())
-        .address(request.getAddress())
-        .build();
+    this.email = email;
+    this.password = password;
+    this.name = name;
+    this.phone = phone;
+    this.address = address;
 
   }
 
@@ -39,22 +36,25 @@ public class UserDto {
    *.
    */
 
-  public boolean isExistEmail(String email) {
+  public static UserDto buildUser(RequestSignUpDto request, String encodedPassword) {
+
+    return UserDto.builder()
+            .email(request.getEmail())
+            .password(encodedPassword)
+            .name(request.getName())
+            .phone(request.getPhone())
+            .address(request.getAddress())
+            .build();
+  }
+
+  /**
+   *.
+   */
+
+  public boolean isSameEmail(String email) {
     if (this.getEmail().equals(email)) {
       return true;
     }
     return false;
   }
-
-  /**
-   *.
-   */
-
-  public boolean isExistPw(String password) {
-    if (this.getPassword().equals(password)) {
-      return true;
-    }
-    return false;
-  }
-
 }

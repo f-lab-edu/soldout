@@ -3,11 +3,8 @@ package api.soldout.io.soldout.controller.user;
 import api.soldout.io.soldout.dtos.user.UserDto;
 import api.soldout.io.soldout.dtos.user.request.RequestSignInDto;
 import api.soldout.io.soldout.dtos.user.request.RequestSignUpDto;
-import api.soldout.io.soldout.dtos.user.response.ResponseDTO;
+import api.soldout.io.soldout.dtos.user.response.ResponseDto;
 import api.soldout.io.soldout.dtos.user.response.data.SignUpData;
-import api.soldout.io.soldout.exception.AlreadyExistEmailException;
-import api.soldout.io.soldout.exception.NotValidEmailException;
-import api.soldout.io.soldout.exception.NotValidPasswordException;
 import api.soldout.io.soldout.service.security.SecurityService;
 import api.soldout.io.soldout.service.user.UserServiceImpl;
 import javax.servlet.http.HttpSession;
@@ -40,11 +37,12 @@ public class UserController {
    */
 
   @PostMapping("/signup")
-  public ResponseDTO signUp(@RequestBody RequestSignUpDto request) {
+  public ResponseDto signUp(@RequestBody RequestSignUpDto request) {
 
     UserDto user = userService.signUp(request);
 
-    return new ResponseDTO(true, SignUpData.from(user), "회원가입 성공", null);
+    return new ResponseDto(true, SignUpData.from(user), "회원가입 성공", null);
+
   }
 
   /**
@@ -52,14 +50,18 @@ public class UserController {
    */
 
   @GetMapping("/{email}/exists")
-  public ResponseDTO checkEmail(@PathVariable String email) {
+  public ResponseDto checkEmail(@PathVariable String email) {
 
-    // 이미 존재하는 이메일일 경우
-    if (userService.isExistEmail(email)) {
-      throw new AlreadyExistEmailException("이미 가입된 이메일입니다.");
+    boolean existEmail = userService.isExistEmail(email);
+
+    if (existEmail) {
+
+      return new ResponseDto(true, null, "이미 존재하는 이메일", null);
+
     }
 
-    return new ResponseDTO(true, null, "사용 가능한 이메일", null);
+    return new ResponseDto(true, null, "사용 가능한 이메일", null);
+
   }
 
   /**
@@ -67,23 +69,16 @@ public class UserController {
    */
 
   @PostMapping("/signin")
-  public ResponseDTO signIn(@RequestBody RequestSignInDto request, HttpSession session) {
+  public ResponseDto signIn(@RequestBody RequestSignInDto request, HttpSession session) {
 
     UserDto user = userService.findByEmail(request.getEmail());
 
-    // 확인한 이메일로 가입된 회원이 없는 경우
-    if (user == null) {
-      throw new NotValidEmailException("이메일이 틀렸습니다.");
-    }
-
-    // 이메일은 맞지만 사용자가 입력한 비밀번호가 다를 경우 -> 다른 API로 구현??
-    if (!userService.isValidPassword(request.getPassword(), user.getPassword())) {
-      throw new NotValidPasswordException("비밀번호가 틀렸습니다.");
-    }
+    userService.isValidPassword(request.getPassword(), user.getPassword());
 
     securityService.signIn(user.getEmail(), session);
 
-    return new ResponseDTO(true, null, "로그인 성공", null);
+    return new ResponseDto(true, null, "로그인 성공", null);
+
   }
 
   /**
@@ -91,10 +86,11 @@ public class UserController {
    */
 
   @PostMapping("/logout")
-  public ResponseDTO logOut(HttpSession session) {
+  public ResponseDto logOut(HttpSession session) {
 
     securityService.logOut(session);
 
-    return new ResponseDTO(true, null, "로그아웃 성공", null);
+    return new ResponseDto(true, null, "로그아웃 성공", null);
+
   }
 }
