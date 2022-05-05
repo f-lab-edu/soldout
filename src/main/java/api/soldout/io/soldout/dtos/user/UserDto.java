@@ -10,27 +10,14 @@ import lombok.Getter;
  */
 
 @Getter
+@Builder
+@AllArgsConstructor
 public class UserDto {
   private String email;
   private String password;
   private String name;
   private String phone;
   private String address;
-
-  /**
-   * .
-   */
-
-  @Builder
-  public UserDto(String email, String password, String name, String phone, String address) {
-
-    this.email = email;
-    this.password = password;
-    this.name = name;
-    this.phone = phone;
-    this.address = address;
-
-  }
 
   /**
    *.
@@ -52,9 +39,14 @@ public class UserDto {
    */
 
   public boolean isSameEmail(String email) {
+
     if (this.getEmail().equals(email)) {
+
       return true;
+
     }
+
     return false;
+
   }
 }

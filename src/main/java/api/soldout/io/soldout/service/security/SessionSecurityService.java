@@ -1,11 +1,13 @@
 package api.soldout.io.soldout.service.security;
 
-import static api.soldout.io.soldout.util.SessionUtil.SESSION_ID;
+import static api.soldout.io.soldout.util.SecurityUtil.SESSION_ID;
 
 import api.soldout.io.soldout.exception.AlreadySignInUserException;
 import api.soldout.io.soldout.exception.NotSignInUserException;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,9 @@ public class SessionSecurityService implements SecurityService {
   private final ConcurrentHashMap<String, String> sessionDadaBase;
 
   @Override
-  public void signIn(String email, HttpSession session) {
+  public void signIn(String email, HttpServletRequest request, HttpServletResponse response) {
+
+    HttpSession session = request.getSession();
 
     if (isExistSessionId(session)) {
 
@@ -37,7 +41,9 @@ public class SessionSecurityService implements SecurityService {
   }
 
   @Override
-  public void logOut(HttpSession session) {
+  public void logOut(HttpServletRequest request, HttpServletResponse response) {
+
+    HttpSession session = request.getSession();
 
     if (!isExistSessionId(session)) {
 

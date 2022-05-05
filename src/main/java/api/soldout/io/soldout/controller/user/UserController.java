@@ -7,7 +7,8 @@ import api.soldout.io.soldout.dtos.user.response.ResponseDto;
 import api.soldout.io.soldout.dtos.user.response.data.SignUpData;
 import api.soldout.io.soldout.service.security.SecurityService;
 import api.soldout.io.soldout.service.user.UserServiceImpl;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,9 +38,9 @@ public class UserController {
    */
 
   @PostMapping("/signup")
-  public ResponseDto signUp(@RequestBody RequestSignUpDto request) {
+  public ResponseDto signUp(@RequestBody RequestSignUpDto requestDto) {
 
-    UserDto user = userService.signUp(request);
+    UserDto user = userService.signUp(requestDto);
 
     return new ResponseDto(true, SignUpData.from(user), "회원가입 성공", null);
 
@@ -69,13 +70,15 @@ public class UserController {
    */
 
   @PostMapping("/signin")
-  public ResponseDto signIn(@RequestBody RequestSignInDto request, HttpSession session) {
+  public ResponseDto signIn(HttpServletRequest request,
+                            HttpServletResponse response,
+                            @RequestBody RequestSignInDto requestDto) {
 
-    UserDto user = userService.findByEmail(request.getEmail());
+    UserDto user = userService.findByEmail(requestDto.getEmail());
 
-    userService.isValidPassword(request.getPassword(), user.getPassword());
+    userService.isValidPassword(requestDto.getPassword(), user.getPassword());
 
-    securityService.signIn(user.getEmail(), session);
+    securityService.signIn(user.getEmail(), request, response);
 
     return new ResponseDto(true, null, "로그인 성공", null);
 
@@ -86,9 +89,9 @@ public class UserController {
    */
 
   @PostMapping("/logout")
-  public ResponseDto logOut(HttpSession session) {
+  public ResponseDto logOut(HttpServletRequest request, HttpServletResponse response) {
 
-    securityService.logOut(session);
+    securityService.logOut(request, response);
 
     return new ResponseDto(true, null, "로그아웃 성공", null);
 

@@ -30,7 +30,9 @@ public class HashMapUserRepository implements UserRepository {
   @Override
   public boolean isExistEmail(String email) {
 
-    if (database.size() != 0 && findByEmail(email) != null) {
+    UserDto findUser = findByEmail(email);
+
+    if (findUser != null) {
 
       return true;
 
