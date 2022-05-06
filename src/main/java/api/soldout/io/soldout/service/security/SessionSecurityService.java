@@ -7,7 +7,6 @@ import api.soldout.io.soldout.exception.NotSignInUserException;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,14 +15,17 @@ import org.springframework.stereotype.Service;
  * Session 인증 방식에 대한 비즈니스 로직을 담당하는 서비스 객체.
  */
 
-@Service(value = "securityService")
+@Service
 @RequiredArgsConstructor
-public class SessionSecurityService implements SecurityService {
+public class SessionSecurityService {
 
   private final ConcurrentHashMap<String, String> sessionDadaBase;
 
-  @Override
-  public void signIn(String email, HttpServletRequest request, HttpServletResponse response) {
+  /**
+   * .
+   */
+
+  public void signIn(String email, HttpServletRequest request) {
 
     HttpSession session = request.getSession();
 
@@ -40,8 +42,11 @@ public class SessionSecurityService implements SecurityService {
     sessionDadaBase.put(sessionId, email);
   }
 
-  @Override
-  public void logOut(HttpServletRequest request, HttpServletResponse response) {
+  /**
+   * .
+   */
+
+  public void logOut(HttpServletRequest request) {
 
     HttpSession session = request.getSession();
 

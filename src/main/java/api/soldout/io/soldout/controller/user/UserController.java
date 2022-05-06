@@ -5,7 +5,7 @@ import api.soldout.io.soldout.controller.user.request.RequestSignUpDto;
 import api.soldout.io.soldout.dtos.user.UserDto;
 import api.soldout.io.soldout.dtos.user.response.ResponseDto;
 import api.soldout.io.soldout.dtos.user.response.data.SignUpData;
-import api.soldout.io.soldout.service.security.SecurityService;
+import api.soldout.io.soldout.service.security.SessionSecurityService;
 import api.soldout.io.soldout.service.user.UserServiceImpl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * userService : 회원 정보에 대한 비즈니스 로직을 담당.
- * securityService : 로그인, 로그아웃을 위한 세션 관리를 담당
+ * SessionSecurityService : 로그인, 로그아웃을 위한 세션 관리를 담당
+    * jwt 토큰 인증 방식을 수행하는 서비스 객체는 주석처리
+    * 두 인증 방식을 추상화하는 방법보다 직관적으로 변경할 수 있도록 설계
  */
 
 @Slf4j
@@ -31,7 +33,8 @@ public class UserController {
 
   private final UserServiceImpl userService;
 
-  private final SecurityService securityService;
+  private final SessionSecurityService sessionSecurityService;
+  // private final JwtSecurityService jwtSecurityService;
 
   /**
    *.
@@ -78,7 +81,8 @@ public class UserController {
 
     userService.isValidPassword(requestDto.getPassword(), user.getPassword());
 
-    securityService.signIn(user.getEmail(), request, response);
+    sessionSecurityService.signIn(user.getEmail(), request);
+    // jwtSecurityService.signIn(user.getEmail(), request, response);
 
     return new ResponseDto(true, null, "로그인 성공", null);
 
@@ -91,7 +95,8 @@ public class UserController {
   @PostMapping("/logout")
   public ResponseDto logOut(HttpServletRequest request, HttpServletResponse response) {
 
-    securityService.logOut(request, response);
+    sessionSecurityService.logOut(request);
+    // jwtSecurityService.logOut(request, response);
 
     return new ResponseDto(true, null, "로그아웃 성공", null);
 

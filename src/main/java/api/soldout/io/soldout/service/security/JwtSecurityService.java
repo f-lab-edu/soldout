@@ -22,12 +22,15 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class JwtSecurityService implements SecurityService {
+public class JwtSecurityService {
 
   @Value("${SECRET_KEY}")
   private static String SECRET_KEY;
 
-  @Override
+  /**
+   * .
+   */
+
   public void signIn(String email, HttpServletRequest request, HttpServletResponse response) {
 
     if (request.getHeader(TOKEN_ID) != null) {
@@ -42,7 +45,10 @@ public class JwtSecurityService implements SecurityService {
 
   }
 
-  @Override
+  /**
+   * .
+   */
+
   public void logOut(HttpServletRequest request, HttpServletResponse response) {
 
     String token = request.getHeader(TOKEN_ID);
