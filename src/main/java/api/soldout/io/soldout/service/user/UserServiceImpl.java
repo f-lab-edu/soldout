@@ -41,6 +41,22 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  public UserDto signIn(String email, String password) {
+
+    UserDto user = findByEmail(email);
+
+    if (!passwordEncoder.matches(password, user.getPassword())) {
+
+      throw new NotValidPasswordException("비밀번호를 잘못 입력했습니다.");
+
+    }
+
+    return user;
+
+  }
+
+
+  @Override
   public boolean isExistEmail(String email) {
 
     return userRepository.isExistEmail(email);
@@ -60,17 +76,5 @@ public class UserServiceImpl implements UserService {
 
     return user;
 
-  }
-
-  @Override
-  public void isValidPassword(String password, String encodedPassword) {
-
-    boolean validPassword = passwordEncoder.matches(password, encodedPassword);
-
-    if (!validPassword) {
-
-      throw new NotValidPasswordException("비밀번호를 잘못 입력했습니다.");
-
-    }
   }
 }

@@ -73,13 +73,11 @@ public class UserController {
    */
 
   @PostMapping("/signin")
-  public ResponseDto signIn(HttpServletRequest request,
-                            HttpServletResponse response,
-                            @RequestBody RequestSignInDto requestDto) {
+  public ResponseDto signIn(@RequestBody RequestSignInDto requestDto,
+                            HttpServletRequest request,
+                            HttpServletResponse response) {
 
-    UserDto user = userService.findByEmail(requestDto.getEmail());
-
-    userService.isValidPassword(requestDto.getPassword(), user.getPassword());
+    UserDto user = userService.signIn(requestDto.getEmail(), requestDto.getPassword());
 
     sessionSecurityService.signIn(user.getEmail(), request);
     // jwtSecurityService.signIn(user.getEmail(), request, response);

@@ -11,10 +11,10 @@ public interface UserService {
 
   UserDto signUp(CommandSignUpDto commandDto);
 
+  UserDto signIn(String email, String password);
+
   UserDto findByEmail(String email);
 
   boolean isExistEmail(String email);
-
-  void isValidPassword(String encodedPassword, String password);
 
 }
