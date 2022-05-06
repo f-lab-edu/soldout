@@ -1,7 +1,7 @@
 package api.soldout.io.soldout.service.user;
 
 import api.soldout.io.soldout.dtos.user.UserDto;
-import api.soldout.io.soldout.dtos.user.request.RequestSignUpDto;
+import api.soldout.io.soldout.service.user.command.CommandSignUpDto;
 
 /**
  *.
@@ -9,7 +9,7 @@ import api.soldout.io.soldout.dtos.user.request.RequestSignUpDto;
 
 public interface UserService {
 
-  UserDto signUp(RequestSignUpDto request);
+  UserDto signUp(CommandSignUpDto commandDto);
 
   UserDto findByEmail(String email);
 

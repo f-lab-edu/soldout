@@ -1,8 +1,8 @@
 package api.soldout.io.soldout.controller.user;
 
+import api.soldout.io.soldout.controller.user.request.RequestSignInDto;
+import api.soldout.io.soldout.controller.user.request.RequestSignUpDto;
 import api.soldout.io.soldout.dtos.user.UserDto;
-import api.soldout.io.soldout.dtos.user.request.RequestSignInDto;
-import api.soldout.io.soldout.dtos.user.request.RequestSignUpDto;
 import api.soldout.io.soldout.dtos.user.response.ResponseDto;
 import api.soldout.io.soldout.dtos.user.response.data.SignUpData;
 import api.soldout.io.soldout.service.security.SecurityService;
@@ -40,7 +40,7 @@ public class UserController {
   @PostMapping("/signup")
   public ResponseDto signUp(@RequestBody RequestSignUpDto requestDto) {
 
-    UserDto user = userService.signUp(requestDto);
+    UserDto user = userService.signUp(RequestSignUpDto.toCommand(requestDto));
 
     return new ResponseDto(true, SignUpData.from(user), "회원가입 성공", null);
 

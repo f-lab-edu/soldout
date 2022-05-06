@@ -1,10 +1,10 @@
 package api.soldout.io.soldout.service.user;
 
 import api.soldout.io.soldout.dtos.user.UserDto;
-import api.soldout.io.soldout.dtos.user.request.RequestSignUpDto;
 import api.soldout.io.soldout.exception.NotValidEmailException;
 import api.soldout.io.soldout.exception.NotValidPasswordException;
 import api.soldout.io.soldout.repository.user.UserRepository;
+import api.soldout.io.soldout.service.user.command.CommandSignUpDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,11 +24,17 @@ public class UserServiceImpl implements UserService {
   private final PasswordEncoder passwordEncoder;
 
   @Override
-  public UserDto signUp(RequestSignUpDto request) {
+  public UserDto signUp(CommandSignUpDto commandDto) {
 
-    String encodedPassword = passwordEncoder.encode(request.getPassword());
+    String encodedPassword = passwordEncoder.encode(commandDto.getPassword());
 
-    UserDto user = UserDto.buildUser(request, encodedPassword);
+    UserDto user = UserDto.builder()
+        .email(commandDto.getEmail())
+        .password(encodedPassword)
+        .name(commandDto.getName())
+        .phone(commandDto.getPhone())
+        .address(commandDto.getAddress())
+        .build();
 
     return userRepository.save(user);
 
