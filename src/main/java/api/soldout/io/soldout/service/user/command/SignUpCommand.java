@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommandSignUpDto {
+public class SignUpCommand {
 
   private String email;
   private String password;

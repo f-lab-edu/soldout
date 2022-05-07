@@ -1,6 +1,6 @@
 package api.soldout.io.soldout.controller.user.request;
 
-import api.soldout.io.soldout.service.user.command.CommandSignUpDto;
+import api.soldout.io.soldout.service.user.command.SignUpCommand;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,8 +22,8 @@ public class RequestSignUpDto {
    * .
    */
 
-  public static CommandSignUpDto toCommand(RequestSignUpDto requestDto) {
-    return new CommandSignUpDto(
+  public static SignUpCommand toCommand(RequestSignUpDto requestDto) {
+    return new SignUpCommand(
       requestDto.getEmail(),
       requestDto.getPassword(),
       requestDto.getName(),

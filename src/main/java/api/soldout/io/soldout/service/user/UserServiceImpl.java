@@ -5,7 +5,7 @@ import api.soldout.io.soldout.exception.AlreadyExistEmailException;
 import api.soldout.io.soldout.exception.NotValidEmailException;
 import api.soldout.io.soldout.exception.NotValidPasswordException;
 import api.soldout.io.soldout.repository.user.UserRepository;
-import api.soldout.io.soldout.service.user.command.CommandSignUpDto;
+import api.soldout.io.soldout.service.user.command.SignUpCommand;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
   private final PasswordEncoder passwordEncoder;
 
   @Override
-  public UserDto signUp(CommandSignUpDto commandDto) {
+  public UserDto signUp(SignUpCommand commandDto) {
 
     if (isExistEmail(commandDto.getEmail())) {
 
