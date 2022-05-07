@@ -4,8 +4,8 @@ import api.soldout.io.soldout.controller.user.UserController;
 import api.soldout.io.soldout.dtos.user.response.ResponseDto;
 import api.soldout.io.soldout.dtos.user.response.ResponseDto.Error;
 import api.soldout.io.soldout.exception.AlreadyExistEmailException;
-import api.soldout.io.soldout.exception.AlreadySignInUserException;
-import api.soldout.io.soldout.exception.NotSignInUserException;
+import api.soldout.io.soldout.exception.AlreadySignInBrowserException;
+import api.soldout.io.soldout.exception.NotSignInBrowserException;
 import api.soldout.io.soldout.exception.NotValidEmailException;
 import api.soldout.io.soldout.exception.NotValidPasswordException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -55,8 +55,8 @@ public class UserExceptionHandler {
    * .
    */
 
-  @ExceptionHandler(AlreadySignInUserException.class)
-  public ResponseDto alreadySignInUserException(AlreadySignInUserException e) {
+  @ExceptionHandler(AlreadySignInBrowserException.class)
+  public ResponseDto alreadySignInUserException(AlreadySignInBrowserException e) {
 
     return fail("Unauthorized", e.getMessage());
 
@@ -66,8 +66,8 @@ public class UserExceptionHandler {
    * .
    */
 
-  @ExceptionHandler(NotSignInUserException.class)
-  public ResponseDto notSignInUserException(NotSignInUserException e) {
+  @ExceptionHandler(NotSignInBrowserException.class)
+  public ResponseDto notSignInUserException(NotSignInBrowserException e) {
 
     return fail("Unauthorized", e.getMessage());
 

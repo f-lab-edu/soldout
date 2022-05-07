@@ -3,8 +3,8 @@ package api.soldout.io.soldout.service.security;
 import static api.soldout.io.soldout.util.SecurityUtil.TOKEN_ID;
 import static api.soldout.io.soldout.util.SecurityUtil.TTL_MILLIS;
 
-import api.soldout.io.soldout.exception.AlreadySignInUserException;
-import api.soldout.io.soldout.exception.NotSignInUserException;
+import api.soldout.io.soldout.exception.AlreadySignInBrowserException;
+import api.soldout.io.soldout.exception.NotSignInBrowserException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -35,7 +35,7 @@ public class JwtSecurityService {
 
     if (request.getHeader(TOKEN_ID) != null) {
 
-      throw new AlreadySignInUserException("이미 로그인된 회원입니다");
+      throw new AlreadySignInBrowserException("이미 로그인된 회원입니다");
 
     }
 
@@ -55,7 +55,7 @@ public class JwtSecurityService {
 
     if (token == null) {
 
-      throw new NotSignInUserException("로그인한 회원이 아닙니다.");
+      throw new NotSignInBrowserException("로그인한 회원이 아닙니다.");
 
     }
 

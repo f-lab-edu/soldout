@@ -2,8 +2,8 @@ package api.soldout.io.soldout.service.security;
 
 import static api.soldout.io.soldout.util.SecurityUtil.SESSION_ID;
 
-import api.soldout.io.soldout.exception.AlreadySignInUserException;
-import api.soldout.io.soldout.exception.NotSignInUserException;
+import api.soldout.io.soldout.exception.AlreadySignInBrowserException;
+import api.soldout.io.soldout.exception.NotSignInBrowserException;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SessionSecurityService {
 
-  private final ConcurrentHashMap<String, String> sessionDadaBase;
+  private final ConcurrentHashMap<String, String> sessionDataBase;
 
   /**
    * .
@@ -29,9 +29,9 @@ public class SessionSecurityService {
 
     HttpSession session = request.getSession();
 
-    if (isExistSessionId(session)) {
+    if (isAlreadySignInBrowser(session)) {
 
-      throw new AlreadySignInUserException("이미 로그인된 회원입니다");
+      throw new AlreadySignInBrowserException("이미 로그인 되어있는 브라우저입니다.");
 
     }
 
@@ -39,7 +39,7 @@ public class SessionSecurityService {
 
     session.setAttribute(SESSION_ID, sessionId);
 
-    sessionDadaBase.put(sessionId, email);
+    sessionDataBase.put(sessionId, email);
   }
 
   /**
@@ -50,19 +50,25 @@ public class SessionSecurityService {
 
     HttpSession session = request.getSession();
 
-    if (!isExistSessionId(session)) {
+    String sessionId = (String) session.getAttribute(SESSION_ID);
 
-      throw new NotSignInUserException("로그인한 회원이 아닙니다.");
+    if (!isAlreadySignInBrowser(session)) {
+
+      throw new NotSignInBrowserException("로그인 되어있지 않은 브라우저입니다.");
 
     }
+
+    sessionDataBase.remove(sessionId);
 
     session.invalidate();
 
   }
 
-  private boolean isExistSessionId(HttpSession session) {
+  private boolean isAlreadySignInBrowser(HttpSession session) {
 
-    if (session.getAttribute(SESSION_ID) == null) {
+    String sessionId = (String) session.getAttribute(SESSION_ID);
+
+    if (sessionId == null) {
 
       return false;
 
