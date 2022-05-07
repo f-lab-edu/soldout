@@ -1,6 +1,7 @@
 package api.soldout.io.soldout.service.user;
 
 import api.soldout.io.soldout.dtos.user.UserDto;
+import api.soldout.io.soldout.exception.AlreadyExistEmailException;
 import api.soldout.io.soldout.exception.NotValidEmailException;
 import api.soldout.io.soldout.exception.NotValidPasswordException;
 import api.soldout.io.soldout.repository.user.UserRepository;
@@ -26,6 +27,12 @@ public class UserServiceImpl implements UserService {
   @Override
   public UserDto signUp(CommandSignUpDto commandDto) {
 
+    if (isExistEmail(commandDto.getEmail())) {
+
+      throw new AlreadyExistEmailException("이미 존재하는 이메일입니다");
+
+    }
+
     String encodedPassword = passwordEncoder.encode(commandDto.getPassword());
 
     UserDto user = UserDto.builder()
@@ -44,6 +51,12 @@ public class UserServiceImpl implements UserService {
   public UserDto signIn(String email, String password) {
 
     UserDto user = findByEmail(email);
+
+    if (user == null) {
+
+      throw new NotValidEmailException("이메일을 잘못 입력했습니다.");
+
+    }
 
     if (!passwordEncoder.matches(password, user.getPassword())) {
 
@@ -67,12 +80,6 @@ public class UserServiceImpl implements UserService {
   public UserDto findByEmail(String email) {
 
     UserDto user = userRepository.findByEmail(email);
-
-    if (user == null) {
-
-      throw new NotValidEmailException("이메일을 잘못 입력했습니다.");
-
-    }
 
     return user;
 

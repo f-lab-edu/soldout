@@ -3,6 +3,7 @@ package api.soldout.io.soldout.exception.hadler;
 import api.soldout.io.soldout.controller.user.UserController;
 import api.soldout.io.soldout.dtos.user.response.ResponseDto;
 import api.soldout.io.soldout.dtos.user.response.ResponseDto.Error;
+import api.soldout.io.soldout.exception.AlreadyExistEmailException;
 import api.soldout.io.soldout.exception.AlreadySignInUserException;
 import api.soldout.io.soldout.exception.NotSignInUserException;
 import api.soldout.io.soldout.exception.NotValidEmailException;
@@ -16,6 +17,17 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice(basePackageClasses = UserController.class)
 public class UserExceptionHandler {
+
+  /**
+   * .
+   */
+
+  @ExceptionHandler(AlreadyExistEmailException.class)
+  public ResponseDto alreadyExistEmailException(AlreadyExistEmailException e) {
+
+    return fail("Unauthorized", e.getMessage());
+
+  }
 
   /**
    * .
