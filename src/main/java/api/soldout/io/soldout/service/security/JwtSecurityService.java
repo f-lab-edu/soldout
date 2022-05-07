@@ -1,7 +1,6 @@
 package api.soldout.io.soldout.service.security;
 
 import static api.soldout.io.soldout.util.SecurityUtil.TOKEN_ID;
-import static api.soldout.io.soldout.util.SecurityUtil.TTL_MILLIS;
 
 import api.soldout.io.soldout.exception.AlreadySignInBrowserException;
 import api.soldout.io.soldout.exception.NotSignInBrowserException;
@@ -24,8 +23,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtSecurityService {
 
-  @Value("${SECRET_KEY}")
-  private static String SECRET_KEY;
+  @Value("${secretKey}")
+  private String secretKey;
+
+  @Value("${ttlMillis}")
+  private int ttlMillis;
 
   /**
    * .
@@ -65,29 +67,29 @@ public class JwtSecurityService {
 
   private String createToken(String email) {
 
-    if (TTL_MILLIS <= 0) {
+    if (ttlMillis <= 0) {
 
-      throw new RuntimeException("Expiry time must be greater than Zero : [" + TTL_MILLIS + "] ");
+      throw new RuntimeException("Expiry time must be greater than Zero : [" + ttlMillis + "] ");
 
     }
 
     SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
-    byte[] secretKeyBytes = DatatypeConverter.parseBase64Binary(SECRET_KEY);
+    byte[] secretKeyBytes = DatatypeConverter.parseBase64Binary(secretKey);
 
     Key signingKey = new SecretKeySpec(secretKeyBytes, signatureAlgorithm.getJcaName());
 
     return Jwts.builder()
         .setSubject(email)
         .signWith(signingKey, signatureAlgorithm)
-        .setExpiration(new Date(System.currentTimeMillis() + TTL_MILLIS))
+        .setExpiration(new Date(System.currentTimeMillis() + ttlMillis))
         .compact();
   }
 
   private String decodingToken(String token) {
 
     Claims claims = Jwts.parserBuilder()
-        .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
+        .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
         .build()
         .parseClaimsJws(token)
         .getBody();

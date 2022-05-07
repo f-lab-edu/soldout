@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,6 +21,9 @@ import org.springframework.stereotype.Service;
 public class SessionSecurityService {
 
   private final ConcurrentHashMap<String, String> sessionDataBase;
+
+  @Value("${sessionInterval}")
+  private int sessionInterval;
 
   /**
    * .
@@ -37,9 +41,12 @@ public class SessionSecurityService {
 
     String sessionId = UUID.randomUUID().toString();
 
+    sessionDataBase.put(sessionId, email);
+
     session.setAttribute(SESSION_ID, sessionId);
 
-    sessionDataBase.put(sessionId, email);
+    session.setMaxInactiveInterval(sessionInterval);
+
   }
 
   /**
