@@ -8,6 +8,7 @@ import api.soldout.io.soldout.exception.AlreadySignInBrowserException;
 import api.soldout.io.soldout.exception.NotSignInBrowserException;
 import api.soldout.io.soldout.exception.NotValidEmailException;
 import api.soldout.io.soldout.exception.NotValidPasswordException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -77,9 +78,33 @@ public class UserExceptionHandler {
    * .
    */
 
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public ResponseDto methodArgumentNotValidException(MethodArgumentNotValidException e) {
+
+    return fail(makeCode(e), makeMessage(e));
+
+  }
+
+
+  /**
+   * .
+   */
+
   private ResponseDto fail(String code, String message) {
 
     return new ResponseDto(false, null, "에러 발생", Error.from(code, message));
+
+  }
+
+  private String makeCode(MethodArgumentNotValidException e) {
+
+    return e.getBindingResult().getFieldError().getCode();
+
+  }
+
+  private String makeMessage(MethodArgumentNotValidException e) {
+
+    return e.getBindingResult().getFieldError().getDefaultMessage();
 
   }
 }

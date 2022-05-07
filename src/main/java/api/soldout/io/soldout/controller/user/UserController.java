@@ -9,8 +9,10 @@ import api.soldout.io.soldout.service.security.SessionSecurityService;
 import api.soldout.io.soldout.service.user.UserServiceImpl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,7 +43,7 @@ public class UserController {
    */
 
   @PostMapping("/signup")
-  public ResponseDto signUp(@RequestBody RequestSignUpDto requestDto) {
+  public ResponseDto signUp(@Valid @RequestBody RequestSignUpDto requestDto) {
 
     UserDto user = userService.signUp(RequestSignUpDto.toCommand(requestDto));
 
@@ -73,7 +75,7 @@ public class UserController {
    */
 
   @PostMapping("/signin")
-  public ResponseDto signIn(@RequestBody RequestSignInDto requestDto,
+  public ResponseDto signIn(@Valid @RequestBody RequestSignInDto requestDto,
                             HttpServletRequest request,
                             HttpServletResponse response) {
 
