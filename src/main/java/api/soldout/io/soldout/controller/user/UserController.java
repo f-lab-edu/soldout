@@ -1,7 +1,7 @@
 package api.soldout.io.soldout.controller.user;
 
-import api.soldout.io.soldout.controller.user.request.RequestSignInDto;
-import api.soldout.io.soldout.controller.user.request.RequestSignUpDto;
+import api.soldout.io.soldout.controller.user.request.SignInRequest;
+import api.soldout.io.soldout.controller.user.request.SignUpRequest;
 import api.soldout.io.soldout.dtos.user.UserDto;
 import api.soldout.io.soldout.dtos.user.response.ResponseDto;
 import api.soldout.io.soldout.dtos.user.response.data.SignUpData;
@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,9 +42,9 @@ public class UserController {
    */
 
   @PostMapping("/signup")
-  public ResponseDto signUp(@Valid @RequestBody RequestSignUpDto requestDto) {
+  public ResponseDto signUp(@Valid @RequestBody SignUpRequest requestDto) {
 
-    UserDto user = userService.signUp(RequestSignUpDto.toCommand(requestDto));
+    UserDto user = userService.signUp(SignUpRequest.toCommand(requestDto));
 
     return new ResponseDto(true, SignUpData.from(user), "회원가입 성공", null);
 
@@ -75,7 +74,7 @@ public class UserController {
    */
 
   @PostMapping("/signin")
-  public ResponseDto signIn(@Valid @RequestBody RequestSignInDto requestDto,
+  public ResponseDto signIn(@Valid @RequestBody SignInRequest requestDto,
                             HttpServletRequest request,
                             HttpServletResponse response) {
 

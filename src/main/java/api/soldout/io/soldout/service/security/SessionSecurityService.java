@@ -4,11 +4,12 @@ import static api.soldout.io.soldout.util.SecurityUtil.SESSION_ID;
 
 import api.soldout.io.soldout.exception.AlreadySignInBrowserException;
 import api.soldout.io.soldout.exception.NotSignInBrowserException;
+import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +17,14 @@ import org.springframework.stereotype.Service;
  * Session 인증 방식에 대한 비즈니스 로직을 담당하는 서비스 객체.
  */
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SessionSecurityService {
 
-  private final ConcurrentHashMap<String, String> sessionDataBase;
+  private final Map<String, String> sessionDataBase;
 
-  @Value("${sessionInterval}")
+  @Value("${session.interval}")
   private int sessionInterval;
 
   /**
@@ -75,13 +77,19 @@ public class SessionSecurityService {
 
     String sessionId = (String) session.getAttribute(SESSION_ID);
 
-    if (sessionId == null) {
+    if (sessionId != null) {
 
-      return false;
+      return true;
 
     }
 
-    return true;
+    if (sessionDataBase.containsKey(sessionId)) {
+
+      return true;
+
+    }
+
+    return false;
 
   }
 }

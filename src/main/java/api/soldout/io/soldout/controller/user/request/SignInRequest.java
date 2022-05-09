@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class RequestSignInDto {
+public class SignInRequest {
   private String email;
   private String password;
 }

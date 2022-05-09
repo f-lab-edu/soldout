@@ -23,10 +23,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtSecurityService {
 
-  @Value("${secretKey}")
+  @Value("${jwt.secretKey}")
   private String secretKey;
 
-  @Value("${ttlMillis}")
+  @Value("${jwt.ttlMillis}")
   private int ttlMillis;
 
   /**

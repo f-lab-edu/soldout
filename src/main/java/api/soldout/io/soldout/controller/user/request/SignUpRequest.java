@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Getter
 @NoArgsConstructor
-public class RequestSignUpDto {
+public class SignUpRequest {
 
   @NotBlank
   private String email;
@@ -30,7 +30,7 @@ public class RequestSignUpDto {
    * .
    */
 
-  public static SignUpCommand toCommand(RequestSignUpDto requestDto) {
+  public static SignUpCommand toCommand(SignUpRequest requestDto) {
     return new SignUpCommand(
       requestDto.getEmail(),
       requestDto.getPassword(),
