@@ -1,5 +1,6 @@
 package api.soldout.io.soldout.controller.user;
 
+import api.soldout.io.soldout.annotation.CheckSignIn;
 import api.soldout.io.soldout.controller.user.request.SignInRequest;
 import api.soldout.io.soldout.controller.user.request.SignUpRequest;
 import api.soldout.io.soldout.dtos.user.UserDto;
@@ -92,12 +93,25 @@ public class UserController {
    */
 
   @PostMapping("/logout")
+  @CheckSignIn
   public ResponseDto logOut(HttpServletRequest request, HttpServletResponse response) {
 
     sessionSecurityService.logOut(request);
     // jwtSecurityService.logOut(request, response);
 
     return new ResponseDto(true, null, "로그아웃 성공", null);
+
+  }
+
+  /**
+   * .
+   */
+
+  @GetMapping("/signin/check")
+  @CheckSignIn
+  public ResponseDto signInCheck() {
+
+    return new ResponseDto(true, null, "로그인 체크", null);
 
   }
 }

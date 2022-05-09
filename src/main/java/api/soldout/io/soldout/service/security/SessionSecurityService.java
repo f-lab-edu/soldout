@@ -3,7 +3,6 @@ package api.soldout.io.soldout.service.security;
 import static api.soldout.io.soldout.util.SecurityUtil.SESSION_ID;
 
 import api.soldout.io.soldout.exception.AlreadySignInBrowserException;
-import api.soldout.io.soldout.exception.NotSignInBrowserException;
 import java.util.Map;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
@@ -35,13 +34,15 @@ public class SessionSecurityService {
 
     HttpSession session = request.getSession();
 
-    if (isAlreadySignInBrowser(session)) {
+    String sessionId = (String) session.getAttribute(SESSION_ID);
 
-      throw new AlreadySignInBrowserException("이미 로그인 되어있는 브라우저입니다.");
+    if (isAlreadySignInBrowser(sessionId)) {
+
+      throw new AlreadySignInBrowserException("이미 로그인한 상태입니다.");
 
     }
 
-    String sessionId = UUID.randomUUID().toString();
+    sessionId = UUID.randomUUID().toString();
 
     sessionDataBase.put(sessionId, email);
 
@@ -61,21 +62,17 @@ public class SessionSecurityService {
 
     String sessionId = (String) session.getAttribute(SESSION_ID);
 
-    if (!isAlreadySignInBrowser(session)) {
-
-      throw new NotSignInBrowserException("로그인 되어있지 않은 브라우저입니다.");
-
-    }
-
     sessionDataBase.remove(sessionId);
 
     session.invalidate();
 
   }
 
-  private boolean isAlreadySignInBrowser(HttpSession session) {
+  /**
+   * .
+   */
 
-    String sessionId = (String) session.getAttribute(SESSION_ID);
+  public boolean isAlreadySignInBrowser(String sessionId) {
 
     if (sessionId != null) {
 
