@@ -38,11 +38,9 @@ public class SignInAspect {
 
     HttpSession session = ((ServletRequestAttributes) requestAttributes).getRequest().getSession();
 
-    String sessionId = (String) session.getAttribute(SESSION_ID);
+    if (session.getAttribute(SESSION_ID) == null) {
 
-    if (!securityService.isAlreadySignInBrowser(sessionId)) {
-
-      throw new NotSignInBrowserException("로그인한 상태가 아닙니다.");
+      throw new NotSignInBrowserException("로그인된 상태가 아닙니다.");
 
     }
 

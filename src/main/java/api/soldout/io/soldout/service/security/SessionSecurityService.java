@@ -3,6 +3,7 @@ package api.soldout.io.soldout.service.security;
 import static api.soldout.io.soldout.util.SecurityUtil.SESSION_ID;
 
 import api.soldout.io.soldout.exception.AlreadySignInBrowserException;
+import api.soldout.io.soldout.exception.NotSignInBrowserException;
 import java.util.Map;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
@@ -62,6 +63,12 @@ public class SessionSecurityService {
 
     String sessionId = (String) session.getAttribute(SESSION_ID);
 
+    if (!isAlreadySignInBrowser(sessionId)) {
+
+      throw new NotSignInBrowserException("로그인한 상태가 아닙니다.");
+
+    }
+
     sessionDataBase.remove(sessionId);
 
     session.invalidate();
@@ -72,7 +79,7 @@ public class SessionSecurityService {
    * .
    */
 
-  public boolean isAlreadySignInBrowser(String sessionId) {
+  private boolean isAlreadySignInBrowser(String sessionId) {
 
     if (sessionId != null) {
 

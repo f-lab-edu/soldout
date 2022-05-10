@@ -93,7 +93,6 @@ public class UserController {
    */
 
   @PostMapping("/logout")
-  @CheckSignIn
   public ResponseDto logOut(HttpServletRequest request, HttpServletResponse response) {
 
     sessionSecurityService.logOut(request);
@@ -108,7 +107,6 @@ public class UserController {
    */
 
   @GetMapping("/signin/check")
-  @CheckSignIn
   public ResponseDto signInCheck() {
 
     return new ResponseDto(true, null, "로그인 체크", null);
