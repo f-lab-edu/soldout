@@ -58,8 +58,8 @@ public class SecurityConfig implements WebMvcConfigurer {
 
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(new SignInHandlerInterceptor())
-        .addPathPatterns("/user/signin/check")
-        .excludePathPatterns();
+
+    registry.addInterceptor(new SignInHandlerInterceptor());
+
   }
 }
