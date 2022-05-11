@@ -13,15 +13,19 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * .
  */
 
+@Slf4j
 @Service
-public class JwtSecurityService {
+public class JwtSecurityService implements SecurityService {
 
   @Value("${jwt.secretKey}")
   private String secretKey;
@@ -33,7 +37,11 @@ public class JwtSecurityService {
    * .
    */
 
-  public void signIn(String email, HttpServletRequest request, HttpServletResponse response) {
+  public void signIn(String email) {
+
+    HttpServletRequest request = getCurrentRequest();
+
+    HttpServletResponse response = getCurrentResponse();
 
     if (request.getHeader(TOKEN_ID) != null) {
 
@@ -51,17 +59,35 @@ public class JwtSecurityService {
    * .
    */
 
-  public void logOut(HttpServletRequest request, HttpServletResponse response) {
+  public void logOut() {
 
-    String token = request.getHeader(TOKEN_ID);
+    HttpServletRequest request = getCurrentRequest();
 
-    if (token == null) {
+    if (request.getHeader(TOKEN_ID) == null) {
 
       throw new NotSignInBrowserException("로그인한 회원이 아닙니다.");
 
     }
 
     // 토큰의 유효기간을 0으로 만들어 로그아웃 기능 구현
+
+  }
+
+  private ServletRequestAttributes getRequestAttributes() {
+
+    return (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+
+  }
+
+  private HttpServletRequest getCurrentRequest() {
+
+    return getRequestAttributes().getRequest();
+
+  }
+
+  private HttpServletResponse getCurrentResponse() {
+
+    return getRequestAttributes().getResponse();
 
   }
 
@@ -84,6 +110,7 @@ public class JwtSecurityService {
         .signWith(signingKey, signatureAlgorithm)
         .setExpiration(new Date(System.currentTimeMillis() + ttlMillis))
         .compact();
+
   }
 
   private String decodingToken(String token) {
@@ -95,5 +122,7 @@ public class JwtSecurityService {
         .getBody();
 
     return claims.getSubject();
+
   }
+
 }
