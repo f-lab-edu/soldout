@@ -35,13 +35,15 @@ public class SessionSecurityService {
 
     HttpSession session = request.getSession();
 
-    if (isAlreadySignInBrowser(session)) {
+    String sessionId = (String) session.getAttribute(SESSION_ID);
 
-      throw new AlreadySignInBrowserException("이미 로그인 되어있는 브라우저입니다.");
+    if (isAlreadySignInBrowser(sessionId)) {
+
+      throw new AlreadySignInBrowserException("이미 로그인한 상태입니다.");
 
     }
 
-    String sessionId = UUID.randomUUID().toString();
+    sessionId = UUID.randomUUID().toString();
 
     sessionDataBase.put(sessionId, email);
 
@@ -61,9 +63,9 @@ public class SessionSecurityService {
 
     String sessionId = (String) session.getAttribute(SESSION_ID);
 
-    if (!isAlreadySignInBrowser(session)) {
+    if (!isAlreadySignInBrowser(sessionId)) {
 
-      throw new NotSignInBrowserException("로그인 되어있지 않은 브라우저입니다.");
+      throw new NotSignInBrowserException("로그인한 상태가 아닙니다.");
 
     }
 
@@ -73,9 +75,11 @@ public class SessionSecurityService {
 
   }
 
-  private boolean isAlreadySignInBrowser(HttpSession session) {
+  /**
+   * .
+   */
 
-    String sessionId = (String) session.getAttribute(SESSION_ID);
+  private boolean isAlreadySignInBrowser(String sessionId) {
 
     if (sessionId != null) {
 

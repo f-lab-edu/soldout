@@ -1,10 +1,11 @@
 package api.soldout.io.soldout.controller.user;
 
+import api.soldout.io.soldout.annotation.CheckSignIn;
 import api.soldout.io.soldout.controller.user.request.SignInRequest;
 import api.soldout.io.soldout.controller.user.request.SignUpRequest;
-import api.soldout.io.soldout.dtos.user.UserDto;
-import api.soldout.io.soldout.dtos.user.response.ResponseDto;
-import api.soldout.io.soldout.dtos.user.response.data.SignUpData;
+import api.soldout.io.soldout.dtos.UserDto;
+import api.soldout.io.soldout.dtos.response.ResponseDto;
+import api.soldout.io.soldout.dtos.response.data.SignUpData;
 import api.soldout.io.soldout.service.security.SessionSecurityService;
 import api.soldout.io.soldout.service.user.UserServiceImpl;
 import javax.servlet.http.HttpServletRequest;
@@ -98,6 +99,18 @@ public class UserController {
     // jwtSecurityService.logOut(request, response);
 
     return new ResponseDto(true, null, "로그아웃 성공", null);
+
+  }
+
+  /**
+   * .
+   */
+
+  @GetMapping("/signin/check")
+  @CheckSignIn
+  public ResponseDto signInCheck() {
+
+    return new ResponseDto(true, null, "로그인 체크", null);
 
   }
 }

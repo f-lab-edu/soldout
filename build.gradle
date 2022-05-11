@@ -14,13 +14,21 @@ repositories {
 }
 
 dependencies {
+	// Jwt
 	runtimeClasspath 'io.jsonwebtoken:jjwt-impl:0.11.2'
 	runtimeClasspath 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 	implementation 'javax.xml.bind:jaxb-api'
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+
+	// Session
 	implementation 'net.jodah:expiringmap:0.5.9'
 	implementation 'org.springframework.security:spring-security-crypto:5.5.0'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// Aop
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+	// basic
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.projectlombok:lombok'

@@ -1,6 +1,6 @@
 package api.soldout.io.soldout.service.user;
 
-import api.soldout.io.soldout.dtos.user.UserDto;
+import api.soldout.io.soldout.dtos.UserDto;
 import api.soldout.io.soldout.exception.AlreadyExistEmailException;
 import api.soldout.io.soldout.exception.NotValidEmailException;
 import api.soldout.io.soldout.exception.NotValidPasswordException;
