@@ -1,4 +1,4 @@
-package api.soldout.io.soldout.dtos.user;
+package api.soldout.io.soldout.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

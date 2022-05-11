@@ -1,7 +1,7 @@
-package api.soldout.io.soldout.dtos.user.response.data;
+package api.soldout.io.soldout.dtos.response.data;
 
 
-import api.soldout.io.soldout.dtos.user.UserDto;
+import api.soldout.io.soldout.dtos.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

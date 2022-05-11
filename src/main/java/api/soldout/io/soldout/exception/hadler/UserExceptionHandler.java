@@ -1,8 +1,8 @@
 package api.soldout.io.soldout.exception.hadler;
 
 import api.soldout.io.soldout.controller.user.UserController;
-import api.soldout.io.soldout.dtos.user.response.ResponseDto;
-import api.soldout.io.soldout.dtos.user.response.ResponseDto.Error;
+import api.soldout.io.soldout.dtos.response.ResponseDto;
+import api.soldout.io.soldout.dtos.response.ResponseDto.Error;
 import api.soldout.io.soldout.exception.AlreadyExistEmailException;
 import api.soldout.io.soldout.exception.AlreadySignInBrowserException;
 import api.soldout.io.soldout.exception.NotSignInBrowserException;
