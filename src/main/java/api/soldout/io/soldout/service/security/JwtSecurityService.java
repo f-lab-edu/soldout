@@ -24,7 +24,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  */
 
 @Slf4j
-@Service
+@Service("securityService")
 public class JwtSecurityService implements SecurityService {
 
   @Value("${jwt.secretKey}")
@@ -63,13 +63,39 @@ public class JwtSecurityService implements SecurityService {
 
     HttpServletRequest request = getCurrentRequest();
 
-    if (request.getHeader(TOKEN_ID) == null) {
+    String token = request.getHeader(TOKEN_ID);
+
+    if (token == null) {
 
       throw new NotSignInBrowserException("로그인한 회원이 아닙니다.");
 
     }
 
     // 토큰의 유효기간을 0으로 만들어 로그아웃 기능 구현
+    expirationToken(token);
+
+  }
+
+  private String createToken(String email) {
+
+    if (ttlMillis <= 0) {
+
+      throw new RuntimeException("토큰 유효시간을 다시 설정하세요.");
+
+    }
+
+    byte[] secretKeyBytes = DatatypeConverter.parseBase64Binary(secretKey);
+
+    Key signingKey = new SecretKeySpec(secretKeyBytes, SignatureAlgorithm.HS256.getJcaName());
+
+    return Jwts.builder()
+        .setSubject(email)
+        .signWith(signingKey, SignatureAlgorithm.HS256)
+        .setExpiration(new Date(System.currentTimeMillis() + ttlMillis))
+        .compact();
+  }
+
+  private void expirationToken(String token) {
 
   }
 
@@ -90,39 +116,4 @@ public class JwtSecurityService implements SecurityService {
     return getRequestAttributes().getResponse();
 
   }
-
-  private String createToken(String email) {
-
-    if (ttlMillis <= 0) {
-
-      throw new RuntimeException("Expiry time must be greater than Zero : [" + ttlMillis + "] ");
-
-    }
-
-    SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-
-    byte[] secretKeyBytes = DatatypeConverter.parseBase64Binary(secretKey);
-
-    Key signingKey = new SecretKeySpec(secretKeyBytes, signatureAlgorithm.getJcaName());
-
-    return Jwts.builder()
-        .setSubject(email)
-        .signWith(signingKey, signatureAlgorithm)
-        .setExpiration(new Date(System.currentTimeMillis() + ttlMillis))
-        .compact();
-
-  }
-
-  private String decodingToken(String token) {
-
-    Claims claims = Jwts.parserBuilder()
-        .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
-        .build()
-        .parseClaimsJws(token)
-        .getBody();
-
-    return claims.getSubject();
-
-  }
-
 }

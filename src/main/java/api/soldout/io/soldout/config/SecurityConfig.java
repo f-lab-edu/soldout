@@ -1,5 +1,6 @@
 package api.soldout.io.soldout.config;
 
+import api.soldout.io.soldout.interceptor.JwtSignInHandlerInterceptor;
 import api.soldout.io.soldout.interceptor.SessionSignInHandlerInterceptor;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -52,14 +53,36 @@ public class SecurityConfig implements WebMvcConfigurer {
   }
 
   /**
+   * .
+   */
+
+  @Bean
+  public SessionSignInHandlerInterceptor sessionSignInHandlerInterceptor() {
+
+    return new SessionSignInHandlerInterceptor();
+
+  }
+
+  /**
+   * .
+   */
+
+  @Bean
+  public JwtSignInHandlerInterceptor jwtSignInHandlerInterceptor() {
+
+    return new JwtSignInHandlerInterceptor();
+
+  }
+
+  /**
    * 로그인 인증 방법에 따라 다른 인터셉터를 사용한다.
    */
 
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
 
-    registry.addInterceptor(new SessionSignInHandlerInterceptor());
-    // registry.addInterceptor(new JwtSignInHandlerInterceptor());
+    //registry.addInterceptor(sessionSignInHandlerInterceptor());
+    registry.addInterceptor(jwtSignInHandlerInterceptor());
 
   }
 }

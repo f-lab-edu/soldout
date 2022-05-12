@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
  **/
 
 @Slf4j
-@Service(value = "securityService")
+@Service
 @RequiredArgsConstructor
 public class SessionSecurityService implements SecurityService {
 

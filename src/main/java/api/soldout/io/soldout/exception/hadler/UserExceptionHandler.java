@@ -8,6 +8,7 @@ import api.soldout.io.soldout.exception.AlreadySignInBrowserException;
 import api.soldout.io.soldout.exception.NotSignInBrowserException;
 import api.soldout.io.soldout.exception.NotValidEmailException;
 import api.soldout.io.soldout.exception.NotValidPasswordException;
+import api.soldout.io.soldout.exception.NotValidTokenException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -69,6 +70,17 @@ public class UserExceptionHandler {
 
   @ExceptionHandler(NotSignInBrowserException.class)
   public ResponseDto notSignInUserException(NotSignInBrowserException e) {
+
+    return fail("Unauthorized", e.getMessage());
+
+  }
+
+  /**
+   * .
+   */
+
+  @ExceptionHandler(NotValidTokenException.class)
+  public ResponseDto notValidTokenException(NotValidTokenException e) {
 
     return fail("Unauthorized", e.getMessage());
 
