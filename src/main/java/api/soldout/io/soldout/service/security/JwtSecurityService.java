@@ -24,7 +24,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  */
 
 @Slf4j
-@Service("securityService")
+@Service
 public class JwtSecurityService implements SecurityService {
 
   @Value("${jwt.secretKey}")

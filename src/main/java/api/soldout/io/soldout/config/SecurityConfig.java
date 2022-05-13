@@ -85,8 +85,8 @@ public class SecurityConfig implements WebMvcConfigurer {
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
 
-    //registry.addInterceptor(sessionSignInHandlerInterceptor());
-    registry.addInterceptor(jwtSignInHandlerInterceptor());
+    registry.addInterceptor(sessionSignInHandlerInterceptor());
+    // registry.addInterceptor(jwtSignInHandlerInterceptor());
 
   }
 }
