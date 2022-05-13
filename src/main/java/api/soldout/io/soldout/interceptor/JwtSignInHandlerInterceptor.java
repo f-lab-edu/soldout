@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -26,8 +25,17 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Slf4j
 public class JwtSignInHandlerInterceptor implements HandlerInterceptor {
 
-  @Value("${jwt.secretKey}")
   private String secretKey;
+
+  /**
+   * .
+   */
+
+  public JwtSignInHandlerInterceptor(String secretKey) {
+
+    this.secretKey = secretKey;
+
+  }
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
