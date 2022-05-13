@@ -6,10 +6,8 @@ import api.soldout.io.soldout.controller.user.request.SignUpRequest;
 import api.soldout.io.soldout.dtos.UserDto;
 import api.soldout.io.soldout.dtos.response.ResponseDto;
 import api.soldout.io.soldout.dtos.response.data.SignUpData;
-import api.soldout.io.soldout.service.security.SessionSecurityService;
+import api.soldout.io.soldout.service.security.SecurityService;
 import api.soldout.io.soldout.service.user.UserServiceImpl;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,9 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * userService : 회원 정보에 대한 비즈니스 로직을 담당.
- * SessionSecurityService : 로그인, 로그아웃을 위한 세션 관리를 담당
-    * jwt 토큰 인증 방식을 수행하는 서비스 객체는 주석처리
-    * 두 인증 방식을 추상화하는 방법보다 직관적으로 변경할 수 있도록 설계
+
+ * SessionSecurityService : 세션 방식의 인증 로직 구현
+ * JwtSecurityService : 토큰 방식의 인증 로직 구현
+
  */
 
 @Slf4j
@@ -35,8 +34,7 @@ public class UserController {
 
   private final UserServiceImpl userService;
 
-  private final SessionSecurityService sessionSecurityService;
-  // private final JwtSecurityService jwtSecurityService;
+  private final SecurityService securityService;
 
   /**
    *.
@@ -75,14 +73,11 @@ public class UserController {
    */
 
   @PostMapping("/signin")
-  public ResponseDto signIn(@Valid @RequestBody SignInRequest requestDto,
-                            HttpServletRequest request,
-                            HttpServletResponse response) {
+  public ResponseDto signIn(@Valid @RequestBody SignInRequest requestDto) {
 
     UserDto user = userService.signIn(requestDto.getEmail(), requestDto.getPassword());
 
-    sessionSecurityService.signIn(user.getEmail(), request);
-    // jwtSecurityService.signIn(user.getEmail(), request, response);
+    securityService.signIn(user.getEmail());
 
     return new ResponseDto(true, null, "로그인 성공", null);
 
@@ -93,10 +88,9 @@ public class UserController {
    */
 
   @PostMapping("/logout")
-  public ResponseDto logOut(HttpServletRequest request, HttpServletResponse response) {
+  public ResponseDto logOut() {
 
-    sessionSecurityService.logOut(request);
-    // jwtSecurityService.logOut(request, response);
+    securityService.logOut();
 
     return new ResponseDto(true, null, "로그아웃 성공", null);
 
