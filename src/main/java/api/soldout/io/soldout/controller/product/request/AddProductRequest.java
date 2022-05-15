@@ -1,6 +1,8 @@
 package api.soldout.io.soldout.controller.product.request;
 
-import api.soldout.io.soldout.service.product.command.SaveCommand;
+import api.soldout.io.soldout.service.product.command.AddProductCommand;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDate;
 import java.util.Collection;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,12 +15,13 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SaveRequest {
+public class AddProductRequest {
 
   private String name;
   private String brand;
   private String modelNumber;
-  private String releaseDay;
+  @JsonFormat(pattern = "yyyy/MM/dd")
+  private LocalDate releaseDay;
   private String color;
   private Collection<String> imagesLink;
 
@@ -26,9 +29,9 @@ public class SaveRequest {
    * .
    */
 
-  public static SaveCommand toCommand(SaveRequest request) {
+  public static AddProductCommand toCommand(AddProductRequest request) {
 
-    return new SaveCommand(
+    return new AddProductCommand(
         request.getName(),
         request.getBrand(),
         request.getModelNumber(),

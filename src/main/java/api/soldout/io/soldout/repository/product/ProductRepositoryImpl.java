@@ -32,7 +32,7 @@ public class ProductRepositoryImpl implements ProductRepository {
   }
 
   @Override
-  public Collection<ProductDto> findAllProduct() {
+  public Collection<ProductDto> findAll() {
 
     return productDatabase.values();
 
@@ -40,7 +40,10 @@ public class ProductRepositoryImpl implements ProductRepository {
 
   @Override
   public void clear() {
+
     productSequence.set(0L);
+
     productDatabase.clear();
+
   }
 }

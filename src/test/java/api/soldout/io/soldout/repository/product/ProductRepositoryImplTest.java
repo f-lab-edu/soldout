@@ -3,6 +3,9 @@ package api.soldout.io.soldout.repository.product;
 import static org.assertj.core.api.Assertions.*;
 
 import api.soldout.io.soldout.dtos.ProductDto;
+import api.soldout.io.soldout.service.product.command.AddProductCommand;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +39,7 @@ class ProductRepositoryImplTest {
         .color("black/white")
         .imagesLink(imagesLink)
         .modelNumber("DD1391-100")
-        .releaseDay("2021/01/14")
+        .releaseDay(AddProductCommand.toLocalDate("2021/01/14"))
         .build();
 
     productRepository.save(product1);
@@ -51,7 +54,7 @@ class ProductRepositoryImplTest {
   @Test
   void findAllProduct() {
 
-    assertThat(productRepository.findAllProduct().size()).isEqualTo(1);
+    assertThat(productRepository.findAll().size()).isEqualTo(1);
 
   }
 }

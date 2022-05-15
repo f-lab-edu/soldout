@@ -11,7 +11,7 @@ public interface ProductRepository {
 
   ProductDto save(ProductDto product);
 
-  Collection<ProductDto> findAllProduct();
+  Collection<ProductDto> findAll();
 
   void clear();
 

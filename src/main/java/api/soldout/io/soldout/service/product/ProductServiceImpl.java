@@ -2,7 +2,7 @@ package api.soldout.io.soldout.service.product;
 
 import api.soldout.io.soldout.dtos.ProductDto;
 import api.soldout.io.soldout.repository.product.ProductRepository;
-import api.soldout.io.soldout.service.product.command.SaveCommand;
+import api.soldout.io.soldout.service.product.command.AddProductCommand;
 import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ public class ProductServiceImpl implements ProductService {
   private final ProductRepository productRepository;
 
   @Override
-  public ProductDto save(SaveCommand command) {
+  public ProductDto addProduct(AddProductCommand command) {
 
     ProductDto product = ProductDto.builder()
         .name(command.getName())
@@ -35,13 +35,17 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public Collection<ProductDto> findAllProduct() {
+  public Collection<ProductDto> findAll() {
 
-    return productRepository.findAllProduct();
+    return productRepository.findAll();
+
   }
 
   @Override
   public void clear() {
+
     productRepository.clear();
+
   }
+
 }

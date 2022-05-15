@@ -1,8 +1,10 @@
 package api.soldout.io.soldout.controller.product;
 
-import api.soldout.io.soldout.controller.product.request.SaveRequest;
+import api.soldout.io.soldout.controller.product.request.AddProductRequest;
 import api.soldout.io.soldout.dtos.ProductDto;
 import api.soldout.io.soldout.dtos.response.ResponseDto;
+import api.soldout.io.soldout.dtos.response.data.AddProductData;
+import api.soldout.io.soldout.dtos.response.data.GetAllProductsData;
 import api.soldout.io.soldout.service.product.ProductService;
 import java.util.Collection;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/products")
 @RequiredArgsConstructor
 public class ProductController {
 
@@ -29,12 +31,17 @@ public class ProductController {
    * .
    */
 
-  @PostMapping("/new")
-  public ResponseDto save(@RequestBody SaveRequest request) {
+  @PostMapping
+  public ResponseDto addProduct(@RequestBody AddProductRequest request) {
 
-    ProductDto product = productService.save(SaveRequest.toCommand(request));
+    ProductDto product = productService.addProduct(AddProductRequest.toCommand(request));
 
-    return new ResponseDto(true, product, "상품 저장", null);
+    return new ResponseDto(
+        true,
+        AddProductData.from(product),
+        "상품 저장",
+        null
+    );
 
   }
 
@@ -42,12 +49,17 @@ public class ProductController {
    * .
    */
 
-  @GetMapping("/list")
-  public ResponseDto productList() {
+  @GetMapping
+  public ResponseDto getAllProducts() {
 
-    Collection<ProductDto> productList = productService.findAllProduct();
+    Collection<ProductDto> productList = productService.findAll();
 
-    return new ResponseDto(true, productList, "상품 리스트", null);
+    return new ResponseDto(
+        true,
+        GetAllProductsData.from(productList),
+        "상품 리스트",
+        null
+    );
 
   }
 }
