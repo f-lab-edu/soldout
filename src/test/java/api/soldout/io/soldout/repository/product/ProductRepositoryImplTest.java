@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -43,15 +44,18 @@ class ProductRepositoryImplTest {
 
   }
 
-  @AfterEach
-  void after() {
-    productRepository.clear();
-  }
-
   @Test
+  @DisplayName("상품 목록 리스트 가져오기")
   void findAllProduct() {
 
     Assertions.assertThat(productRepository.findAll().size()).isEqualTo(1);
 
   }
+
+  @AfterEach
+  void after() {
+    productRepository.clear();
+  }
+
+
 }
