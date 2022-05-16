@@ -1,12 +1,9 @@
 package api.soldout.io.soldout.repository.product;
 
-import static org.assertj.core.api.Assertions.*;
-
 import api.soldout.io.soldout.dtos.ProductDto;
 import api.soldout.io.soldout.service.product.command.AddProductCommand;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,9 +25,9 @@ class ProductRepositoryImplTest {
   void before() {
     ArrayList<String> imagesLink = new ArrayList<>();
 
-    imagesLink.add(0, "https://kream-phinf.pstatic.net/MjAyMTA3MjhfMjQx/M…_8d86fe659c3542b2aaafa40a7a0048c1.png?type=l_webp");
-    imagesLink.add(1, "https://kream-phinf.pstatic.net/MjAyMTA3MjhfMjQx/M…_8d86fe659c3542b2aaafa40a7a0048c1.png?type=l_webp");
-    imagesLink.add(2, "https://kream-phinf.pstatic.net/MjAyMTA3MjhfMjQx/M…_8d86fe659c3542b2aaafa40a7a0048c1.png?type=l_webp");
+    imagesLink.add(0, "testLink1");
+    imagesLink.add(1, "testLink2");
+    imagesLink.add(2, "testLink3");
 
     ProductDto product1 = ProductDto
         .builder()
@@ -54,7 +51,7 @@ class ProductRepositoryImplTest {
   @Test
   void findAllProduct() {
 
-    assertThat(productRepository.findAll().size()).isEqualTo(1);
+    Assertions.assertThat(productRepository.findAll().size()).isEqualTo(1);
 
   }
 }
