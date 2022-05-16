@@ -4,6 +4,7 @@ import api.soldout.io.soldout.controller.product.request.AddProductRequest;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,10 +41,16 @@ class ProductControllerTest {
   }
 
   @Test
-  @DisplayName("상품 리스트 탐색")
-  void productList() {
+  void testProductList() {
 
     Assertions.assertThat(productController.getAllProducts().getError()).isEqualTo(null);
+
+  }
+
+  @AfterEach
+  void after() {
+
+    productController.deleteAll();
 
   }
 

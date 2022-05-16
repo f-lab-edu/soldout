@@ -3,6 +3,7 @@ package api.soldout.io.soldout.repository.product;
 import api.soldout.io.soldout.dtos.ProductDto;
 import api.soldout.io.soldout.service.product.command.AddProductCommand;
 import java.util.ArrayList;
+import java.util.Collection;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,17 +46,19 @@ class ProductRepositoryImplTest {
   }
 
   @Test
-  @DisplayName("상품 목록 리스트 가져오기")
-  void findAllProduct() {
+  void testFindAllProduct() {
 
-    Assertions.assertThat(productRepository.findAll().size()).isEqualTo(1);
+    Collection<ProductDto> products = productRepository.findAll();
+
+    Assertions.assertThat(products.size()).isSameAs(1);
 
   }
 
   @AfterEach
   void after() {
-    productRepository.clear();
-  }
 
+    productRepository.clear();
+
+  }
 
 }

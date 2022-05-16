@@ -5,8 +5,10 @@ import api.soldout.io.soldout.dtos.ProductDto;
 import api.soldout.io.soldout.service.product.command.AddProductCommand;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,14 +42,24 @@ class ProductServiceImplTest {
 
     AddProductCommand command = AddProductRequest.toCommand(request);
 
-    ProductDto product = productService.addProduct(command);
+    productService.addProduct(command);
 
   }
 
   @Test
-  void findAllProduct() {
+  void testFindAllProduct() {
 
-    Assertions.assertThat(productService.findAll().size()).isEqualTo(1);
+    Collection<ProductDto> products = productService.findAll();
+
+    Assertions.assertThat(products.size()).isSameAs(1);
 
   }
+
+  @AfterEach
+  void after() {
+
+    productService.clear();
+
+  }
+
 }
