@@ -4,7 +4,6 @@ import static api.soldout.io.soldout.util.SecurityUtil.TOKEN_ID;
 
 import api.soldout.io.soldout.exception.AlreadySignInBrowserException;
 import api.soldout.io.soldout.exception.NotSignInBrowserException;
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.security.Key;
@@ -24,7 +23,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  */
 
 @Slf4j
-@Service("securityService")
+@Service
 public class JwtSecurityService implements SecurityService {
 
   @Value("${jwt.secretKey}")
