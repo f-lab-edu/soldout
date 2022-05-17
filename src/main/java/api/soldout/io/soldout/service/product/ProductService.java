@@ -14,6 +14,4 @@ public interface ProductService {
 
   Collection<ProductDto> findAll();
 
-  void clear();
-
 }

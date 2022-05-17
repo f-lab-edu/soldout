@@ -1,0 +1,8 @@
+session:
+  interval: 10
+  db:
+    expiration: 10
+
+jwt:
+  secretKey: aasjjkjaskjdl1k2naskjkdakj34c8sasdfwefwefw156434wegwef
+  ttlMillis: 120000

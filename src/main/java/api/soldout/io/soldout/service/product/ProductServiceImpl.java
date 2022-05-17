@@ -32,19 +32,13 @@ public class ProductServiceImpl implements ProductService {
         .build();
 
     return productRepository.save(product);
+
   }
 
   @Override
   public Collection<ProductDto> findAll() {
 
     return productRepository.findAll();
-
-  }
-
-  @Override
-  public void clear() {
-
-    productRepository.clear();
 
   }
 

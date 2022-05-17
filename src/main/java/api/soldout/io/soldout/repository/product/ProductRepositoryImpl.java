@@ -38,12 +38,4 @@ public class ProductRepositoryImpl implements ProductRepository {
 
   }
 
-  @Override
-  public void clear() {
-
-    productSequence.set(0L);
-
-    productDatabase.clear();
-
-  }
 }

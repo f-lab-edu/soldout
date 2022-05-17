@@ -13,6 +13,4 @@ public interface ProductRepository {
 
   Collection<ProductDto> findAll();
 
-  void clear();
-
 }
