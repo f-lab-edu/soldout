@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 @Slf4j
 @Repository
 @RequiredArgsConstructor
-public class ProductRepositoryImpl implements ProductRepository {
+public class HashMapProductRepository implements ProductRepository {
 
   private final Map<Long, ProductDto> productDatabase;
 
