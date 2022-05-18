@@ -1,0 +1,29 @@
+version : "3.7"
+services:
+  db:
+    platform: linux/x86_64
+    container_name: soldout-db
+    image: mysql
+    environment:
+      MYSQL_DATABASE: soldout_db
+      MYSQL_USER: soldout
+      MYSQL_PASSWORD: 1234
+      MYSQL_ROOT_PASSWORD: 1234
+    volumes:
+      - ./db/data:/var/lib/mysql:rw
+    ports:
+      - "3306:3306"
+    restart: always
+
+  app:
+    container_name: soldout-app
+    image: openjdk
+    ports:
+      - "8082:8082"
+    volumes:
+      - ./app:/app
+    working_dir: /app
+    command: ["./gradlew", "bootrun"]
+    depends_on:
+      - db
+    restart: always
