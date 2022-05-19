@@ -2,7 +2,7 @@ package api.soldout.io.soldout.repository.product;
 
 import api.soldout.io.soldout.dtos.ProductDto;
 import api.soldout.io.soldout.mapper.ProductMapper;
-import java.util.Collection;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  */
 
 @Slf4j
-@Repository("productRepository")
+@Repository
 @RequiredArgsConstructor
 public class MybatisProductRepository implements ProductRepository {
 
@@ -26,7 +26,7 @@ public class MybatisProductRepository implements ProductRepository {
   }
 
   @Override
-  public Collection<ProductDto> findAll() {
+  public List<ProductDto> findAll() {
 
     return productMapper.findAll();
 

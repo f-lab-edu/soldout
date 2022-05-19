@@ -14,6 +14,10 @@ repositories {
 }
 
 dependencies {
+	// Database
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
+	runtimeOnly 'mysql:mysql-connector-java:8.0.25'
+
 	// Jwt
 	runtimeClasspath 'io.jsonwebtoken:jjwt-impl:0.11.2'
 	runtimeClasspath 'io.jsonwebtoken:jjwt-jackson:0.11.2'

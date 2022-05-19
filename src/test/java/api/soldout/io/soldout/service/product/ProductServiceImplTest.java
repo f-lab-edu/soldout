@@ -33,7 +33,7 @@ class ProductServiceImplTest {
   List<String> imagesLink = new ArrayList<>();
   AddProductCommand command;
 
-  Collection<ProductDto> list = new ArrayList<>();
+  List<ProductDto> list = new ArrayList<>();
   ProductDto product;
 
   @BeforeEach

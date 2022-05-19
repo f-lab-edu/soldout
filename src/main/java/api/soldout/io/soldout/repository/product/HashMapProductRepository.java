@@ -2,7 +2,7 @@ package api.soldout.io.soldout.repository.product;
 
 
 import api.soldout.io.soldout.dtos.ProductDto;
-import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.RequiredArgsConstructor;
@@ -32,9 +32,9 @@ public class HashMapProductRepository implements ProductRepository {
   }
 
   @Override
-  public Collection<ProductDto> findAll() {
+  public List<ProductDto> findAll() {
 
-    return productDatabase.values();
+    return (List<ProductDto>) productDatabase.values();
 
   }
 
