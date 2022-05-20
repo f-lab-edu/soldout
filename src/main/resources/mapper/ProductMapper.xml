@@ -16,7 +16,12 @@
       product_id, link
     )
     VALUES (
-      LAST_INSERT_ID(), <foreach collection="List" separator=","> #{images} </foreach>);
+      LAST_INSERT_ID(),
+      <!-- 해당 부분에서 제대로된 쿼리문을 작성하지 못한 상태 -->
+      <foreach collection="list" separator=",">
+        #{images}
+      </foreach>
+    );
   </insert>
 
   <select id="findAll" resultType="java.util.List">
