@@ -12,6 +12,7 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 public class UserDto {
+
   private String email;
   private String password;
   private String name;

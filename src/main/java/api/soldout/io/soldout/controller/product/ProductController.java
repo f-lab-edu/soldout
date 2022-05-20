@@ -7,6 +7,7 @@ import api.soldout.io.soldout.dtos.response.data.AddProductData;
 import api.soldout.io.soldout.dtos.response.data.GetAllProductsData;
 import api.soldout.io.soldout.service.product.ProductService;
 import java.util.Collection;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,7 +53,7 @@ public class ProductController {
   @GetMapping
   public ResponseDto getAllProducts() {
 
-    Collection<ProductDto> productList = productService.findAll();
+    List<ProductDto> productList = productService.findAll();
 
     return new ResponseDto(
         true,

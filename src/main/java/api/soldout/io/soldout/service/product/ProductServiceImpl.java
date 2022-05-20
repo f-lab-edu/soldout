@@ -4,6 +4,7 @@ import api.soldout.io.soldout.dtos.ProductDto;
 import api.soldout.io.soldout.repository.product.ProductRepository;
 import api.soldout.io.soldout.service.product.command.AddProductCommand;
 import java.util.Collection;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
         .modelNumber(command.getModelNumber())
         .color(command.getColor())
         .releaseDay(command.getReleaseDay())
-        .imagesLink(command.getImagesLink())
+        .images(command.getImages())
         .build();
 
     return productRepository.save(product);
@@ -36,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public Collection<ProductDto> findAll() {
+  public List<ProductDto> findAll() {
 
     return productRepository.findAll();
 

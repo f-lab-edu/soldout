@@ -1,14 +1,13 @@
 package api.soldout.io.soldout.dtos;
 
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 /**
  * ProductDto.
- * 상품 엔티티 클래스
  */
 
 @Getter
@@ -21,6 +20,6 @@ public class ProductDto {
   private String modelNumber;
   private LocalDate releaseDay;
   private String color;
-  private Collection<String> imagesLink;
+  private List<String> images;
 
 }

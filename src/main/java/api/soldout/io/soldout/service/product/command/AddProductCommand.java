@@ -1,7 +1,7 @@
 package api.soldout.io.soldout.service.product.command;
 
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -18,6 +18,6 @@ public class AddProductCommand {
   private String modelNumber;
   private LocalDate releaseDay;
   private String color;
-  private Collection<String> imagesLink;
+  private List<String> images;
 
 }

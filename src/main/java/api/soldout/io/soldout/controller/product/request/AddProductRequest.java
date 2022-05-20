@@ -2,7 +2,7 @@ package api.soldout.io.soldout.controller.product.request;
 
 import api.soldout.io.soldout.service.product.command.AddProductCommand;
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +21,7 @@ public class AddProductRequest {
   private String modelNumber;
   private LocalDate releaseDay;
   private String color;
-  private Collection<String> imagesLink;
+  private List<String> images;
 
   /**
    * .
@@ -35,7 +35,7 @@ public class AddProductRequest {
         request.getModelNumber(),
         request.getReleaseDay(),
         request.getColor(),
-        request.getImagesLink()
+        request.getImages()
     );
 
   }

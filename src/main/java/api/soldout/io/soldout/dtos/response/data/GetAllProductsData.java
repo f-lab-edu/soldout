@@ -1,7 +1,7 @@
 package api.soldout.io.soldout.dtos.response.data;
 
 import api.soldout.io.soldout.dtos.ProductDto;
-import java.util.Collection;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,15 +13,19 @@ import lombok.Getter;
 @AllArgsConstructor
 public class GetAllProductsData {
 
-  private Collection<ProductDto> imagesLink;
+  private List<ProductDto> productList;
 
   /**
    * .
    */
 
-  public static GetAllProductsData from(Collection<ProductDto> imagesLink) {
+  public static GetAllProductsData from(List<ProductDto> productList) {
 
-    return new GetAllProductsData(imagesLink);
+    for (ProductDto product : productList) {
+      product.getImages();
+    }
+
+    return new GetAllProductsData(productList);
 
   }
 

@@ -3,7 +3,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="api.soldout.io.soldout.mapper.ProductMapper">
+
+  <insert id="save" parameterType="api.soldout.io.soldout.dtos.ProductDto" useGeneratedKeys = "true" keyProperty="product_id">
+    INSERT INTO product (
+      name, brand, modelName, releaseDay, color
+    )
+    VALUES (
+      #{name}, #{brand}, #{modelName}, #{releaseDay}, #{color}
+    );
+
+    INSERT INTO image(
+      product_id, link
+    )
+    VALUES (
+      LAST_INSERT_ID(), <foreach collection="List" separator=","> #{images} </foreach>);
+  </insert>
+
   <select id="findAll" resultType="java.util.List">
-    SELECT * FROM Product;
+    SELECT * , image.link
+    FROM product
+    WHERE product.product_id = image.product_id;
   </select>
 </mapper>

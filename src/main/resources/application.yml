@@ -7,6 +7,11 @@ spring:
   username: soldout
   password: 1234
 
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+
 mybatis:
   type-aliases-package: api.soldout.io.soldout.mapper
   mapper-locations: classpath:mapper/*.xml

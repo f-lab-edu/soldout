@@ -23,7 +23,9 @@ public class ProductConfig {
 
   @Bean
   public ProductRepository productRepository(ProductMapper productMapper) {
+
     return new MybatisProductRepository(productMapper);
+
   }
 
   /**
