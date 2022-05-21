@@ -19,7 +19,9 @@
     WHERE email = #{email}
   </select>
 
-  <select id="isExistEmail">
-
+  <!-- 미완성 -->
+  <select id="isExistEmail" parameterType="java.lang.String">
+    SELECT *
+    FROM user
   </select>
 </mapper>

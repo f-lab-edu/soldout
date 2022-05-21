@@ -15,7 +15,7 @@ repositories {
 
 dependencies {
 	// flyway
-	// implementation 'org.flywaydb:flyway-core:5.2.4'
+	implementation 'org.flywaydb:flyway-core:5.2.4'
 
 	// Database
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'

@@ -60,7 +60,7 @@ class ProductServiceImplTest {
         .modelNumber(command.getModelNumber())
         .releaseDay(command.getReleaseDay())
         .color(command.getColor())
-        .imagesLink(command.getImagesLink())
+        .images(command.getImages())
         .build();
 
     // Products 목록을 위한 List 추가 -> findAllProducts 리턴값
