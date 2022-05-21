@@ -20,6 +20,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Set Up MySQL
+      uses: samin/mysql-action@v1
+      with:
+        host port: 3306
+        container port: 3306
+        character set server: 'utf8'
+        mysql database: 'soldout_db'
+        mysql password: ${{ secrets.DB_PASSWORD }}
+        mysql user: 'soldout'
+        mysql root password: ${{ secrets.ROOT_PASSWORD }}
+
     - uses: actions/checkout@v3
 
     - name: Set up JDK 11
@@ -32,13 +43,3 @@ jobs:
       uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
       with:
         arguments: build
-
-    - uses: samin/mysql-action@v1
-      with:
-        host port: 3306
-        container port: 3306
-        character set server: 'utf8'
-        mysql database: 'soldout_db'
-        mysql password: ${{ secrets.DB_PASSWORD }}
-        mysql user: 'soldout'
-        mysql root password: ${{ secrets.ROOT_PASSWORD }}
