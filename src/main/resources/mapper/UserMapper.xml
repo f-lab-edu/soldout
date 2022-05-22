@@ -4,24 +4,21 @@
 
 <mapper namespace="api.soldout.io.soldout.mapper.UserMapper">
 
-  <insert id="signUp" parameterType="api.soldout.io.soldout.dtos.UserDto" useGeneratedKeys = "true" keyProperty="user_id">
-    INSERT INTO user (
-      email, password, name, phone, address
-    )
-    VALUES (
-      #{email}, #{password}, #{name}, #{phone}, #{address}
-    )
+  <insert id="save" parameterType="api.soldout.io.soldout.dtos.UserDto" useGeneratedKeys = "true" keyProperty="user_id">
+    INSERT INTO user (email, password, name, phone, address)
+    VALUES (#{email}, #{password}, #{name}, #{phone}, #{address});
   </insert>
 
   <select id="findByEmail" parameterType="java.lang.String" resultType="api.soldout.io.soldout.dtos.ProductDto">
     SELECT *
     FROM user
-    WHERE email = #{email}
+    WHERE user.email = #{email};
   </select>
 
   <!-- 미완성 -->
-  <select id="isExistEmail" parameterType="java.lang.String">
-    SELECT *
+  <select id="isExistEmail" parameterType="java.lang.String" resultType="boolean">
+    SELECT if(COUNT(*) = 1, 1, 0)
     FROM user
+    WHERE user.email = #{email};
   </select>
 </mapper>

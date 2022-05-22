@@ -15,6 +15,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ProductDto {
 
+  private int id;
   private String name;
   private String brand;
   private String modelNumber;

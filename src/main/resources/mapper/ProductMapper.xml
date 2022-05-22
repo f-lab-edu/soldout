@@ -6,10 +6,10 @@
 
   <insert id="save" parameterType="api.soldout.io.soldout.dtos.ProductDto" useGeneratedKeys = "true" keyProperty="product_id">
     INSERT INTO product (
-      name, brand, modelName, releaseDay, color
+      name, brand, model_number, release_day, color
     )
     VALUES (
-      #{name}, #{brand}, #{modelName}, #{releaseDay}, #{color}
+      #{name}, #{brand}, #{modelNumber}, #{releaseDay}, #{color}
     );
 
     INSERT INTO image(
@@ -26,7 +26,7 @@
 
   <select id="findAll" resultType="java.util.List">
     SELECT * , image.link
-    FROM product
+    FROM product, image
     WHERE product.product_id = image.product_id;
   </select>
 </mapper>
