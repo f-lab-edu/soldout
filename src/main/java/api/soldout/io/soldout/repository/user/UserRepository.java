@@ -8,7 +8,7 @@ import api.soldout.io.soldout.dtos.UserDto;
 
 public interface UserRepository {
 
-  UserDto save(UserDto user);
+  void save(UserDto user);
 
   UserDto findByEmail(String email);
 

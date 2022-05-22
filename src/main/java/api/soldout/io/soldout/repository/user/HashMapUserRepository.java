@@ -19,11 +19,9 @@ public class HashMapUserRepository implements UserRepository {
   private AtomicLong sequence = new AtomicLong(0L);
 
   @Override
-  public UserDto save(UserDto user) {
+  public void save(UserDto user) {
 
     database.put(sequence.incrementAndGet(), user);
-
-    return database.get(sequence.get());
 
   }
 

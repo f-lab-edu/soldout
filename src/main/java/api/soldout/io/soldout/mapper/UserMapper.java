@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper {
 
-  UserDto save(UserDto user);
+  void save(UserDto user);
 
   UserDto findByEmail(String email);
 

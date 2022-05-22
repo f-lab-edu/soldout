@@ -43,9 +43,9 @@ public class UserController {
   @PostMapping("/signup")
   public ResponseDto signUp(@Valid @RequestBody SignUpRequest requestDto) {
 
-    UserDto user = userService.signUp(SignUpRequest.toCommand(requestDto));
+    userService.signUp(SignUpRequest.toCommand(requestDto));
 
-    return new ResponseDto(true, SignUpData.from(user), "회원가입 성공", null);
+    return new ResponseDto(true, null, "회원가입 성공", null);
 
   }
 

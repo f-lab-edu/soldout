@@ -18,9 +18,9 @@ public class MybatisUserRepository implements UserRepository {
   private final UserMapper userMapper;
 
   @Override
-  public UserDto save(UserDto user) {
+  public void save(UserDto user) {
 
-    return userMapper.save(user);
+    userMapper.save(user);
 
   }
 
