@@ -23,11 +23,9 @@ public class HashMapProductRepository implements ProductRepository {
   private final AtomicLong productSequence;
 
   @Override
-  public ProductDto save(ProductDto product) {
+  public void save(ProductDto product) {
 
     productDatabase.put(productSequence.incrementAndGet(), product);
-
-    return productDatabase.get(productSequence.get());
 
   }
 

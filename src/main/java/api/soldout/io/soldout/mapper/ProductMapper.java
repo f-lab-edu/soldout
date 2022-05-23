@@ -1,8 +1,10 @@
 package api.soldout.io.soldout.mapper;
 
+import api.soldout.io.soldout.dtos.ImageDto;
 import api.soldout.io.soldout.dtos.ProductDto;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * ProductMapper.
@@ -12,8 +14,10 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ProductMapper {
 
-  ProductDto save(ProductDto productDto);
+  void insertProduct(ProductDto productDto);
 
-  List<ProductDto> findAll();
+  void insertImages(@Param("list") List<ImageDto> imageList, @Param("productId") int productId);
+
+  List<ProductDto> findAllProducts();
 
 }

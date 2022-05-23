@@ -3,10 +3,8 @@ package api.soldout.io.soldout.controller.product;
 import api.soldout.io.soldout.controller.product.request.AddProductRequest;
 import api.soldout.io.soldout.dtos.ProductDto;
 import api.soldout.io.soldout.dtos.response.ResponseDto;
-import api.soldout.io.soldout.dtos.response.data.AddProductData;
 import api.soldout.io.soldout.dtos.response.data.GetAllProductsData;
 import api.soldout.io.soldout.service.product.ProductService;
-import java.util.Collection;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,14 +33,9 @@ public class ProductController {
   @PostMapping
   public ResponseDto addProduct(@RequestBody AddProductRequest request) {
 
-    ProductDto product = productService.addProduct(AddProductRequest.toCommand(request));
+    productService.addProduct(AddProductRequest.toCommand(request));
 
-    return new ResponseDto(
-        true,
-        AddProductData.from(product),
-        "상품 저장",
-        null
-    );
+    return new ResponseDto(true, null, "상품 저장", null);
 
   }
 

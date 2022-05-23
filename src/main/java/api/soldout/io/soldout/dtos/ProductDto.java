@@ -1,10 +1,12 @@
 package api.soldout.io.soldout.dtos;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * ProductDto.
@@ -13,6 +15,7 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class ProductDto {
 
   private int id;
@@ -21,6 +24,6 @@ public class ProductDto {
   private String modelNumber;
   private LocalDate releaseDay;
   private String color;
-  private List<String> images;
+  private List<ImageDto> images;
 
 }

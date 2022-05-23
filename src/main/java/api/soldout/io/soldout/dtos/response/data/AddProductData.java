@@ -1,5 +1,6 @@
 package api.soldout.io.soldout.dtos.response.data;
 
+import api.soldout.io.soldout.dtos.ImageDto;
 import api.soldout.io.soldout.dtos.ProductDto;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -20,7 +21,7 @@ public class AddProductData {
   private String modelNumber;
   private LocalDate releaseDay;
   private String color;
-  private List<String> images;
+  private List<ImageDto> images;
 
   /**
    * .
@@ -33,7 +34,7 @@ public class AddProductData {
     String modelNumber = product.getModelNumber();
     LocalDate releaseDay = product.getReleaseDay();
     String color = product.getColor();
-    List<String> images = product.getImages();
+    List<ImageDto> images = product.getImages();
 
     return new AddProductData(name, brand, modelNumber, releaseDay, color, images);
 

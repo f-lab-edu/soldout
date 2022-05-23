@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ProductRepository {
 
-  ProductDto save(ProductDto product);
+  void save(ProductDto product);
 
   List<ProductDto> findAll();
 
