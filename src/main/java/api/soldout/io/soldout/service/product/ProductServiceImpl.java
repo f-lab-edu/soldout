@@ -30,8 +30,9 @@ public class ProductServiceImpl implements ProductService {
         .modelNumber(command.getModelNumber())
         .color(command.getColor())
         .releaseDay(command.getReleaseDay())
-        .images(makeImageList(command.getImages()))
         .build();
+
+    product.getImagesToDto(command.getImages());
 
     productRepository.save(product);
 
@@ -41,24 +42,6 @@ public class ProductServiceImpl implements ProductService {
   public List<ProductDto> findAll() {
 
     return productRepository.findAll();
-
-  }
-
-  private List<ImageDto> makeImageList(List<String> images) {
-
-    List<ImageDto> imageList = new ArrayList<>();
-
-    for (String link : images) {
-
-      ImageDto image = ImageDto.builder()
-          .link(link)
-          .build();
-
-      imageList.add(image);
-
-    }
-
-    return imageList;
 
   }
 }

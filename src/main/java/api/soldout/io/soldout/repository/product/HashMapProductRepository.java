@@ -7,29 +7,33 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Repository;
 
 /**
  * .
  */
 
 @Slf4j
-@Repository
 @RequiredArgsConstructor
-public class HashMapProductRepository implements ProductRepository {
+public class HashMapProductRepository {
 
   private final Map<Long, ProductDto> productDatabase;
 
   private final AtomicLong productSequence;
 
-  @Override
+  /**
+   * .
+   */
+
   public void save(ProductDto product) {
 
     productDatabase.put(productSequence.incrementAndGet(), product);
 
   }
 
-  @Override
+  /**
+   * .
+   */
+
   public List<ProductDto> findAll() {
 
     return (List<ProductDto>) productDatabase.values();

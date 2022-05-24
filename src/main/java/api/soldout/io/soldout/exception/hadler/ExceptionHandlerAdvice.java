@@ -11,6 +11,7 @@ import api.soldout.io.soldout.exception.NotValidEmailException;
 import api.soldout.io.soldout.exception.NotValidPasswordException;
 import api.soldout.io.soldout.exception.NotValidTokenException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
@@ -18,13 +19,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  */
 
 @RestControllerAdvice(basePackageClasses = {UserController.class, ProductController.class})
-public class ExceptionHandler {
+public class ExceptionHandlerAdvice {
 
   /**
    * 요청 객체의 유효성 검사에 대한 예외 처리를 위한 예외 처리.
    */
 
-  @org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException.class)
+  @ExceptionHandler
   public ResponseDto methodArgumentNotValidException(MethodArgumentNotValidException e) {
 
     return fail(makeCode(e), makeMessage(e));
@@ -35,7 +36,7 @@ public class ExceptionHandler {
    * .
    */
 
-  @org.springframework.web.bind.annotation.ExceptionHandler(AlreadyExistEmailException.class)
+  @ExceptionHandler(AlreadyExistEmailException.class)
   public ResponseDto alreadyExistEmailException(AlreadyExistEmailException e) {
 
     return fail("Unauthorized", e.getMessage());
@@ -46,7 +47,7 @@ public class ExceptionHandler {
    * .
    */
 
-  @org.springframework.web.bind.annotation.ExceptionHandler(NotValidEmailException.class)
+  @ExceptionHandler(NotValidEmailException.class)
   public ResponseDto notValidEmailException(NotValidEmailException e) {
 
     return fail("Unauthorized", e.getMessage());
@@ -57,7 +58,7 @@ public class ExceptionHandler {
    * .
    */
 
-  @org.springframework.web.bind.annotation.ExceptionHandler(NotValidPasswordException.class)
+  @ExceptionHandler(NotValidPasswordException.class)
   public ResponseDto notValidPasswordException(NotValidPasswordException e) {
 
     return fail("Unauthorized", e.getMessage());
@@ -68,7 +69,7 @@ public class ExceptionHandler {
    * .
    */
 
-  @org.springframework.web.bind.annotation.ExceptionHandler(AlreadySignInBrowserException.class)
+  @ExceptionHandler(AlreadySignInBrowserException.class)
   public ResponseDto alreadySignInUserException(AlreadySignInBrowserException e) {
 
     return fail("Unauthorized", e.getMessage());
@@ -79,7 +80,7 @@ public class ExceptionHandler {
    * .
    */
 
-  @org.springframework.web.bind.annotation.ExceptionHandler(NotSignInBrowserException.class)
+  @ExceptionHandler(NotSignInBrowserException.class)
   public ResponseDto notSignInUserException(NotSignInBrowserException e) {
 
     return fail("Unauthorized", e.getMessage());
@@ -90,7 +91,7 @@ public class ExceptionHandler {
    * .
    */
 
-  @org.springframework.web.bind.annotation.ExceptionHandler(NotValidTokenException.class)
+  @ExceptionHandler(NotValidTokenException.class)
   public ResponseDto notValidTokenException(NotValidTokenException e) {
 
     return fail("Unauthorized", e.getMessage());

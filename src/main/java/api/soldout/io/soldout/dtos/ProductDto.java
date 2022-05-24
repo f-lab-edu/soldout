@@ -26,4 +26,25 @@ public class ProductDto {
   private String color;
   private List<ImageDto> images;
 
+  /**
+   * .
+   */
+
+  public void getImagesToDto(List<String> images) {
+
+    List<ImageDto> imageList = new ArrayList<>();
+
+    for (String link : images) {
+
+      ImageDto image = ImageDto.builder()
+          .link(link)
+          .build();
+
+      imageList.add(image);
+
+    }
+
+    this.images = imageList;
+
+  }
 }

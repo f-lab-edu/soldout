@@ -14,7 +14,6 @@ import org.springframework.stereotype.Repository;
  */
 
 @Slf4j
-@Repository
 @RequiredArgsConstructor
 public class MybatisProductRepository implements ProductRepository {
 
