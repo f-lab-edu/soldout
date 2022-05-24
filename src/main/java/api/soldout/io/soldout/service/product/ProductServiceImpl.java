@@ -48,10 +48,6 @@ public class ProductServiceImpl implements ProductService {
 
     List<ImageDto> imageList = new ArrayList<>();
 
-    if (images == null || images.size() == 0 || images.get(0) == null) {
-      throw new RuntimeException("이미지 경로를 입력하세요.");
-    }
-
     for (String link : images) {
 
       ImageDto image = ImageDto.builder()

@@ -6,6 +6,7 @@ import api.soldout.io.soldout.dtos.response.ResponseDto;
 import api.soldout.io.soldout.dtos.response.data.GetAllProductsData;
 import api.soldout.io.soldout.service.product.ProductService;
 import java.util.List;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +32,7 @@ public class ProductController {
    */
 
   @PostMapping
-  public ResponseDto addProduct(@RequestBody AddProductRequest request) {
+  public ResponseDto addProduct(@RequestBody @Valid AddProductRequest request) {
 
     productService.addProduct(AddProductRequest.toCommand(request));
 

@@ -36,7 +36,7 @@
   <select id="findAllProducts" resultMap="productMap">
     SELECT *
     FROM product p
-    JOIN image i ON p.product_id = i.product_id;
+    LEFT OUTER JOIN image i ON p.product_id = i.product_id;
   </select>
 
 

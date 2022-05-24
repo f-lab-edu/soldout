@@ -3,6 +3,9 @@ package api.soldout.io.soldout.controller.product.request;
 import api.soldout.io.soldout.service.product.command.AddProductCommand;
 import java.time.LocalDate;
 import java.util.List;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +24,7 @@ public class AddProductRequest {
   private String modelNumber;
   private LocalDate releaseDay;
   private String color;
+  @NotNull @Size(min = 1, message = "이미지 링크는 최소 한개 이상 입력하세요.")
   private List<String> images;
 
   /**
