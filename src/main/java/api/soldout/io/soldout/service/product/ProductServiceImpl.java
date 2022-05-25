@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
         .releaseDay(command.getReleaseDay())
         .build();
 
-    product.getImagesToDto(command.getImages());
+    product.buildToImageDto(command.getImages());
 
     productRepository.save(product);
 

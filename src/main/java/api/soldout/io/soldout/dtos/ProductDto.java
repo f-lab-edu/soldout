@@ -30,7 +30,7 @@ public class ProductDto {
    * .
    */
 
-  public void getImagesToDto(List<String> images) {
+  public void buildToImageDto(List<String> images) {
 
     List<ImageDto> imageList = new ArrayList<>();
 
