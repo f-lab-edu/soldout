@@ -1,9 +1,11 @@
 package api.soldout.io.soldout.service.product;
 
+import api.soldout.io.soldout.dtos.ImageDto;
 import api.soldout.io.soldout.dtos.ProductDto;
 import api.soldout.io.soldout.repository.product.ProductRepository;
 import api.soldout.io.soldout.service.product.command.AddProductCommand;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,7 @@ public class ProductServiceImpl implements ProductService {
   private final ProductRepository productRepository;
 
   @Override
-  public ProductDto addProduct(AddProductCommand command) {
+  public void addProduct(AddProductCommand command) {
 
     ProductDto product = ProductDto.builder()
         .name(command.getName())
@@ -28,18 +30,18 @@ public class ProductServiceImpl implements ProductService {
         .modelNumber(command.getModelNumber())
         .color(command.getColor())
         .releaseDay(command.getReleaseDay())
-        .imagesLink(command.getImagesLink())
         .build();
 
-    return productRepository.save(product);
+    product.buildToImageDto(command.getImages());
+
+    productRepository.save(product);
 
   }
 
   @Override
-  public Collection<ProductDto> findAll() {
+  public List<ProductDto> findAll() {
 
     return productRepository.findAll();
 
   }
-
 }

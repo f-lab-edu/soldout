@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
   private final PasswordEncoder passwordEncoder;
 
   @Override
-  public UserDto signUp(SignUpCommand commandDto) {
+  public void signUp(SignUpCommand commandDto) {
 
     if (isExistEmail(commandDto.getEmail())) {
 
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
         .address(commandDto.getAddress())
         .build();
 
-    return userRepository.save(user);
+    userRepository.save(user);
 
   }
 

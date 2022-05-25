@@ -1,12 +1,14 @@
-package api.soldout.io.soldout.repository.user;
+package api.soldout.io.soldout.mapper;
 
 import api.soldout.io.soldout.dtos.UserDto;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * .
  */
 
-public interface UserRepository {
+@Mapper
+public interface UserMapper {
 
   void save(UserDto user);
 

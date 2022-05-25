@@ -1,8 +1,10 @@
 package api.soldout.io.soldout.dtos.response.data;
 
+import api.soldout.io.soldout.dtos.ImageDto;
 import api.soldout.io.soldout.dtos.ProductDto;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -19,7 +21,7 @@ public class AddProductData {
   private String modelNumber;
   private LocalDate releaseDay;
   private String color;
-  private Collection<String> imagesLink;
+  private List<ImageDto> images;
 
   /**
    * .
@@ -32,8 +34,9 @@ public class AddProductData {
     String modelNumber = product.getModelNumber();
     LocalDate releaseDay = product.getReleaseDay();
     String color = product.getColor();
-    Collection<String> imagesLink = product.getImagesLink();
+    List<ImageDto> images = product.getImages();
 
-    return new AddProductData(name, brand, modelNumber, releaseDay, color, imagesLink);
+    return new AddProductData(name, brand, modelNumber, releaseDay, color, images);
+
   }
 }

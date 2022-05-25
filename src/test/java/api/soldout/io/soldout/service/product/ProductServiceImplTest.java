@@ -1,7 +1,6 @@
 package api.soldout.io.soldout.service.product;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
 
 import api.soldout.io.soldout.dtos.ProductDto;
@@ -9,7 +8,6 @@ import api.soldout.io.soldout.repository.product.ProductRepository;
 import api.soldout.io.soldout.service.product.command.AddProductCommand;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +31,7 @@ class ProductServiceImplTest {
   List<String> imagesLink = new ArrayList<>();
   AddProductCommand command;
 
-  Collection<ProductDto> list = new ArrayList<>();
+  List<ProductDto> list = new ArrayList<>();
   ProductDto product;
 
   @BeforeEach
@@ -60,7 +58,7 @@ class ProductServiceImplTest {
         .modelNumber(command.getModelNumber())
         .releaseDay(command.getReleaseDay())
         .color(command.getColor())
-        .imagesLink(command.getImagesLink())
+        // imageDto 리스트 생성
         .build();
 
     // Products 목록을 위한 List 추가 -> findAllProducts 리턴값
@@ -72,11 +70,7 @@ class ProductServiceImplTest {
   @DisplayName("상품 목록 저장")
   void addProduct() {
 
-    when(productRepository.save(any())).thenReturn(product);
-
-    ProductDto saveProduct = productService.addProduct(command);
-
-    assertThat(saveProduct.getModelNumber()).isEqualTo(product.getModelNumber());
+    productService.addProduct(command);
 
   }
 

@@ -9,7 +9,7 @@ import api.soldout.io.soldout.service.user.command.SignUpCommand;
 
 public interface UserService {
 
-  UserDto signUp(SignUpCommand commandDto);
+  void signUp(SignUpCommand commandDto);
 
   UserDto signIn(String email, String password);
 

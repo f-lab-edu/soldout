@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="api.soldout.io.soldout.mapper.ProductMapper">
+
+  <insert id="insertProduct" parameterType="api.soldout.io.soldout.dtos.ProductDto" useGeneratedKeys = "true" keyProperty="id">
+    INSERT INTO product (name, brand, model_number, release_day, color)
+    VALUES (#{name}, #{brand}, #{modelNumber}, #{releaseDay}, #{color});
+  </insert>
+
+  <insert id="insertImages">
+    INSERT INTO image (product_id, link)
+    VALUES
+    <foreach collection="list" item="image" separator=",">
+     (#{productId}, #{image.link})
+    </foreach>
+  </insert>
+
+  <resultMap id="productMap" type="api.soldout.io.soldout.dtos.ProductDto">
+    <result property="id" column="product_id"></result>
+    <result property="name" column="name"></result>
+    <result property="brand" column="brand"></result>
+    <result property="modelNumber" column="model_number"></result>
+    <result property="releaseDay" column="release_day"></result>
+    <result property="color" column="color"></result>
+    <collection property="images" column="product_id" resultMap="imageMap"></collection>
+  </resultMap>
+
+  <resultMap id="imageMap" type="api.soldout.io.soldout.dtos.ImageDto">
+    <result property="id" column="image_id"></result>
+    <result property="productId" column="product_id"></result>
+    <result property="link" column="link"></result>
+  </resultMap>
+
+  <select id="findAllProducts" resultMap="productMap">
+    SELECT *
+    FROM product p
+    LEFT OUTER JOIN image i ON p.product_id = i.product_id;
+  </select>
+
+
+</mapper>
