@@ -1,4 +1,4 @@
-package api.soldout.io.soldout.dtos.enums;
+package api.soldout.io.soldout.util.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;

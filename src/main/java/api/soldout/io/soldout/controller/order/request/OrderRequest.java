@@ -1,8 +1,8 @@
 package api.soldout.io.soldout.controller.order.request;
 
-import api.soldout.io.soldout.dtos.enums.OrderExpirationPeriod;
-import api.soldout.io.soldout.dtos.enums.OrderType;
 import api.soldout.io.soldout.service.order.command.OrderCommand;
+import api.soldout.io.soldout.util.enums.ExpirationPeriod;
+import api.soldout.io.soldout.util.enums.OrderType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +21,7 @@ public class OrderRequest {
   private int size;
   private int price;
   private OrderType type;
-  private OrderExpirationPeriod period;
+  private ExpirationPeriod period;
 
   /**
    * .

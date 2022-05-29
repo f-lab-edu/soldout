@@ -36,4 +36,25 @@ public class OrderServiceImpl implements OrderService {
     orderRepository.order(order);
 
   }
+
+  @Override
+  public OrderDto findByOrderId(String orderId) {
+
+    return orderRepository.findByOrderId(orderId);
+
+  }
+
+  @Override
+  public OrderDto findByUserId(String userId) {
+
+    return orderRepository.findByUserId(userId);
+
+  }
+
+  @Override
+  public OrderDto findByProductId(String productId) {
+
+    return orderRepository.findByProductId(productId);
+
+  }
 }

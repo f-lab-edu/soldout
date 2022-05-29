@@ -23,4 +23,25 @@ public class OrderRepositoryImpl implements OrderRepository {
     orderMapper.insertOrder(order);
 
   }
+
+  @Override
+  public OrderDto findByOrderId(String orderId) {
+
+    return orderMapper.findByOrderId(orderId);
+
+  }
+
+  @Override
+  public OrderDto findByUserId(String userId) {
+
+    return orderMapper.findByUserId(userId);
+
+  }
+
+  @Override
+  public OrderDto findByProductId(String productId) {
+
+    return orderMapper.findByProductId(productId);
+
+  }
 }

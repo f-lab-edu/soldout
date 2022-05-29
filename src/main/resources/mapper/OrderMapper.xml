@@ -9,4 +9,22 @@
     VALUES (#{userId}, #{productId}, #{size}, #{price}, #{type}, #{period}, #{day});
   </insert>
 
+  <select id="findByOrderId" parameterType="java.lang.String" resultType="api.soldout.io.soldout.dtos.entity.OrderDto">
+    SELECT *
+    FROM `order`
+    WHERE order_id = #{orderId};
+  </select>
+
+  <select id="findByUserId" parameterType="java.lang.String" resultType="api.soldout.io.soldout.dtos.entity.OrderDto">
+    SELECT *
+    FROM `order`
+    WHERE user_id = #{userId};
+  </select>
+
+  <select id="findByProductId" parameterType="java.lang.String" resultType="api.soldout.io.soldout.dtos.entity.OrderDto">
+    SELECT *
+    FROM `order`
+    WHERE product_id = #{productId};
+  </select>
+
 </mapper>

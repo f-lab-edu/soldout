@@ -10,4 +10,10 @@ public interface OrderRepository {
 
   void order(OrderDto order);
 
+  OrderDto findByOrderId(String orderId);
+
+  OrderDto findByUserId(String userId);
+
+  OrderDto findByProductId(String productId);
+
 }

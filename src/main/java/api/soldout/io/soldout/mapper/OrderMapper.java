@@ -12,8 +12,10 @@ public interface OrderMapper {
 
   void insertOrder(OrderDto order);
 
-  OrderDto findById();
+  OrderDto findByOrderId(String orderId);
 
-  OrderDto findByProductId();
+  OrderDto findByUserId(String userId);
+
+  OrderDto findByProductId(String productId);
 
 }

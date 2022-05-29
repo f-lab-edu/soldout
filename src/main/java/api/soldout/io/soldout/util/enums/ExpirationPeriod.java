@@ -1,4 +1,4 @@
-package api.soldout.io.soldout.dtos.enums;
+package api.soldout.io.soldout.util.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
@@ -10,12 +10,12 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum OrderExpirationPeriod {
+public enum ExpirationPeriod {
 
-  THREE_DAY("OEP_001", 3),
-  WEEK("OEP_002", 7),
-  HALF_MONTH("OEP_003", 15),
-  MONTH("OEP_004", 30);
+  THREE_DAY("EP_001", 3),
+  WEEK("EP_002", 7),
+  HALF_MONTH("EP_003", 15),
+  MONTH("EP_004", 30);
 
   private final String code;
   private final int days;
@@ -25,9 +25,9 @@ public enum OrderExpirationPeriod {
    */
 
   @JsonCreator
-  public static OrderExpirationPeriod fromCode(String code) {
+  public static ExpirationPeriod fromCode(String code) {
 
-    for (OrderExpirationPeriod tempDays : OrderExpirationPeriod.values()) {
+    for (ExpirationPeriod tempDays : ExpirationPeriod.values()) {
 
       if (tempDays.getCode().equals(code)) {
 
