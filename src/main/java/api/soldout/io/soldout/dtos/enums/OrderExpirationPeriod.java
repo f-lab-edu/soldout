@@ -10,23 +10,24 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum OrderEndDay {
+public enum OrderExpirationPeriod {
 
-  THREE_DAY("OED_001"),
-  WEEK("OED_002"),
-  HALF_MONTH("OED_003"),
-  MONTH("OED_004");
+  THREE_DAY("OEP_001", 3),
+  WEEK("OEP_002", 7),
+  HALF_MONTH("OEP_003", 15),
+  MONTH("OEP_004", 30);
 
   private final String code;
+  private final int days;
 
   /**
    * .
    */
 
   @JsonCreator
-  public static OrderEndDay fromCode(String code) {
+  public static OrderExpirationPeriod fromCode(String code) {
 
-    for (OrderEndDay tempDays : OrderEndDay.values()) {
+    for (OrderExpirationPeriod tempDays : OrderExpirationPeriod.values()) {
 
       if (tempDays.getCode().equals(code)) {
 

@@ -20,7 +20,7 @@ public class OrderRepositoryImpl implements OrderRepository {
   @Override
   public void order(OrderDto order) {
 
-    orderMapper.insertOrder();
+    orderMapper.insertOrder(order);
 
   }
 }

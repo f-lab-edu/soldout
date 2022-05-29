@@ -5,19 +5,8 @@
 <mapper namespace="api.soldout.io.soldout.mapper.OrderMapper">
 
   <insert id="insertOrder" parameterType="api.soldout.io.soldout.dtos.entity.OrderDto" useGeneratedKeys = "true" keyProperty="id">
-    INSERT INTO user (userId, productId, size, price, type, endDay)
-    VALUES #{userId}, #{productId}, #{size}, #{price}, #{type}, NOW()+#{endDay});
+    INSERT INTO `order` (user_id, product_id, size, price, order_type, expiration_period, expiration_day)
+    VALUES (#{userId}, #{productId}, #{size}, #{price}, #{type}, #{period}, #{day});
   </insert>
 
-  <select id="findById" resultType="api.soldout.io.soldout.dtos.entity.OrderDto">
-    SELECT *
-    FROM order
-    WHERE #{orderId} = order.order_id;
-  </select>
-
-  <select id="findByProductId" resultType="api.soldout.io.soldout.dtos.entity.OrderDto">
-    SELECT *
-    FROM order
-    WHERE #{productId} = order.order_id;
-  </select>
 </mapper>

@@ -1,6 +1,6 @@
 package api.soldout.io.soldout.service.order.command;
 
-import api.soldout.io.soldout.dtos.enums.OrderEndDay;
+import api.soldout.io.soldout.dtos.enums.OrderExpirationPeriod;
 import api.soldout.io.soldout.dtos.enums.OrderType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +18,6 @@ public class OrderCommand {
   private int size;
   private int price;
   private OrderType type;
-  private OrderEndDay endDay;
+  private OrderExpirationPeriod period;
 
 }
