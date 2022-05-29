@@ -4,7 +4,8 @@
 
 <configuration>
   <mappers>
-    <mapper resource="ProductMapper.xml"/>
     <mapper resource="UserMapper.xml"/>
+    <mapper resource="ProductMapper.xml"/>
+    <mapper resource="OrderMapper.xml"/>
   </mappers>
 </configuration>
