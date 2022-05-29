@@ -1,6 +1,6 @@
 package api.soldout.io.soldout.repository.user;
 
-import api.soldout.io.soldout.dtos.UserDto;
+import api.soldout.io.soldout.dtos.entity.UserDto;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.extern.slf4j.Slf4j;

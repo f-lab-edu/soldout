@@ -1,6 +1,9 @@
 package api.soldout.io.soldout.controller.order.request;
 
+import api.soldout.io.soldout.dtos.enums.OrderEndDay;
+import api.soldout.io.soldout.dtos.enums.OrderType;
 import api.soldout.io.soldout.service.order.command.OrderCommand;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -19,15 +22,15 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class OrderRequest {
 
   private int userId;
   private int productId;
   private int size;
   private int price;
-  private String type;
-  private int endDay;
+  private OrderType type;
+  private OrderEndDay endDay;
 
   /**
    * .

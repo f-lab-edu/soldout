@@ -1,7 +1,7 @@
 package api.soldout.io.soldout.controller.product;
 
 import api.soldout.io.soldout.controller.product.request.AddProductRequest;
-import api.soldout.io.soldout.dtos.ProductDto;
+import api.soldout.io.soldout.dtos.entity.ProductDto;
 import api.soldout.io.soldout.dtos.response.ResponseDto;
 import api.soldout.io.soldout.dtos.response.data.GetAllProductsData;
 import api.soldout.io.soldout.service.product.ProductService;

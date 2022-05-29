@@ -4,7 +4,7 @@
 
 <mapper namespace="api.soldout.io.soldout.mapper.ProductMapper">
 
-  <insert id="insertProduct" parameterType="api.soldout.io.soldout.dtos.ProductDto" useGeneratedKeys = "true" keyProperty="id">
+  <insert id="insertProduct" parameterType="api.soldout.io.soldout.dtos.entity.ProductDto" useGeneratedKeys = "true" keyProperty="id">
     INSERT INTO product (name, brand, model_number, release_day, color)
     VALUES (#{name}, #{brand}, #{modelNumber}, #{releaseDay}, #{color});
   </insert>
@@ -17,7 +17,7 @@
     </foreach>
   </insert>
 
-  <resultMap id="productMap" type="api.soldout.io.soldout.dtos.ProductDto">
+  <resultMap id="productMap" type="api.soldout.io.soldout.dtos.entity.ProductDto">
     <result property="id" column="product_id"></result>
     <result property="name" column="name"></result>
     <result property="brand" column="brand"></result>
@@ -27,7 +27,7 @@
     <collection property="images" column="product_id" resultMap="imageMap"></collection>
   </resultMap>
 
-  <resultMap id="imageMap" type="api.soldout.io.soldout.dtos.ImageDto">
+  <resultMap id="imageMap" type="api.soldout.io.soldout.dtos.entity.ImageDto">
     <result property="id" column="image_id"></result>
     <result property="productId" column="product_id"></result>
     <result property="link" column="link"></result>

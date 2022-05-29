@@ -1,6 +1,6 @@
 package api.soldout.io.soldout.repository.order;
 
-import api.soldout.io.soldout.dtos.OrderDto;
+import api.soldout.io.soldout.dtos.entity.OrderDto;
 
 /**
  * .

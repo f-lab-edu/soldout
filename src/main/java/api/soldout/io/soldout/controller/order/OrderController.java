@@ -21,8 +21,7 @@ public class OrderController {
   private final OrderService orderService;
 
   /**
-   * .
-   * 제품 Id외 사용자 Id에 대한 주문을 등록
+   * 제품 Id외 사용자 Id에 대한 주문을 등록.
    */
 
   @PostMapping
@@ -32,4 +31,5 @@ public class OrderController {
 
     return new ResponseDto(true, null, null, null);
   }
+
 }

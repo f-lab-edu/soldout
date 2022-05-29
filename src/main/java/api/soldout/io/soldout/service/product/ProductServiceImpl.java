@@ -1,10 +1,8 @@
 package api.soldout.io.soldout.service.product;
 
-import api.soldout.io.soldout.dtos.ImageDto;
-import api.soldout.io.soldout.dtos.ProductDto;
+import api.soldout.io.soldout.dtos.entity.ProductDto;
 import api.soldout.io.soldout.repository.product.ProductRepository;
 import api.soldout.io.soldout.service.product.command.AddProductCommand;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

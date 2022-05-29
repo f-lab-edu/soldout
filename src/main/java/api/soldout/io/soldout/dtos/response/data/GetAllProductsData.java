@@ -1,6 +1,6 @@
 package api.soldout.io.soldout.dtos.response.data;
 
-import api.soldout.io.soldout.dtos.ProductDto;
+import api.soldout.io.soldout.dtos.entity.ProductDto;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
