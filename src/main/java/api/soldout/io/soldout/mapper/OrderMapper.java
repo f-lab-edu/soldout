@@ -1,6 +1,7 @@
 package api.soldout.io.soldout.mapper;
 
 import api.soldout.io.soldout.dtos.entity.OrderDto;
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -12,10 +13,10 @@ public interface OrderMapper {
 
   void insertOrder(OrderDto order);
 
-  OrderDto findByOrderId(String orderId);
+  List<OrderDto> findByOrderId(String orderId);
 
-  OrderDto findByUserId(String userId);
+  List<OrderDto> findByUserId(String userId);
 
-  OrderDto findByProductId(String productId);
+  List<OrderDto> findByProductId(String productId);
 
 }

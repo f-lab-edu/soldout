@@ -9,19 +9,30 @@
     VALUES (#{userId}, #{productId}, #{size}, #{price}, #{type}, #{period}, #{day});
   </insert>
 
-  <select id="findByOrderId" parameterType="java.lang.String" resultType="api.soldout.io.soldout.dtos.entity.OrderDto">
+  <resultMap id="orderMap" type="api.soldout.io.soldout.dtos.entity.OrderDto">
+    <result property="id" column="order_id"></result>
+    <result property="userId" column="user_id"></result>
+    <result property="productId" column="product_id"></result>
+    <result property="size" column="size"></result>
+    <result property="price" column="price"></result>
+    <result property="type" column="order_type"></result>
+    <result property="period" column="expiration_period"></result>
+    <result property="day" column="expiration_day"></result>
+  </resultMap>
+
+  <select id="findByOrderId" parameterType="java.lang.String" resultMap="orderMap">
     SELECT *
     FROM `order`
     WHERE order_id = #{orderId};
   </select>
 
-  <select id="findByUserId" parameterType="java.lang.String" resultType="api.soldout.io.soldout.dtos.entity.OrderDto">
+  <select id="findByUserId" parameterType="java.lang.String" resultMap="orderMap">
     SELECT *
     FROM `order`
     WHERE user_id = #{userId};
   </select>
 
-  <select id="findByProductId" parameterType="java.lang.String" resultType="api.soldout.io.soldout.dtos.entity.OrderDto">
+  <select id="findByProductId" parameterType="java.lang.String" resultMap="orderMap">
     SELECT *
     FROM `order`
     WHERE product_id = #{productId};

@@ -2,6 +2,7 @@ package api.soldout.io.soldout.service.order;
 
 import api.soldout.io.soldout.dtos.entity.OrderDto;
 import api.soldout.io.soldout.service.order.command.OrderCommand;
+import java.util.List;
 
 /**
  * .
@@ -11,10 +12,10 @@ public interface OrderService {
 
   void order(OrderCommand command);
 
-  OrderDto findByOrderId(String orderId);
+  List<OrderDto> findByOrderId(String orderId);
 
-  OrderDto findByUserId(String userId);
+  List<OrderDto> findByUserId(String userId);
 
-  OrderDto findByProductId(String productId);
+  List<OrderDto> findByProductId(String productId);
 
 }

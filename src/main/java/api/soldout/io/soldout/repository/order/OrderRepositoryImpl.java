@@ -2,6 +2,7 @@ package api.soldout.io.soldout.repository.order;
 
 import api.soldout.io.soldout.dtos.entity.OrderDto;
 import api.soldout.io.soldout.mapper.OrderMapper;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -25,21 +26,21 @@ public class OrderRepositoryImpl implements OrderRepository {
   }
 
   @Override
-  public OrderDto findByOrderId(String orderId) {
+  public List<OrderDto> findByOrderId(String orderId) {
 
     return orderMapper.findByOrderId(orderId);
 
   }
 
   @Override
-  public OrderDto findByUserId(String userId) {
+  public List<OrderDto> findByUserId(String userId) {
 
     return orderMapper.findByUserId(userId);
 
   }
 
   @Override
-  public OrderDto findByProductId(String productId) {
+  public List<OrderDto> findByProductId(String productId) {
 
     return orderMapper.findByProductId(productId);
 

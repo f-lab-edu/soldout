@@ -1,9 +1,11 @@
 package api.soldout.io.soldout.controller.order;
 
+import api.soldout.io.soldout.annotation.CheckSignIn;
 import api.soldout.io.soldout.controller.order.request.OrderRequest;
 import api.soldout.io.soldout.dtos.entity.OrderDto;
 import api.soldout.io.soldout.dtos.response.ResponseDto;
 import api.soldout.io.soldout.service.order.OrderService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +28,11 @@ public class OrderController {
   private final OrderService orderService;
 
   /**
-   * 제품 Id외 사용자 Id에 대한 주문을 등록.
+   * 제품 Id와 사용자 Id에 대한 주문을 등록.
    */
 
   @PostMapping
+  @CheckSignIn
   public ResponseDto order(@RequestBody OrderRequest request) {
 
     orderService.order(OrderRequest.toCommand(request));
@@ -43,11 +46,12 @@ public class OrderController {
    */
 
   @GetMapping("/{orderId}")
-  public ResponseDto findByOrderId(@PathVariable("orderId") String orderId) {
+  @CheckSignIn
+  public ResponseDto findOrderList(@PathVariable("orderId") String orderId) {
 
-    OrderDto orderDto = orderService.findByOrderId(orderId);
+    List<OrderDto> list = orderService.findByOrderId(orderId);
 
-    return new ResponseDto(true, null, null, null);
+    return new ResponseDto(true, list, null, null);
 
   }
 

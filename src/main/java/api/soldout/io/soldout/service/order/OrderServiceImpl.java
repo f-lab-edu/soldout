@@ -4,6 +4,7 @@ package api.soldout.io.soldout.service.order;
 import api.soldout.io.soldout.dtos.entity.OrderDto;
 import api.soldout.io.soldout.repository.order.OrderRepository;
 import api.soldout.io.soldout.service.order.command.OrderCommand;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -38,21 +39,21 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
-  public OrderDto findByOrderId(String orderId) {
+  public List<OrderDto> findByOrderId(String orderId) {
 
     return orderRepository.findByOrderId(orderId);
 
   }
 
   @Override
-  public OrderDto findByUserId(String userId) {
+  public List<OrderDto> findByUserId(String userId) {
 
     return orderRepository.findByUserId(userId);
 
   }
 
   @Override
-  public OrderDto findByProductId(String productId) {
+  public List<OrderDto> findByProductId(String productId) {
 
     return orderRepository.findByProductId(productId);
 
