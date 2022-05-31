@@ -29,9 +29,8 @@ public class OrderServiceImpl implements OrderService {
         .size(command.getSize())
         .price(command.getPrice())
         .type(command.getType())
+        .day(command.getPeriod())
         .build();
-
-    order.calcExpirationDay(command.getPeriod());
 
     orderRepository.saveOrder(order);
 

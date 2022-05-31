@@ -25,24 +25,15 @@ public class OrderDto {
    */
 
   @Builder
-  public OrderDto(int id, int userId, int productId, int size, int price,
-      OrderType type) {
+  public OrderDto(int id, int userId, int productId, int size, int price, int day, OrderType type) {
+
     this.id = id;
     this.userId = userId;
     this.productId = productId;
     this.size = size;
     this.price = price;
     this.type = type;
-
-  }
-
-  /**
-   * .
-   */
-
-  public void calcExpirationDay(int period) {
-
-    this.day = LocalDateTime.now().plusDays(period);
+    this.day = LocalDateTime.now().plusDays(day);
 
   }
 
