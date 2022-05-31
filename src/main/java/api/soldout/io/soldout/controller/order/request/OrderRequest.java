@@ -1,7 +1,6 @@
 package api.soldout.io.soldout.controller.order.request;
 
 import api.soldout.io.soldout.service.order.command.OrderCommand;
-import api.soldout.io.soldout.util.enums.ExpirationPeriod;
 import api.soldout.io.soldout.util.enums.OrderType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,8 +19,8 @@ public class OrderRequest {
   private int productId;
   private int size;
   private int price;
+  private int period;
   private OrderType type;
-  private ExpirationPeriod period;
 
   /**
    * .
@@ -34,7 +33,7 @@ public class OrderRequest {
         request.getProductId(),
         request.getSize(),
         request.getPrice(),
-        request.getType(),
-        request.getPeriod());
+        request.getPeriod(),
+        request.getType());
   }
 }

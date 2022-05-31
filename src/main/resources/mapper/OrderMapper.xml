@@ -5,8 +5,8 @@
 <mapper namespace="api.soldout.io.soldout.mapper.OrderMapper">
 
   <insert id="insertOrder" parameterType="api.soldout.io.soldout.dtos.entity.OrderDto" useGeneratedKeys = "true" keyProperty="id">
-    INSERT INTO `order` (user_id, product_id, size, price, order_type, expiration_period, expiration_day)
-    VALUES (#{userId}, #{productId}, #{size}, #{price}, #{type}, #{period}, #{day});
+    INSERT INTO `order` (user_id, product_id, size, price, order_type, expiration_day)
+    VALUES (#{userId}, #{productId}, #{size}, #{price}, #{type}, #{day});
   </insert>
 
   <resultMap id="orderMap" type="api.soldout.io.soldout.dtos.entity.OrderDto">

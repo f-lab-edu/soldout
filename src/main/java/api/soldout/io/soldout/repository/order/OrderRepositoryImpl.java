@@ -19,7 +19,7 @@ public class OrderRepositoryImpl implements OrderRepository {
   private final OrderMapper orderMapper;
 
   @Override
-  public void insertOrder(OrderDto order) {
+  public void saveOrder(OrderDto order) {
 
     orderMapper.insertOrder(order);
 

@@ -1,6 +1,5 @@
 package api.soldout.io.soldout.dtos.entity;
 
-import api.soldout.io.soldout.util.enums.ExpirationPeriod;
 import api.soldout.io.soldout.util.enums.OrderType;
 import java.time.LocalDateTime;
 import lombok.Builder;
@@ -19,7 +18,6 @@ public class OrderDto {
   private int size;
   private int price;
   private OrderType type;
-  private ExpirationPeriod period;
   private LocalDateTime day;
 
   /**
@@ -28,14 +26,13 @@ public class OrderDto {
 
   @Builder
   public OrderDto(int id, int userId, int productId, int size, int price,
-      OrderType type, ExpirationPeriod period) {
+      OrderType type) {
     this.id = id;
     this.userId = userId;
     this.productId = productId;
     this.size = size;
     this.price = price;
     this.type = type;
-    this.period = period;
 
   }
 
@@ -43,9 +40,9 @@ public class OrderDto {
    * .
    */
 
-  public void calcExpirationDay(ExpirationPeriod period) {
+  public void calcExpirationDay(int period) {
 
-    this.day = LocalDateTime.now().plusDays(period.getDays());
+    this.day = LocalDateTime.now().plusDays(period);
 
   }
 

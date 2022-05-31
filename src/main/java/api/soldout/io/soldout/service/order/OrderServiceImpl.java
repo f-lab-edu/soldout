@@ -4,7 +4,6 @@ package api.soldout.io.soldout.service.order;
 import api.soldout.io.soldout.dtos.entity.OrderDto;
 import api.soldout.io.soldout.repository.order.OrderRepository;
 import api.soldout.io.soldout.service.order.command.OrderCommand;
-import api.soldout.io.soldout.util.enums.OrderType;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,12 +29,11 @@ public class OrderServiceImpl implements OrderService {
         .size(command.getSize())
         .price(command.getPrice())
         .type(command.getType())
-        .period(command.getPeriod())
         .build();
 
-    order.calcExpirationDay(order.getPeriod());
+    order.calcExpirationDay(command.getPeriod());
 
-    orderRepository.insertOrder(order);
+    orderRepository.saveOrder(order);
 
   }
 
