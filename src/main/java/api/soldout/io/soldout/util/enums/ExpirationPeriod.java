@@ -1,6 +1,5 @@
 package api.soldout.io.soldout.util.enums;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -19,26 +18,5 @@ public enum ExpirationPeriod {
 
   private final String code;
   private final int days;
-
-  /**
-   * .
-   */
-
-  @JsonCreator
-  public static ExpirationPeriod fromCode(String code) {
-
-    for (ExpirationPeriod tempDays : ExpirationPeriod.values()) {
-
-      if (tempDays.getCode().equals(code)) {
-
-        return tempDays;
-
-      }
-
-    }
-
-    return null;
-
-  }
 
 }

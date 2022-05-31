@@ -9,9 +9,7 @@ import java.util.List;
 
 public interface OrderRepository {
 
-  void order(OrderDto order);
-
-  List<OrderDto> findByOrderId(String orderId);
+  void insertOrder(OrderDto order);
 
   List<OrderDto> findByUserId(String userId);
 

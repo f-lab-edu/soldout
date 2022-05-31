@@ -1,6 +1,5 @@
 package api.soldout.io.soldout.util.enums;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -17,24 +16,4 @@ public enum OrderType {
 
   private final String code;
 
-  /**
-   * .
-   */
-
-  @JsonCreator
-  public static OrderType fromCode(String code) {
-
-    for (OrderType tempType : OrderType.values()) {
-
-      if (tempType.getCode().equals(code)) {
-
-        return tempType;
-
-      }
-
-    }
-
-    return null;
-
-  }
 }

@@ -19,16 +19,9 @@ public class OrderRepositoryImpl implements OrderRepository {
   private final OrderMapper orderMapper;
 
   @Override
-  public void order(OrderDto order) {
+  public void insertOrder(OrderDto order) {
 
     orderMapper.insertOrder(order);
-
-  }
-
-  @Override
-  public List<OrderDto> findByOrderId(String orderId) {
-
-    return orderMapper.findByOrderId(orderId);
 
   }
 

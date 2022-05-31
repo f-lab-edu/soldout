@@ -4,6 +4,7 @@ package api.soldout.io.soldout.service.order;
 import api.soldout.io.soldout.dtos.entity.OrderDto;
 import api.soldout.io.soldout.repository.order.OrderRepository;
 import api.soldout.io.soldout.service.order.command.OrderCommand;
+import api.soldout.io.soldout.util.enums.OrderType;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,14 +35,7 @@ public class OrderServiceImpl implements OrderService {
 
     order.calcExpirationDay(order.getPeriod());
 
-    orderRepository.order(order);
-
-  }
-
-  @Override
-  public List<OrderDto> findByOrderId(String orderId) {
-
-    return orderRepository.findByOrderId(orderId);
+    orderRepository.insertOrder(order);
 
   }
 
@@ -58,4 +52,5 @@ public class OrderServiceImpl implements OrderService {
     return orderRepository.findByProductId(productId);
 
   }
+
 }

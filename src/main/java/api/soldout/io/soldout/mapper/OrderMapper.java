@@ -13,8 +13,6 @@ public interface OrderMapper {
 
   void insertOrder(OrderDto order);
 
-  List<OrderDto> findByOrderId(String orderId);
-
   List<OrderDto> findByUserId(String userId);
 
   List<OrderDto> findByProductId(String productId);

@@ -12,8 +12,6 @@ public interface OrderService {
 
   void order(OrderCommand command);
 
-  List<OrderDto> findByOrderId(String orderId);
-
   List<OrderDto> findByUserId(String userId);
 
   List<OrderDto> findByProductId(String productId);

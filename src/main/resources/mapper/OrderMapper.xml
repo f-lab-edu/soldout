@@ -20,12 +20,6 @@
     <result property="day" column="expiration_day"></result>
   </resultMap>
 
-  <select id="findByOrderId" parameterType="java.lang.String" resultMap="orderMap">
-    SELECT *
-    FROM `order`
-    WHERE order_id = #{orderId};
-  </select>
-
   <select id="findByUserId" parameterType="java.lang.String" resultMap="orderMap">
     SELECT *
     FROM `order`
