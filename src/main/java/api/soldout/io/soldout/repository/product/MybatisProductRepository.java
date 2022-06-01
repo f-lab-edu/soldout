@@ -21,7 +21,9 @@ public class MybatisProductRepository implements ProductRepository {
 
     productMapper.insertProduct(product);
 
-    productMapper.insertImages(product.getImages(), product.getId());
+    productMapper.insertImages(product.getId(), product.getImages());
+
+    productMapper.insertSizeInfo(product.getId(), product.getSizeInfo());
 
   }
 

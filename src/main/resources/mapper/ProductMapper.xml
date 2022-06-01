@@ -5,8 +5,8 @@
 <mapper namespace="api.soldout.io.soldout.mapper.ProductMapper">
 
   <insert id="insertProduct" parameterType="api.soldout.io.soldout.dtos.entity.ProductDto" useGeneratedKeys = "true" keyProperty="id">
-    INSERT INTO product (name, brand, model_number, release_day, color)
-    VALUES (#{name}, #{brand}, #{modelNumber}, #{releaseDay}, #{color});
+    INSERT INTO product (category, name, brand, model_number, release_day, color)
+    VALUES (#{category}, #{name}, #{brand}, #{modelNumber}, #{releaseDay}, #{color});
   </insert>
 
   <insert id="insertImages">
@@ -15,6 +15,12 @@
     <foreach collection="list" item="image" separator=",">
      (#{productId}, #{image.link})
     </foreach>
+  </insert>
+
+  <!-- 파라미터로 넘어오는 sizeInfo 객체를 맵핑하지 못한다. -->
+  <insert id="insertSizeInfo" parameterType="">
+    INSERT INTO sizeInfo (product_id, min, max, unit)
+    VALUES (#{productId}, #{min}, #{max}, #{unit});
   </insert>
 
   <resultMap id="productMap" type="api.soldout.io.soldout.dtos.entity.ProductDto">
