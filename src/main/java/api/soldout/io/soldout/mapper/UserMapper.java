@@ -1,6 +1,6 @@
 package api.soldout.io.soldout.mapper;
 
-import api.soldout.io.soldout.dtos.UserDto;
+import api.soldout.io.soldout.dtos.entity.UserDto;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

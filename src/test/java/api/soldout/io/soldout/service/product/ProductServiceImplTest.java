@@ -3,7 +3,7 @@ package api.soldout.io.soldout.service.product;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-import api.soldout.io.soldout.dtos.ProductDto;
+import api.soldout.io.soldout.dtos.entity.ProductDto;
 import api.soldout.io.soldout.repository.product.ProductRepository;
 import api.soldout.io.soldout.service.product.command.AddProductCommand;
 import java.time.LocalDate;

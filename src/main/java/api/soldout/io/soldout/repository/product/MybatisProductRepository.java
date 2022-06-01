@@ -1,13 +1,10 @@
 package api.soldout.io.soldout.repository.product;
 
-import api.soldout.io.soldout.dtos.ImageDto;
-import api.soldout.io.soldout.dtos.ProductDto;
+import api.soldout.io.soldout.dtos.entity.ProductDto;
 import api.soldout.io.soldout.mapper.ProductMapper;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 /**
  * .

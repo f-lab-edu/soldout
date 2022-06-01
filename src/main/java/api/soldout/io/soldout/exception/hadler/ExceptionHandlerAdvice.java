@@ -1,7 +1,5 @@
 package api.soldout.io.soldout.exception.hadler;
 
-import api.soldout.io.soldout.controller.product.ProductController;
-import api.soldout.io.soldout.controller.user.UserController;
 import api.soldout.io.soldout.dtos.response.ResponseDto;
 import api.soldout.io.soldout.dtos.response.ResponseDto.Error;
 import api.soldout.io.soldout.exception.AlreadyExistEmailException;
@@ -18,7 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  *.
  */
 
-@RestControllerAdvice(basePackageClasses = {UserController.class, ProductController.class})
+@RestControllerAdvice(basePackages = "api.soldout.io.soldout.controller")
 public class ExceptionHandlerAdvice {
 
   /**
