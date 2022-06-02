@@ -17,9 +17,9 @@ public interface ProductMapper {
 
   void insertProduct(ProductDto productDto);
 
-  void insertImages(@Param("productId") int productId, @Param("list") List<ImageDto> imageList);
+  void insertImages(@Param("list") List<ImageDto> imageList, @Param("productId") int productId);
 
-  void insertSizeInfo(@Param("productId") int productId, SizeInfoDto sizeInfo);
+  void insertSizeInfo(@Param("sizeInfo") SizeInfoDto sizeInfo, @Param("productId") int productId);
 
   List<ProductDto> findAllProducts();
 

@@ -3,6 +3,7 @@ package api.soldout.io.soldout.dtos.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * .
@@ -11,6 +12,7 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class SizeInfoDto {
 
   private int id;

@@ -4,12 +4,14 @@ import api.soldout.io.soldout.util.enums.OrderType;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * .
  */
 
 @Getter
+@NoArgsConstructor
 public class OrderDto {
 
   private int id;
