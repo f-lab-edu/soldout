@@ -27,8 +27,8 @@ public class ProductDto {
   private String modelNumber;
   private LocalDate releaseDay;
   private String color;
-  private List<ImageDto> images;
   private SizeInfoDto sizeInfo;
+  private List<ImageDto> images;
 
   /**
    * .

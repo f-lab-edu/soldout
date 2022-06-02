@@ -31,11 +31,11 @@ public class ProductServiceImpl implements ProductService {
         .releaseDay(command.getReleaseDay())
         .build();
 
-    product.buildToImageDto(command.getImages());
-
     product.buildToSizeDto(command.getSizeInfo());
 
-    productRepository.save(product);
+    product.buildToImageDto(command.getImages());
+
+    productRepository.saveProduct(product);
 
   }
 

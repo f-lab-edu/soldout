@@ -5,7 +5,6 @@ import api.soldout.io.soldout.util.enums.ProductCategory;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -22,7 +21,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AddProductRequest {
 
-  @Valid
   @NotNull
   private ProductCategory category;
 
@@ -42,12 +40,12 @@ public class AddProductRequest {
   private String color;
 
   @NotEmpty
-  @Size(min = 1, message = "이미지 링크는 최소 한개 이상 입력하세요.")
-  private List<String> images;
-
-  @NotEmpty
   @Size(min = 3, message = "사이즈 정보를 입력하세요")
   private Map<String, Integer> sizeInfo;
+
+  @NotEmpty
+  @Size(min = 1, message = "이미지 링크는 최소 한개 이상 입력하세요.")
+  private List<String> images;
 
   /**
    * Request 객체가 Service Layer 에 의존하지 않도록 Command 객체로 변환해줍니다.
@@ -63,8 +61,8 @@ public class AddProductRequest {
         request.getModelNumber(),
         request.getReleaseDay(),
         request.getColor(),
-        request.getImages(),
-        request.getSizeInfo()
+        request.getSizeInfo(),
+        request.getImages()
     );
 
   }

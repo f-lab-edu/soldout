@@ -21,7 +21,7 @@ public class AddProductCommand {
   private String modelNumber;
   private LocalDate releaseDay;
   private String color;
-  private List<String> images;
   private Map<String, Integer> sizeInfo;
+  private List<String> images;
 
 }

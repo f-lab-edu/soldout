@@ -17,13 +17,13 @@ public class MybatisProductRepository implements ProductRepository {
   private final ProductMapper productMapper;
 
   @Override
-  public void save(ProductDto product) {
+  public void saveProduct(ProductDto product) {
 
     productMapper.insertProduct(product);
 
-    productMapper.insertImages(product.getImages(), product.getId());
-
     productMapper.insertSizeInfo(product.getSizeInfo(), product.getId());
+
+    productMapper.insertImages(product.getImages(), product.getId());
 
   }
 
