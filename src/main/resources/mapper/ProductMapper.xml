@@ -18,7 +18,7 @@
   </insert>
 
   <insert id="insertSizeInfo">
-    INSERT INTO sizeInfo (product_id, min, max, unit)
+    INSERT INTO size_info (product_id, min, max, unit)
     VALUES (#{productId}, #{sizeInfo.min}, #{sizeInfo.max}, #{sizeInfo.unit});
   </insert>
 
@@ -35,7 +35,7 @@
   </resultMap>
 
   <resultMap id="sizeInfoMap" type="api.soldout.io.soldout.dtos.entity.SizeInfoDto">
-    <id property="id" column="sizeInfo_id"></id>
+    <id property="id" column="id"></id>
     <result property="productId" column="product_id"></result>
     <result property="min" column="min"></result>
     <result property="max" column="max"></result>
@@ -52,7 +52,7 @@
     SELECT *
     FROM product p
     LEFT OUTER JOIN image i ON p.product_id = i.product_id
-    LEFT OUTER JOIN sizeInfo s ON p.product_id = s.product_id;
+    LEFT OUTER JOIN size_info s ON p.product_id = s.product_id;
   </select>
 
 </mapper>
