@@ -1,6 +1,8 @@
 package api.soldout.io.soldout.controller.sale;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -21,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -48,6 +51,7 @@ class SaleControllerTest {
   @Test
   @DisplayName("판매 입찰 등록 테스트")
   void saleBidTest() throws Exception {
+
     // given
     SaleBidRequest request =
         new SaleBidRequest(250, 100000, 3, SaleType.SALE_BID);
@@ -65,6 +69,9 @@ class SaleControllerTest {
     result.andExpect(status().isOk())
           .andExpect(content().json(objectMapper.writeValueAsString(response)))
           .andDo(print());
+
+    verify(saleService).saleBid(any());
+    verify(saleService, times(1)).saleBid(any());
 
   }
 

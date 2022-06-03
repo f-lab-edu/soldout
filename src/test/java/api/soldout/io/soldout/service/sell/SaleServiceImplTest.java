@@ -1,12 +1,15 @@
 package api.soldout.io.soldout.service.sell;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import api.soldout.io.soldout.dtos.entity.SaleDto;
 import api.soldout.io.soldout.interceptor.SessionSignInHandlerInterceptor;
+import api.soldout.io.soldout.repository.sell.SaleRepository;
 import api.soldout.io.soldout.repository.sell.SaleRepositoryImpl;
+import api.soldout.io.soldout.service.sell.command.SaleBidCommand;
 import api.soldout.io.soldout.util.enums.SaleType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,35 +30,32 @@ class SaleServiceImplTest {
   SaleServiceImpl saleService;
 
   @Mock
-  SaleRepositoryImpl saleRepository;
-
-  SessionSignInHandlerInterceptor interceptor;
+  SaleRepository saleRepository;
 
   @BeforeEach
   void init() throws Exception {
-
-    when(interceptor.preHandle(any(), any(), any())).thenReturn(true);
 
   }
 
   @Test
   @DisplayName("판매 입찰 테스트")
   void saleBidTest() throws Exception {
-
     // given
-    SaleDto saleDto = SaleDto.builder()
-        .userId(1)
-        .productId(1)
-        .size(250)
-        .price(100000)
-        .type(SaleType.SALE_BID)
-        .day(3)
-        .build();
+    SaleBidCommand command =  new SaleBidCommand(
+        1,
+        1,
+        220,
+        100000,
+        3,
+        SaleType.SALE_BID
+    );
 
     // when
+    saleService.saleBid(command);
 
     // then
-    verify(saleRepository).saveSale(saleDto);
+    verify(saleRepository).saveSale(any());
+    verify(saleRepository, times(1)).saveSale(any());
 
   }
 }
