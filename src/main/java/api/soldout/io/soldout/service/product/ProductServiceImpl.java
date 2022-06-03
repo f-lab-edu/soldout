@@ -23,6 +23,7 @@ public class ProductServiceImpl implements ProductService {
   public void addProduct(AddProductCommand command) {
 
     ProductDto product = ProductDto.builder()
+        .category(command.getCategory())
         .name(command.getName())
         .brand(command.getBrand())
         .modelNumber(command.getModelNumber())
@@ -30,9 +31,11 @@ public class ProductServiceImpl implements ProductService {
         .releaseDay(command.getReleaseDay())
         .build();
 
+    product.buildToSizeDto(command.getSizeInfo());
+
     product.buildToImageDto(command.getImages());
 
-    productRepository.save(product);
+    productRepository.saveProduct(product);
 
   }
 

@@ -5,30 +5,45 @@
 <mapper namespace="api.soldout.io.soldout.mapper.ProductMapper">
 
   <insert id="insertProduct" parameterType="api.soldout.io.soldout.dtos.entity.ProductDto" useGeneratedKeys = "true" keyProperty="id">
-    INSERT INTO product (name, brand, model_number, release_day, color)
-    VALUES (#{name}, #{brand}, #{modelNumber}, #{releaseDay}, #{color});
+    INSERT INTO product (category, name, brand, model_number, release_day, color)
+    VALUES (#{category}, #{name}, #{brand}, #{modelNumber}, #{releaseDay}, #{color});
   </insert>
 
   <insert id="insertImages">
     INSERT INTO image (product_id, link)
     VALUES
-    <foreach collection="list" item="image" separator=",">
-     (#{productId}, #{image.link})
+    <foreach collection="list" item="imageList" separator=",">
+     (#{productId}, #{imageList.link})
     </foreach>
   </insert>
 
+  <insert id="insertSizeInfo">
+    INSERT INTO size_info (product_id, min, max, unit)
+    VALUES (#{productId}, #{sizeInfo.min}, #{sizeInfo.max}, #{sizeInfo.unit});
+  </insert>
+
   <resultMap id="productMap" type="api.soldout.io.soldout.dtos.entity.ProductDto">
-    <result property="id" column="product_id"></result>
+    <id property="id" column="product_id"></id>
+    <result property="category" column="category"></result>
     <result property="name" column="name"></result>
     <result property="brand" column="brand"></result>
     <result property="modelNumber" column="model_number"></result>
     <result property="releaseDay" column="release_day"></result>
     <result property="color" column="color"></result>
-    <collection property="images" column="product_id" resultMap="imageMap"></collection>
+    <association property="sizeInfo" resultMap="sizeInfoMap"></association>
+    <collection property="images" column="product_id" resultMap="imagesMap"></collection>
   </resultMap>
 
-  <resultMap id="imageMap" type="api.soldout.io.soldout.dtos.entity.ImageDto">
-    <result property="id" column="image_id"></result>
+  <resultMap id="sizeInfoMap" type="api.soldout.io.soldout.dtos.entity.SizeInfoDto">
+    <id property="id" column="id"></id>
+    <result property="productId" column="product_id"></result>
+    <result property="min" column="min"></result>
+    <result property="max" column="max"></result>
+    <result property="unit" column="unit"></result>
+  </resultMap>
+
+  <resultMap id="imagesMap" type="api.soldout.io.soldout.dtos.entity.ImageDto">
+    <id property="id" column="image_id"></id>
     <result property="productId" column="product_id"></result>
     <result property="link" column="link"></result>
   </resultMap>
@@ -36,8 +51,8 @@
   <select id="findAllProducts" resultMap="productMap">
     SELECT *
     FROM product p
-    LEFT OUTER JOIN image i ON p.product_id = i.product_id;
+    LEFT OUTER JOIN image i ON p.product_id = i.product_id
+    LEFT OUTER JOIN size_info s ON p.product_id = s.product_id;
   </select>
-
 
 </mapper>
