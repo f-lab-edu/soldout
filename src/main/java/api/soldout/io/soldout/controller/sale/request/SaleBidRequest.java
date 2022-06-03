@@ -22,10 +22,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SaleBidRequest {
 
-  @NotBlank
+  @NotNull
   private int size;
 
-  @NotBlank
+  @NotNull
   private int price;
 
   @Min(value = 3, message = "최소 입찰 기간보다 작습니다.")
