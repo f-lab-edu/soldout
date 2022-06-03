@@ -28,8 +28,8 @@ public class SaleBidRequest {
   @Max(value = 60, message = "최대 입찰 기간보다 깁니다.")
   private int period;
 
-  @NotBlank
-  private OrderType type;
+  @NotNull
+  private SaleType type;
 
   /**
    * .

@@ -1,6 +1,7 @@
 package api.soldout.io.soldout.service.sell.command;
 
 import api.soldout.io.soldout.util.enums.OrderType;
+import api.soldout.io.soldout.util.enums.SaleType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -17,6 +18,6 @@ public class SaleBidCommand {
   private int size;
   private int price;
   private int period;
-  private OrderType type;
+  private SaleType type;
 
 }
