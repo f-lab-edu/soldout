@@ -1,6 +1,5 @@
 package api.soldout.io.soldout.dtos.entity;
 
-import api.soldout.io.soldout.util.enums.OrderType;
 import api.soldout.io.soldout.util.enums.SaleType;
 import java.time.LocalDateTime;
 import lombok.Builder;

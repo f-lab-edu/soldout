@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class SaleRepositoryImpl implements SaleRepository {
 
-  private SaleMapper saleMapper;
+  private final SaleMapper saleMapper;
 
   @Override
   public void saveSale(SaleDto saleDto) {
