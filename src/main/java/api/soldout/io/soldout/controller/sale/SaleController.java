@@ -1,11 +1,15 @@
 package api.soldout.io.soldout.controller.sale;
 
 import api.soldout.io.soldout.controller.sale.request.SaleBidRequest;
+import api.soldout.io.soldout.dtos.entity.SaleDto;
 import api.soldout.io.soldout.dtos.response.ResponseDto;
 import api.soldout.io.soldout.service.sell.SaleService;
+import java.util.List;
 import javax.validation.Valid;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,4 +46,5 @@ public class SaleController {
     return new ResponseDto(true, null, "판매 입찰 등록 성공", null);
 
   }
+
 }

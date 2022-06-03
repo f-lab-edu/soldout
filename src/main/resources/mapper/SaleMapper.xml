@@ -9,4 +9,26 @@
     VALUES (#{userId}, #{productId}, #{size}, #{price}, #{type}, #{day});
   </insert>
 
+  <resultMap id="SaleMap" type="api.soldout.io.soldout.dtos.entity.SaleDto">
+    <id property="id" column="id"></id>
+    <result property="userId" column="user_id"></result>
+    <result property="productId" column="product_id"></result>
+    <result property="size" column="size"></result>
+    <result property="price" column="price"></result>
+    <result property="type" column="Sale_type"></result>
+    <result property="day" column="expiration_day"></result>
+  </resultMap>
+
+  <select id="findByUserId" resultMap="SaleMap">
+    SELECT *
+    FROM sale
+    WHERE user_id = #{userId};
+  </select>
+
+  <select id="findByProductId" resultMap="SaleMap">
+    SELECT *
+    FROM sale
+    WHERE product_id = #{productId};
+  </select>
+
 </mapper>

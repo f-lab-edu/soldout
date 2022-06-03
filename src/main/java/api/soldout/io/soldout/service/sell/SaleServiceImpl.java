@@ -4,6 +4,7 @@ package api.soldout.io.soldout.service.sell;
 import api.soldout.io.soldout.dtos.entity.SaleDto;
 import api.soldout.io.soldout.repository.sell.SaleRepository;
 import api.soldout.io.soldout.service.sell.command.SaleBidCommand;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -39,5 +40,17 @@ public class SaleServiceImpl implements SaleService {
 
   }
 
+  @Override
+  public List<SaleDto> findByUserId(int userId) {
 
+    return saleRepository.findByUserId(userId);
+
+  }
+
+  @Override
+  public List<SaleDto> findByProductId(int productId) {
+
+    return saleRepository.findByProductId(productId);
+
+  }
 }
