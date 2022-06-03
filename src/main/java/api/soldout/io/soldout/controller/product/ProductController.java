@@ -28,7 +28,7 @@ public class ProductController {
   private final ProductService productService;
 
   /**
-   * .
+   * 상품 정보 저장.
    */
 
   @PostMapping
@@ -36,12 +36,16 @@ public class ProductController {
 
     productService.addProduct(AddProductRequest.toCommand(request));
 
-    return new ResponseDto(true, null, "상품 저장", null);
+    return new ResponseDto(
+
+        true, null, "상품 저장", null
+
+    );
 
   }
 
   /**
-   * .
+   * 전체 상품 목록 조회.
    */
 
   @GetMapping
@@ -50,10 +54,9 @@ public class ProductController {
     List<ProductDto> productList = productService.findAll();
 
     return new ResponseDto(
-        true,
-        GetAllProductsData.from(productList),
-        "상품 리스트",
-        null
+
+        true, GetAllProductsData.from(productList), "상품 리스트", null
+
     );
 
   }
