@@ -4,9 +4,12 @@ import api.soldout.io.soldout.controller.order.request.OrderRequest;
 import api.soldout.io.soldout.service.order.command.OrderCommand;
 import api.soldout.io.soldout.service.sell.command.SaleBidCommand;
 import api.soldout.io.soldout.util.enums.OrderType;
+import api.soldout.io.soldout.util.enums.SaleType;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +19,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class SaleBidRequest {
 
   @NotBlank
