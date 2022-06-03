@@ -1,6 +1,6 @@
 package api.soldout.io.soldout.repository.sell;
 
-import api.soldout.io.soldout.mapper.SellMapper;
+import api.soldout.io.soldout.mapper.SaleMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
 @Slf4j
 @Repository
 @RequiredArgsConstructor
-public class SellRepositoryImpl implements  SellRepository {
+public class SaleRepositoryImpl implements SaleRepository {
 
-  private SellMapper sellMapper;
+  private SaleMapper saleMapper;
 
 }

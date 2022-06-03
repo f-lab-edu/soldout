@@ -1,7 +1,7 @@
 package api.soldout.io.soldout.service.sell;
 
 
-import api.soldout.io.soldout.repository.sell.SellRepository;
+import api.soldout.io.soldout.repository.sell.SaleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class SellServiceImpl implements SellService {
+public class SaleServiceImpl implements SaleService {
 
-  private final SellRepository sellRepository;
+  private final SaleRepository saleRepository;
 
 }

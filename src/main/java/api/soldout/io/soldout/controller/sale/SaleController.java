@@ -1,6 +1,6 @@
-package api.soldout.io.soldout.controller.sell;
+package api.soldout.io.soldout.controller.sale;
 
-import api.soldout.io.soldout.service.sell.SellService;
+import api.soldout.io.soldout.service.sell.SaleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,13 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/sell")
 @RequiredArgsConstructor
-public class SellController {
+public class SaleController {
 
-  private final SellService sellService;
-
-  @PostMapping()
-  public void sell() {
-
-  }
+  private final SaleService saleService;
 
 }
