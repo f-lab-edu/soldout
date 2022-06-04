@@ -1,6 +1,5 @@
-package api.soldout.io.soldout.service.sell.command;
+package api.soldout.io.soldout.service.sale.command;
 
-import api.soldout.io.soldout.util.enums.OrderType;
 import api.soldout.io.soldout.util.enums.SaleType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

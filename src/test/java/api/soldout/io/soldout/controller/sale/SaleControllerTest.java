@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import api.soldout.io.soldout.controller.sale.request.SaleBidRequest;
 import api.soldout.io.soldout.dtos.response.ResponseDto;
 import api.soldout.io.soldout.interceptor.SessionSignInHandlerInterceptor;
-import api.soldout.io.soldout.service.sell.SaleServiceImpl;
+import api.soldout.io.soldout.service.sale.SaleServiceImpl;
 import api.soldout.io.soldout.util.enums.SaleType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

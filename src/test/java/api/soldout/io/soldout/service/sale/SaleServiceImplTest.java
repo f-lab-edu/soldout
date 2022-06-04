@@ -1,11 +1,11 @@
-package api.soldout.io.soldout.service.sell;
+package api.soldout.io.soldout.service.sale;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import api.soldout.io.soldout.repository.sell.SaleRepository;
-import api.soldout.io.soldout.service.sell.command.SaleBidCommand;
+import api.soldout.io.soldout.repository.sale.SaleRepository;
+import api.soldout.io.soldout.service.sale.command.SaleBidCommand;
 import api.soldout.io.soldout.util.enums.SaleType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

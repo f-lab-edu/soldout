@@ -1,9 +1,9 @@
-package api.soldout.io.soldout.service.sell;
+package api.soldout.io.soldout.service.sale;
 
 
 import api.soldout.io.soldout.dtos.entity.SaleDto;
-import api.soldout.io.soldout.repository.sell.SaleRepository;
-import api.soldout.io.soldout.service.sell.command.SaleBidCommand;
+import api.soldout.io.soldout.repository.sale.SaleRepository;
+import api.soldout.io.soldout.service.sale.command.SaleBidCommand;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
