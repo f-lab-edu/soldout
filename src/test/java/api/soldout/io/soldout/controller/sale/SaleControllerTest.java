@@ -23,7 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -39,19 +38,20 @@ class SaleControllerTest {
   @MockBean
   SessionSignInHandlerInterceptor interceptor;
 
-  ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
+  ObjectMapper objectMapper;
 
   @BeforeEach
   void init() throws Exception {
 
     when(interceptor.preHandle(any(), any(), any())).thenReturn(true);
 
+    objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
+
   }
 
   @Test
   @DisplayName("판매 입찰 등록 테스트")
   void saleBidTest() throws Exception {
-
     // given
     SaleBidRequest request =
         new SaleBidRequest(250, 100000, 3, SaleType.SALE_BID);

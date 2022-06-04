@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -22,14 +21,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class SaleServiceImplTest {
 
-  @InjectMocks
-  SaleServiceImpl saleService;
-
   @Mock
   SaleRepository saleRepository;
 
+  SaleService saleService;
+
   @BeforeEach
   void init() throws Exception {
+
+    saleService = new SaleServiceImpl(saleRepository);
 
   }
 
@@ -60,6 +60,7 @@ class SaleServiceImplTest {
   void findByUserIdTest() throws Exception {
     // given
     int userId = 1;
+
     // when
     saleService.findByUserId(userId);
 
