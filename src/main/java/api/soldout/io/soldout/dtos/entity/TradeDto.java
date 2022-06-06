@@ -43,6 +43,6 @@ public class TradeDto {
   private int size;
   private int price;
   private TradeStatus status;
-  private LocalDate singingDay;
+  private LocalDate day;
 
 }

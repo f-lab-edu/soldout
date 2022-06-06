@@ -37,7 +37,7 @@ public class TradeServiceImpl implements TradeService {
         .size(size)
         .price(price)
         .status(TRADE_SIGNING)
-        .singingDay(LocalDate.now())
+        .day(LocalDate.now())
         .build();
 
     tradeRepository.saveTrade(tradeDto);
