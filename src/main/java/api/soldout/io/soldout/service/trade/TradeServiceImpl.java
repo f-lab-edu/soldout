@@ -28,17 +28,7 @@ public class TradeServiceImpl implements TradeService {
 
     List<SaleDto> saleDtoList = saleService.findByProductId(productId);
 
-    int saleId = 0;
-
-    for (SaleDto tempSaleDto : saleDtoList) {
-
-      if (tempSaleDto.getSize() == size && tempSaleDto.getPrice() == price) {
-
-        saleId = tempSaleDto.getId();
-
-      }
-
-    }
+    int saleId = findMatchedSaleDto(saleDtoList, size, price);
 
     TradeDto tradeDto = TradeDto.builder()
         .productId(productId)
@@ -53,4 +43,21 @@ public class TradeServiceImpl implements TradeService {
     tradeRepository.saveTrade(tradeDto);
 
   }
+
+  private int findMatchedSaleDto(List<SaleDto> saleDtoList, int size, int price) {
+
+    for (SaleDto tempSaleDto : saleDtoList) {
+
+      if (tempSaleDto.getSize() == size && tempSaleDto.getPrice() == price) {
+
+        return tempSaleDto.getId();
+
+      }
+
+    }
+
+    return 0;
+
+  }
+
 }
