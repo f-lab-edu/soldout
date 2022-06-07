@@ -26,14 +26,7 @@ class TradeMapperTest {
 
   @BeforeEach
   void init() {
-  }
 
-  @Test
-  @DisplayName("Mapper 인터페이스 객체가 NPE를 발생시키는 이유를 찾기 위한 테스트")
-  void autoWiredMapperTest() {
-    log.info("tradeMapper.toString() = {}", tradeMapper.toString());
-    // log -> "tradeMapper.toString() = org.apache.ibatis.binding.MapperProxy@61ab6521"
-    // 프록시 객체가 생성되어 있는데 메소드 호출시 NPE가 발생하는 이유는?
   }
 
   @Disabled
