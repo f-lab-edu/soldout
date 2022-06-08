@@ -10,7 +10,7 @@
   </insert>
 
   <resultMap id="orderMap" type="api.soldout.io.soldout.dtos.entity.OrderDto">
-    <result property="id" column="order_id"></result>
+    <result property="id" column="id"></result>
     <result property="userId" column="user_id"></result>
     <result property="productId" column="product_id"></result>
     <result property="size" column="size"></result>
