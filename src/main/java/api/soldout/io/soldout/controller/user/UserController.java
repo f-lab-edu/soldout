@@ -76,7 +76,7 @@ public class UserController {
 
     UserDto user = userService.signIn(requestDto.getEmail(), requestDto.getPassword());
 
-    securityService.signIn(user.getEmail());
+    securityService.signIn(user.getId());
 
     return new ResponseDto(true, null, "로그인 성공", null);
 

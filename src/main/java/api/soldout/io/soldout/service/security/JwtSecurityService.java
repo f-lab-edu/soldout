@@ -36,7 +36,7 @@ public class JwtSecurityService implements SecurityService {
    * .
    */
 
-  public void signIn(String email) {
+  public void signIn(int userId) {
 
     HttpServletRequest request = getCurrentRequest();
 
@@ -48,7 +48,7 @@ public class JwtSecurityService implements SecurityService {
 
     }
 
-    String token = createToken(email);
+    String token = createToken(userId);
 
     response.setHeader(TOKEN_ID, token);
 
@@ -75,7 +75,7 @@ public class JwtSecurityService implements SecurityService {
 
   }
 
-  private String createToken(String email) {
+  private String createToken(int userId) {
 
     if (ttlMillis <= 0) {
 
@@ -88,7 +88,7 @@ public class JwtSecurityService implements SecurityService {
     Key signingKey = new SecretKeySpec(secretKeyBytes, SignatureAlgorithm.HS256.getJcaName());
 
     return Jwts.builder()
-        .setSubject(email)
+        .setSubject(String.valueOf(userId))
         .signWith(signingKey, SignatureAlgorithm.HS256)
         .setExpiration(new Date(System.currentTimeMillis() + ttlMillis))
         .compact();

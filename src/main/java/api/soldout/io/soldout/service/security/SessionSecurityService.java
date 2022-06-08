@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SessionSecurityService implements SecurityService {
 
-  private final Map<String, String> sessionDataBase;
+  private final Map<String, Integer> sessionDataBase;
 
   private final HttpSession session;
 
@@ -40,7 +40,7 @@ public class SessionSecurityService implements SecurityService {
    * .
    */
 
-  public void signIn(String email) {
+  public void signIn(int userId) {
 
     if (isAlreadySignInBrowser(getCurrentSessionId())) {
 
@@ -50,7 +50,7 @@ public class SessionSecurityService implements SecurityService {
 
     String sessionId = UUID.randomUUID().toString();
 
-    sessionDataBase.put(sessionId, email);
+    sessionDataBase.put(sessionId, userId);
 
     session.setAttribute(SESSION_ID, sessionId);
 

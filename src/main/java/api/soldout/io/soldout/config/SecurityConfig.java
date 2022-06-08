@@ -35,7 +35,7 @@ public class SecurityConfig implements WebMvcConfigurer {
    */
 
   @Bean
-  public Map<String, String> sessionDataBase() {
+  public Map<String, Integer> sessionDataBase() {
 
     return ExpiringMap.builder()
         .maxSize(1000)
