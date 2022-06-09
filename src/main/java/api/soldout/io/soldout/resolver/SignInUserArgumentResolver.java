@@ -1,7 +1,6 @@
 package api.soldout.io.soldout.resolver;
 
 import api.soldout.io.soldout.annotation.SignInUser;
-import api.soldout.io.soldout.exception.NotSignInBrowserException;
 import api.soldout.io.soldout.mapper.UserMapper;
 import api.soldout.io.soldout.service.security.SecurityService;
 import lombok.RequiredArgsConstructor;
