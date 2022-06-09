@@ -41,7 +41,7 @@ public class OrderController {
 
     return new ResponseDto(
 
-        true, null, "구매 등록 완료", null
+        true, null, "즉시 구매 등록 완료", null
 
     );
 
