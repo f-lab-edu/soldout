@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderRequest {
+public class OrderNowRequest {
 
   @NotNull
   private int size;
@@ -35,7 +35,7 @@ public class OrderRequest {
    * .
    */
 
-  public static OrderCommand toCommand(OrderRequest request, int userId, int productId) {
+  public static OrderCommand toCommand(OrderNowRequest request, int userId, int productId) {
 
     return new OrderCommand(
         userId,
