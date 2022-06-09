@@ -6,9 +6,12 @@ import api.soldout.io.soldout.exception.AlreadySignInBrowserException;
 import api.soldout.io.soldout.exception.NotSignInBrowserException;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.jodah.expiringmap.ExpirationPolicy;
+import net.jodah.expiringmap.ExpiringMap;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -29,12 +32,19 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SessionSecurityService implements SecurityService {
 
-  private final Map<String, Integer> sessionDataBase;
-
-  private final HttpSession session;
+  @Value("${session.db.expiration}")
+  private long expiration;
 
   @Value("${session.interval}")
   private int sessionInterval;
+
+  private final Map<String, Integer> sessionDataBase = ExpiringMap.builder()
+                                              .maxSize(1000)
+                                              .expirationPolicy(ExpirationPolicy.CREATED)
+                                              .expiration(expiration, TimeUnit.SECONDS)
+                                              .build();
+
+  private final HttpSession session;
 
   /**
    * .

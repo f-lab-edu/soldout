@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -87,6 +88,18 @@ public class SecurityConfig implements WebMvcConfigurer {
 
     registry.addInterceptor(sessionSignInHandlerInterceptor());
     // registry.addInterceptor(jwtSignInHandlerInterceptor());
+
+  }
+
+  /**
+   * 로그인한 회원 정보를 조회하고 컨트롤러의 매개변수 받아오기 위한 리졸버.
+   * .@param argumentResolvers
+   */
+
+  @Override
+  public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+
+    argumentResolvers.add(signInUserArgumentResolver);
 
   }
 }
