@@ -41,11 +41,11 @@ public class OrderRequest {
    * .
    */
 
-  public static OrderCommand toCommand(OrderRequest request) {
+  public static OrderCommand toCommand(OrderRequest request, int userId, int productId) {
 
     return new OrderCommand(
-        request.getUserId(),
-        request.getProductId(),
+        userId,
+        productId,
         request.getSize(),
         request.getPrice(),
         request.getPeriod(),
