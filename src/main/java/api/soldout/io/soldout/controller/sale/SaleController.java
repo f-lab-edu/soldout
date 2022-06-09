@@ -1,6 +1,9 @@
 package api.soldout.io.soldout.controller.sale;
 
+import api.soldout.io.soldout.annotation.CheckSignIn;
+import api.soldout.io.soldout.annotation.SignInUser;
 import api.soldout.io.soldout.controller.sale.request.SaleBidRequest;
+import api.soldout.io.soldout.dtos.entity.UserDto;
 import api.soldout.io.soldout.dtos.response.ResponseDto;
 import api.soldout.io.soldout.service.sale.SaleService;
 import javax.validation.Valid;
@@ -27,17 +30,18 @@ public class SaleController {
   /**
    * 판매 입찰 등록.
    * .@param request
-   * .@param userId
+   * .@paran UserDto
    * .@param productId
    * .@return
    */
 
-  @PostMapping("/bid/{userId}/{productId}")
+  @PostMapping("/bid/{productId}")
+  @CheckSignIn
   public ResponseDto saleBid(@RequestBody @Valid SaleBidRequest request,
-                             @PathVariable(value = "userId") int userId,
-                             @PathVariable(value = "productId")int productId) {
+                             @SignInUser UserDto user,
+                             @PathVariable(value = "productId") int productId) {
 
-    saleService.saleBid(SaleBidRequest.toCommand(request, userId, productId));
+    saleService.saleBid(SaleBidRequest.toCommand(request, user.getId(), productId));
 
     return new ResponseDto(true, null, "판매 입찰 등록 성공", null);
 

@@ -1,6 +1,7 @@
 package api.soldout.io.soldout.controller.sale;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -10,9 +11,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import api.soldout.io.soldout.controller.sale.request.SaleBidRequest;
+import api.soldout.io.soldout.dtos.entity.UserDto;
 import api.soldout.io.soldout.dtos.response.ResponseDto;
 import api.soldout.io.soldout.interceptor.SessionSignInHandlerInterceptor;
+import api.soldout.io.soldout.resolver.SignInUserArgumentResolver;
 import api.soldout.io.soldout.service.sale.SaleServiceImpl;
+import api.soldout.io.soldout.service.security.SecurityService;
 import api.soldout.io.soldout.util.enums.SaleType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -38,14 +42,18 @@ class SaleControllerTest {
   @MockBean
   SessionSignInHandlerInterceptor interceptor;
 
+  @MockBean
+  SignInUserArgumentResolver signInUserArgumentResolver;
+
   ObjectMapper objectMapper;
 
   @BeforeEach
   void init() throws Exception {
 
-    when(interceptor.preHandle(any(), any(), any())).thenReturn(true);
-
     objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
+
+    when(interceptor.preHandle(any(), any(), any()))
+        .thenReturn(true);
 
   }
 
@@ -53,15 +61,21 @@ class SaleControllerTest {
   @DisplayName("판매 입찰 등록 테스트")
   void saleBidTest() throws Exception {
     // given
+    UserDto userDto = UserDto.builder()
+        .id(1)
+        .build();
+
+    when(signInUserArgumentResolver.resolveArgument(any(), any(), any(), any()))
+        .thenReturn(userDto);
+
     SaleBidRequest request =
         new SaleBidRequest(250, 100000, 3, SaleType.SALE_BID);
 
     ResponseDto response =
         new ResponseDto(true, null, "판매 입찰 등록 성공", null);
 
-
     // when
-    ResultActions result = mockMvc.perform(post("/sale/bid/1/1")
+    ResultActions result = mockMvc.perform(post("/sale/bid/1")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(request)));
 
