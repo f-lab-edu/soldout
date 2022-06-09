@@ -6,15 +6,11 @@ import api.soldout.io.soldout.exception.AlreadySignInBrowserException;
 import api.soldout.io.soldout.exception.NotSignInBrowserException;
 import java.util.Map;
 import java.util.UUID;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * Session 인증 방식에 대한 비즈니스 로직을 담당하는 서비스 객체.
@@ -72,7 +68,7 @@ public class SessionSecurityService implements SecurityService {
 
     if (!isAlreadySignInBrowser(sessionId)) {
 
-      throw new NotSignInBrowserException("로그인한 상태가 아닙니다. -> session");
+      throw new NotSignInBrowserException("로그인한 상태가 아닙니다.");
 
     }
 
@@ -81,6 +77,16 @@ public class SessionSecurityService implements SecurityService {
     session.invalidate();
 
   }
+
+  @Override
+  public int getCurrentUserId() {
+
+    String sessionId = getCurrentSessionId();
+
+    return sessionDataBase.get(sessionId);
+
+  }
+
 
   /**
    * .

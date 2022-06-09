@@ -73,6 +73,13 @@ public class JwtSecurityService implements SecurityService {
 
   }
 
+  @Override
+  public int getCurrentUserId() {
+
+    return 0;
+
+  }
+
   private String createToken(int userId) {
 
     if (ttlMillis <= 0) {
