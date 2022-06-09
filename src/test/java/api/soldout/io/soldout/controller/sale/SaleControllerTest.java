@@ -1,7 +1,6 @@
 package api.soldout.io.soldout.controller.sale;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -16,7 +15,6 @@ import api.soldout.io.soldout.dtos.response.ResponseDto;
 import api.soldout.io.soldout.interceptor.SessionSignInHandlerInterceptor;
 import api.soldout.io.soldout.resolver.SignInUserArgumentResolver;
 import api.soldout.io.soldout.service.sale.SaleServiceImpl;
-import api.soldout.io.soldout.service.security.SecurityService;
 import api.soldout.io.soldout.util.enums.SaleType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
