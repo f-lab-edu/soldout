@@ -12,6 +12,8 @@ public interface UserMapper {
 
   void save(UserDto user);
 
+  UserDto findById(int userId);
+
   UserDto findByEmail(String email);
 
   boolean isExistEmail(String email);
