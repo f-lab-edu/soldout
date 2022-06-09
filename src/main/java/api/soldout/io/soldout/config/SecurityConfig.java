@@ -2,10 +2,9 @@ package api.soldout.io.soldout.config;
 
 import api.soldout.io.soldout.interceptor.JwtSignInHandlerInterceptor;
 import api.soldout.io.soldout.interceptor.SessionSignInHandlerInterceptor;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-import net.jodah.expiringmap.ExpirationPolicy;
-import net.jodah.expiringmap.ExpiringMap;
+import api.soldout.io.soldout.resolver.SignInUserArgumentResolver;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,28 +21,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfig implements WebMvcConfigurer {
 
-  @Value("${session.db.expiration}")
-  private long expiration;
+  private final SignInUserArgumentResolver signInUserArgumentResolver;
 
   @Value("${jwt.secretKey}")
   private String secretKey;
-
-  /**
-   * 세션정보를 저장할 DB 객체.
-   * Redis 대체 컬렉션
-   */
-
-  @Bean
-  public Map<String, Integer> sessionDataBase() {
-
-    return ExpiringMap.builder()
-        .maxSize(1000)
-        .expirationPolicy(ExpirationPolicy.CREATED)
-        .expiration(expiration, TimeUnit.SECONDS)
-        .build();
-  }
 
   /**
    * 회원 패스워드를 DB에 저장할 때, 암호화를 담당.
