@@ -28,16 +28,16 @@ public class OrderController {
   private final OrderService orderService;
 
   /**
-   * .
+   * 즉시 구매 API.
    */
 
   @PostMapping("/now/{productId}")
   @CheckSignIn
-  public ResponseDto order(@Valid @RequestBody OrderRequest request,
-                           @SignInUser UserDto user,
-                           @PathVariable(value = "productId") int productId) {
+  public ResponseDto orderNow(@Valid @RequestBody OrderRequest request,
+                              @SignInUser UserDto user,
+                              @PathVariable(value = "productId") int productId) {
 
-    orderService.order(OrderRequest.toCommand(request, user.getId(), productId));
+    orderService.orderNow(OrderRequest.toCommand(request, user.getId(), productId));
 
     return new ResponseDto(
 
