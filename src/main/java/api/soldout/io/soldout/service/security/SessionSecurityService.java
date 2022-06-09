@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpSession;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.jodah.expiringmap.ExpirationPolicy;
@@ -32,19 +33,18 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SessionSecurityService implements SecurityService {
 
+  @Value("${session.interval}")
+  private int interval;
+
   @Value("${session.db.expiration}")
   private long expiration;
 
-  @Value("${session.interval}")
-  private int sessionInterval;
-
-  private final Map<String, Integer> sessionDataBase = ExpiringMap.builder()
-                                              .maxSize(1000)
-                                              .expirationPolicy(ExpirationPolicy.CREATED)
-                                              .expiration(expiration, TimeUnit.SECONDS)
-                                              .build();
-
   private final HttpSession session;
+
+  // Redis 적용 전에 로그인 회원 정보를 담아둘 DB를 대체할 자료구조
+  private final ExpiringMap<String, Integer> sessionDataBase = ExpiringMap.builder()
+                                                              .variableExpiration()
+                                                              .build();
 
   /**
    * .
@@ -60,11 +60,11 @@ public class SessionSecurityService implements SecurityService {
 
     String sessionId = UUID.randomUUID().toString();
 
-    sessionDataBase.put(sessionId, userId);
+    sessionDataBase.put(sessionId, userId, ExpirationPolicy.CREATED, expiration, TimeUnit.SECONDS);
 
     session.setAttribute(SESSION_ID, sessionId);
 
-    session.setMaxInactiveInterval(sessionInterval);
+    session.setMaxInactiveInterval(interval);
 
   }
 
