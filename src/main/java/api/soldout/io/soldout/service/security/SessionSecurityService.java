@@ -6,11 +6,15 @@ import api.soldout.io.soldout.exception.AlreadySignInBrowserException;
 import api.soldout.io.soldout.exception.NotSignInBrowserException;
 import java.util.Map;
 import java.util.UUID;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * Session 인증 방식에 대한 비즈니스 로직을 담당하는 서비스 객체.
@@ -25,11 +29,11 @@ import org.springframework.stereotype.Service;
  **/
 
 @Slf4j
-@Service("securityService")
+@Service
 @RequiredArgsConstructor
 public class SessionSecurityService implements SecurityService {
 
-  private final Map<String, String> sessionDataBase;
+  private final Map<String, Integer> sessionDataBase;
 
   private final HttpSession session;
 
@@ -40,7 +44,7 @@ public class SessionSecurityService implements SecurityService {
    * .
    */
 
-  public void signIn(String email) {
+  public void signIn(int userId) {
 
     if (isAlreadySignInBrowser(getCurrentSessionId())) {
 
@@ -50,7 +54,7 @@ public class SessionSecurityService implements SecurityService {
 
     String sessionId = UUID.randomUUID().toString();
 
-    sessionDataBase.put(sessionId, email);
+    sessionDataBase.put(sessionId, userId);
 
     session.setAttribute(SESSION_ID, sessionId);
 
