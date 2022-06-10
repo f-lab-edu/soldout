@@ -4,6 +4,7 @@ import static api.soldout.io.soldout.util.SecurityUtil.TOKEN_ID;
 
 import api.soldout.io.soldout.exception.AlreadySignInBrowserException;
 import api.soldout.io.soldout.exception.NotSignInBrowserException;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.security.Key;
@@ -76,7 +77,17 @@ public class JwtSecurityService implements SecurityService {
   @Override
   public int getCurrentUserId() {
 
-    return 0;
+    HttpServletRequest request = getCurrentRequest();
+
+    String token = request.getHeader(TOKEN_ID);
+
+    Claims claims = Jwts.parserBuilder()
+        .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
+        .build()
+        .parseClaimsJws(token)
+        .getBody();
+
+    return Integer.valueOf(claims.getSubject());
 
   }
 
