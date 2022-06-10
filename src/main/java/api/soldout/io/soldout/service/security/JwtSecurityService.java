@@ -87,7 +87,7 @@ public class JwtSecurityService implements SecurityService {
         .parseClaimsJws(token)
         .getBody();
 
-    return Integer.valueOf(claims.getSubject());
+    return Integer.parseInt(claims.getSubject());
 
   }
 
