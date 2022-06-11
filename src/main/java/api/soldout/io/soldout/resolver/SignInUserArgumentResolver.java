@@ -1,7 +1,6 @@
 package api.soldout.io.soldout.resolver;
 
 import api.soldout.io.soldout.annotation.SignInUserId;
-import api.soldout.io.soldout.mapper.UserMapper;
 import api.soldout.io.soldout.service.security.SecurityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
@@ -20,8 +19,6 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 public class SignInUserArgumentResolver implements HandlerMethodArgumentResolver {
 
   private final SecurityService securityService;
-
-  private final UserMapper userMapper;
 
   /**
    * .
