@@ -10,7 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import api.soldout.io.soldout.controller.order.request.OrderNowRequest;
-import api.soldout.io.soldout.dtos.entity.UserDto;
 import api.soldout.io.soldout.dtos.response.ResponseDto;
 import api.soldout.io.soldout.interceptor.SessionSignInHandlerInterceptor;
 import api.soldout.io.soldout.resolver.SignInUserArgumentResolver;
@@ -59,12 +58,7 @@ class OrderControllerTest {
   @DisplayName("즉시 구매 등록 테스트")
   void orderNowTest() throws Exception {
     // given
-    UserDto userDto = UserDto.builder()
-        .id(1)
-        .build();
-
-    when(signInUserArgumentResolver.resolveArgument(any(), any(), any(), any()))
-        .thenReturn(userDto);
+    int userId = 1;
 
     OrderNowRequest request =
         new OrderNowRequest(250, 100000, 3, OrderType.ORDER_NOW);
@@ -73,7 +67,11 @@ class OrderControllerTest {
         new ResponseDto(true, null, "즉시 구매 등록 완료", null);
 
     // when
+    when(signInUserArgumentResolver.resolveArgument(any(), any(), any(), any()))
+        .thenReturn(userId);
+
     ResultActions result = mockMvc.perform(post("/order/now/1")
+        .param("userId", String.valueOf(userId))
         .contentType(MediaType.APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(request)));
 

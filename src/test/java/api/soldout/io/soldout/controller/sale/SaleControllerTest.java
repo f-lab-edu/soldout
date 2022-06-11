@@ -10,7 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import api.soldout.io.soldout.controller.sale.request.SaleBidRequest;
-import api.soldout.io.soldout.dtos.entity.UserDto;
 import api.soldout.io.soldout.dtos.response.ResponseDto;
 import api.soldout.io.soldout.interceptor.SessionSignInHandlerInterceptor;
 import api.soldout.io.soldout.resolver.SignInUserArgumentResolver;
@@ -59,12 +58,10 @@ class SaleControllerTest {
   @DisplayName("판매 입찰 등록 테스트")
   void saleBidTest() throws Exception {
     // given
-    UserDto userDto = UserDto.builder()
-        .id(1)
-        .build();
+    int userId = 1;
 
     when(signInUserArgumentResolver.resolveArgument(any(), any(), any(), any()))
-        .thenReturn(userDto);
+        .thenReturn(userId);
 
     SaleBidRequest request =
         new SaleBidRequest(250, 100000, 3, SaleType.SALE_BID);
@@ -74,7 +71,8 @@ class SaleControllerTest {
 
     // when
     ResultActions result = mockMvc.perform(post("/sale/bid/1")
-            .contentType(MediaType.APPLICATION_JSON)
+        .param("userId", String.valueOf(userId))
+        .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(request)));
 
     //then
