@@ -1,7 +1,7 @@
 package api.soldout.io.soldout.controller.user;
 
 import api.soldout.io.soldout.annotation.CheckSignIn;
-import api.soldout.io.soldout.annotation.SignInUser;
+import api.soldout.io.soldout.annotation.SignInUserId;
 import api.soldout.io.soldout.controller.user.request.SignInRequest;
 import api.soldout.io.soldout.controller.user.request.SignUpRequest;
 import api.soldout.io.soldout.dtos.entity.UserDto;
@@ -102,8 +102,8 @@ public class UserController {
 
   @GetMapping("/signin/check")
   @CheckSignIn
-  public ResponseDto signInCheck(@SignInUser UserDto userDto) {
-
+  public ResponseDto signInCheck(@SignInUserId int userId) {
+    log.info("SigIn UserId = {}", userId);
     return new ResponseDto(true, null, "로그인 체크", null);
 
   }

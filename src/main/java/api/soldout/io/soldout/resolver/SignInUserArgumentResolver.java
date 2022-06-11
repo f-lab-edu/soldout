@@ -1,6 +1,6 @@
 package api.soldout.io.soldout.resolver;
 
-import api.soldout.io.soldout.annotation.SignInUser;
+import api.soldout.io.soldout.annotation.SignInUserId;
 import api.soldout.io.soldout.mapper.UserMapper;
 import api.soldout.io.soldout.service.security.SecurityService;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ public class SignInUserArgumentResolver implements HandlerMethodArgumentResolver
   @Override
   public boolean supportsParameter(MethodParameter parameter) {
 
-    return parameter.hasParameterAnnotation(SignInUser.class);
+    return parameter.hasParameterAnnotation(SignInUserId.class);
 
   }
 
@@ -40,9 +40,7 @@ public class SignInUserArgumentResolver implements HandlerMethodArgumentResolver
       NativeWebRequest webRequest,
       WebDataBinderFactory binderFactory) {
 
-    int userId = securityService.getCurrentUserId();
-
-    return userMapper.findById(userId);
+    return securityService.getCurrentUserId();
 
   }
 

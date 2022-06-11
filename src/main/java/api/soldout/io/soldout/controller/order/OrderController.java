@@ -1,9 +1,8 @@
 package api.soldout.io.soldout.controller.order;
 
 import api.soldout.io.soldout.annotation.CheckSignIn;
-import api.soldout.io.soldout.annotation.SignInUser;
+import api.soldout.io.soldout.annotation.SignInUserId;
 import api.soldout.io.soldout.controller.order.request.OrderNowRequest;
-import api.soldout.io.soldout.dtos.entity.UserDto;
 import api.soldout.io.soldout.dtos.response.ResponseDto;
 import api.soldout.io.soldout.service.order.OrderService;
 import javax.validation.Valid;
@@ -34,10 +33,10 @@ public class OrderController {
   @PostMapping("/now/{productId}")
   @CheckSignIn
   public ResponseDto orderNow(@Valid @RequestBody OrderNowRequest request,
-                              @SignInUser UserDto user,
+                              @SignInUserId int userId,
                               @PathVariable(value = "productId") int productId) {
 
-    orderService.orderNow(OrderNowRequest.toCommand(request, user.getId(), productId));
+    orderService.orderNow(OrderNowRequest.toCommand(request, userId, productId));
 
     return new ResponseDto(
 

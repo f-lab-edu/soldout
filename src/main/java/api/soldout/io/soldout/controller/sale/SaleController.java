@@ -1,9 +1,8 @@
 package api.soldout.io.soldout.controller.sale;
 
 import api.soldout.io.soldout.annotation.CheckSignIn;
-import api.soldout.io.soldout.annotation.SignInUser;
+import api.soldout.io.soldout.annotation.SignInUserId;
 import api.soldout.io.soldout.controller.sale.request.SaleBidRequest;
-import api.soldout.io.soldout.dtos.entity.UserDto;
 import api.soldout.io.soldout.dtos.response.ResponseDto;
 import api.soldout.io.soldout.service.sale.SaleService;
 import javax.validation.Valid;
@@ -38,10 +37,10 @@ public class SaleController {
   @PostMapping("/bid/{productId}")
   @CheckSignIn
   public ResponseDto saleBid(@RequestBody @Valid SaleBidRequest request,
-                             @SignInUser UserDto user,
+                             @SignInUserId int userId,
                              @PathVariable(value = "productId") int productId) {
 
-    saleService.saleBid(SaleBidRequest.toCommand(request, user.getId(), productId));
+    saleService.saleBid(SaleBidRequest.toCommand(request, userId, productId));
 
     return new ResponseDto(true, null, "판매 입찰 등록 성공", null);
 
