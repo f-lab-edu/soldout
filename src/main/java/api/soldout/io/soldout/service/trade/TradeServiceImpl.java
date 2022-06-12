@@ -6,7 +6,7 @@ import api.soldout.io.soldout.dtos.entity.SaleDto;
 import api.soldout.io.soldout.dtos.entity.TradeDto;
 import api.soldout.io.soldout.repository.trade.TradeRepository;
 import api.soldout.io.soldout.service.sale.SaleService;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,7 +37,7 @@ public class TradeServiceImpl implements TradeService {
         .size(size)
         .price(price)
         .status(TRADE_SIGNING)
-        .day(LocalDate.now())
+        .day(LocalDateTime.now())
         .build();
 
     tradeRepository.saveTrade(tradeDto);

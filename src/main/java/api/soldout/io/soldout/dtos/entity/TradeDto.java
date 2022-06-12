@@ -1,6 +1,6 @@
 package api.soldout.io.soldout.dtos.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -43,6 +43,6 @@ public class TradeDto {
   private int size;
   private int price;
   private TradeStatus status;
-  private LocalDate day;
+  private LocalDateTime day;
 
 }
