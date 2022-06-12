@@ -1,8 +1,10 @@
 package api.soldout.io.soldout.service.trade;
 
+import static api.soldout.io.soldout.dtos.entity.SaleDto.SaleStatus.SALE_PROGRESS;
 import static api.soldout.io.soldout.dtos.entity.TradeDto.TradeStatus.TRADE_SIGNING;
 
 import api.soldout.io.soldout.dtos.entity.SaleDto;
+import api.soldout.io.soldout.dtos.entity.SaleDto.SaleStatus;
 import api.soldout.io.soldout.dtos.entity.TradeDto;
 import api.soldout.io.soldout.exception.AlreadyMatchedException;
 import api.soldout.io.soldout.repository.trade.TradeRepository;
@@ -33,13 +35,6 @@ public class TradeServiceImpl implements TradeService {
 
     int saleId = findMatchedSaleDto(saleDtoList, size, price);
 
-    // 찾은 saleId로 trade 테이블을 조회한 결과가 한개라도 있다면? 이미 매칭된 saleId 라는 의미
-    if (findBySaleId(saleId).size() > 0) {
-
-      throw new AlreadyMatchedException("이미 다른 구매 희망자와 매칭되었습니다. 다시 즉시 구매를 진행해주세요.");
-
-    }
-
     TradeDto tradeDto = TradeDto.builder()
         .productId(productId)
         .orderId(orderId)
@@ -51,6 +46,9 @@ public class TradeServiceImpl implements TradeService {
         .build();
 
     tradeRepository.saveTrade(tradeDto);
+
+    // saleDto 의 상태를 변경 (입찰 -> 판매 완료)
+    // updateSaleStatus(saleId);
 
   }
 
@@ -71,9 +69,12 @@ public class TradeServiceImpl implements TradeService {
   private int findMatchedSaleDto(List<SaleDto> saleDtoList, int size, int price) {
 
     // id가 기본적으로 인덱스로 사용되고 자동 증가로 입력되기 때문에 그 순서로 루프를 수행
+    // 판매 상태가 상태 판매 입찰중이면서 가격과 사이즈가 같은 녀석을 찾도록!!!!!!
     for (SaleDto tempSaleDto : saleDtoList) {
 
-      if (tempSaleDto.getSize() == size && tempSaleDto.getPrice() == price) {
+      if (tempSaleDto.getStatus().equals(SALE_PROGRESS)
+          && (tempSaleDto.getSize() == size)
+          && (tempSaleDto.getPrice() == price)) {
 
         return tempSaleDto.getId();
 
@@ -81,10 +82,7 @@ public class TradeServiceImpl implements TradeService {
 
     }
 
-    // 그래도 찾고자 하는 saleId가 없다면?
-    // 어떠한 이유로 구매 버튼을 누른 시점에 존재했던 SaleId가 없어진 경우
-    // 에러 처리를 할 경우가 생길지 고민해 봐야 한다.
-    throw new RuntimeException("판매 입찰 기간이 지나서 갑작스럽게 매칭 가능한 판매자가 사라진 경우");
+    return 0;
 
   }
 
