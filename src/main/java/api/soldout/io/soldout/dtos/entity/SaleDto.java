@@ -41,12 +41,14 @@ public class SaleDto {
 
   /**
    * .
+   *
    */
 
   @Builder
-  public SaleDto(int userId, int productId, int size, int price, int day,
+  public SaleDto(int id, int userId, int productId, int size, int price, int day,
                  SaleType type, SaleStatus status) {
 
+    this.id = id;
     this.userId = userId;
     this.productId = productId;
     this.size = size;
