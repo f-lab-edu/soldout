@@ -32,4 +32,10 @@
     WHERE product_id = #{productId};
   </select>
 
+  <update id="updateSaleStatus">
+    UPDATE sale
+    SET sale_status = #{status}
+    WHERE id = #{saleId};
+  </update>
+
 </mapper>

@@ -1,12 +1,11 @@
 package api.soldout.io.soldout.service.trade;
 
 import static api.soldout.io.soldout.dtos.entity.SaleDto.SaleStatus.SALE_PROGRESS;
+import static api.soldout.io.soldout.dtos.entity.SaleDto.SaleStatus.SALE_SIGNED;
 import static api.soldout.io.soldout.dtos.entity.TradeDto.TradeStatus.TRADE_SIGNING;
 
 import api.soldout.io.soldout.dtos.entity.SaleDto;
-import api.soldout.io.soldout.dtos.entity.SaleDto.SaleStatus;
 import api.soldout.io.soldout.dtos.entity.TradeDto;
-import api.soldout.io.soldout.exception.AlreadyMatchedException;
 import api.soldout.io.soldout.repository.trade.TradeRepository;
 import api.soldout.io.soldout.service.sale.SaleService;
 import java.time.LocalDateTime;
@@ -47,8 +46,7 @@ public class TradeServiceImpl implements TradeService {
 
     tradeRepository.saveTrade(tradeDto);
 
-    // saleDto 의 상태를 변경 (입찰 -> 판매 완료)
-    // updateSaleStatus(saleId);
+    saleService.updateSaleStatus(saleId, SALE_SIGNED);
 
   }
 
@@ -82,7 +80,7 @@ public class TradeServiceImpl implements TradeService {
 
     }
 
-    return 0;
+    throw new RuntimeException("어떠한 이유로 매칭되어야 할 판매 입찰가가 사라진 경우");
 
   }
 
