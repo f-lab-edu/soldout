@@ -1,6 +1,8 @@
 package api.soldout.io.soldout.service.sale;
 
 
+import static api.soldout.io.soldout.dtos.entity.SaleDto.SaleStatus.SALE_PROGRESS;
+
 import api.soldout.io.soldout.dtos.entity.SaleDto;
 import api.soldout.io.soldout.repository.sale.SaleRepository;
 import api.soldout.io.soldout.service.sale.command.SaleBidCommand;
@@ -32,8 +34,9 @@ public class SaleServiceImpl implements SaleService {
         .productId(command.getProductId())
         .size(command.getSize())
         .price(command.getPrice())
-        .type(command.getType())
         .day(command.getPeriod())
+        .type(command.getType())
+        .status(SALE_PROGRESS)
         .build();
 
     saleRepository.saveSale(saleDto);
