@@ -21,7 +21,7 @@ public class OrderServiceImpl implements OrderService {
   private final OrderRepository orderRepository;
 
   @Override
-  public void order(OrderCommand command) {
+  public void orderNow(OrderCommand command) {
 
     OrderDto order = OrderDto.builder()
         .userId(command.getUserId())

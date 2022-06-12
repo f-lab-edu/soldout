@@ -10,4 +10,5 @@ public interface SecurityService {
 
   void logOut();
 
+  int getCurrentUserId();
 }

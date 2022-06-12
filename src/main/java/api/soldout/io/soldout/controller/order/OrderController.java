@@ -1,12 +1,14 @@
 package api.soldout.io.soldout.controller.order;
 
 import api.soldout.io.soldout.annotation.CheckSignIn;
-import api.soldout.io.soldout.controller.order.request.OrderRequest;
+import api.soldout.io.soldout.annotation.SignInUserId;
+import api.soldout.io.soldout.controller.order.request.OrderNowRequest;
 import api.soldout.io.soldout.dtos.response.ResponseDto;
 import api.soldout.io.soldout.service.order.OrderService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,18 +27,20 @@ public class OrderController {
   private final OrderService orderService;
 
   /**
-   * .
+   * 즉시 구매 API.
    */
 
-  @PostMapping
+  @PostMapping("/now/{productId}")
   @CheckSignIn
-  public ResponseDto order(@Valid @RequestBody OrderRequest request) {
+  public ResponseDto orderNow(@Valid @RequestBody OrderNowRequest request,
+                              @SignInUserId int userId,
+                              @PathVariable(value = "productId") int productId) {
 
-    orderService.order(OrderRequest.toCommand(request));
+    orderService.orderNow(OrderNowRequest.toCommand(request, userId, productId));
 
     return new ResponseDto(
 
-        true, null, "구매 등록 완료", null
+        true, null, "즉시 구매 등록 완료", null
 
     );
 

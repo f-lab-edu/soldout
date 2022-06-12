@@ -9,6 +9,12 @@
     VALUES (#{email}, #{password}, #{name}, #{phone}, #{address});
   </insert>
 
+  <select id="findById" parameterType="int" resultType="api.soldout.io.soldout.dtos.entity.UserDto">
+    SELECT *
+    FROM user
+    WHERE user.id = #{userId};
+  </select>
+
   <select id="findByEmail" parameterType="java.lang.String" resultType="api.soldout.io.soldout.dtos.entity.UserDto">
     SELECT *
     FROM user

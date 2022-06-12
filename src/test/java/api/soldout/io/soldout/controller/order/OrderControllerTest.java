@@ -1,4 +1,4 @@
-package api.soldout.io.soldout.controller.sale;
+package api.soldout.io.soldout.controller.order;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
@@ -9,12 +9,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import api.soldout.io.soldout.controller.sale.request.SaleBidRequest;
+import api.soldout.io.soldout.controller.order.request.OrderNowRequest;
 import api.soldout.io.soldout.dtos.response.ResponseDto;
 import api.soldout.io.soldout.interceptor.SessionSignInHandlerInterceptor;
 import api.soldout.io.soldout.resolver.SignInUserArgumentResolver;
-import api.soldout.io.soldout.service.sale.SaleServiceImpl;
-import api.soldout.io.soldout.util.enums.SaleType;
+import api.soldout.io.soldout.service.order.OrderServiceImpl;
+import api.soldout.io.soldout.util.enums.OrderType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,14 +27,14 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-@WebMvcTest(SaleController.class)
-class SaleControllerTest {
+@WebMvcTest(OrderController.class)
+class OrderControllerTest {
 
   @Autowired
   MockMvc mockMvc;
 
   @MockBean
-  SaleServiceImpl saleService;
+  OrderServiceImpl orderService;
 
   @MockBean
   SessionSignInHandlerInterceptor interceptor;
@@ -55,34 +55,36 @@ class SaleControllerTest {
   }
 
   @Test
-  @DisplayName("판매 입찰 등록 테스트")
-  void saleBidTest() throws Exception {
+  @DisplayName("즉시 구매 등록 테스트")
+  void orderNowTest() throws Exception {
     // given
     int userId = 1;
 
+    OrderNowRequest request =
+        new OrderNowRequest(250, 100000, 3, OrderType.ORDER_NOW);
+
+    ResponseDto response =
+        new ResponseDto(true, null, "즉시 구매 등록 완료", null);
+
+    // when
     when(signInUserArgumentResolver.resolveArgument(any(), any(), any(), any()))
         .thenReturn(userId);
 
-    SaleBidRequest request =
-        new SaleBidRequest(250, 100000, 3, SaleType.SALE_BID);
-
-    ResponseDto response =
-        new ResponseDto(true, null, "판매 입찰 등록 성공", null);
-
-    // when
-    ResultActions result = mockMvc.perform(post("/sale/bid/1")
+    ResultActions result = mockMvc.perform(post("/order/now/1")
         .param("userId", String.valueOf(userId))
         .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(request)));
+        .content(objectMapper.writeValueAsString(request)));
 
     //then
     result.andExpect(status().isOk())
-          .andExpect(content().json(objectMapper.writeValueAsString(response)))
-          .andDo(print());
+        .andExpect(content().json(objectMapper.writeValueAsString(response)))
+        .andDo(print());
 
-    verify(saleService).saleBid(any());
-    verify(saleService, times(1)).saleBid(any());
+    verify(orderService).orderNow(any());
+    verify(orderService, times(1)).orderNow(any());
 
   }
+
+
 
 }

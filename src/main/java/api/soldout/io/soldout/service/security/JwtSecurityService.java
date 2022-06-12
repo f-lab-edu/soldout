@@ -4,6 +4,7 @@ import static api.soldout.io.soldout.util.SecurityUtil.TOKEN_ID;
 
 import api.soldout.io.soldout.exception.AlreadySignInBrowserException;
 import api.soldout.io.soldout.exception.NotSignInBrowserException;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.security.Key;
@@ -70,6 +71,23 @@ public class JwtSecurityService implements SecurityService {
 
     // 토큰의 유효기간을 0으로 만들어 로그아웃 기능 구현
     expirationToken(token);
+
+  }
+
+  @Override
+  public int getCurrentUserId() {
+
+    HttpServletRequest request = getCurrentRequest();
+
+    String token = request.getHeader(TOKEN_ID);
+
+    Claims claims = Jwts.parserBuilder()
+        .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
+        .build()
+        .parseClaimsJws(token)
+        .getBody();
+
+    return Integer.parseInt(claims.getSubject());
 
   }
 

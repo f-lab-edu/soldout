@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface OrderService {
 
-  void order(OrderCommand command);
+  void orderNow(OrderCommand command);
 
   List<OrderDto> findByUserId(String userId);
 
