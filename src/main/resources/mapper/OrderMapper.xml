@@ -5,8 +5,8 @@
 <mapper namespace="api.soldout.io.soldout.mapper.OrderMapper">
 
   <insert id="insertOrder" parameterType="api.soldout.io.soldout.dtos.entity.OrderDto" useGeneratedKeys = "true" keyProperty="id">
-    INSERT INTO `order` (user_id, product_id, size, price, order_type, expiration_day)
-    VALUES (#{userId}, #{productId}, #{size}, #{price}, #{type}, #{day});
+    INSERT INTO `order` (user_id, product_id, size, price, expiration_day, order_type, order_status)
+    VALUES (#{userId}, #{productId}, #{size}, #{price}, #{day}, #{type}, #{status});
   </insert>
 
   <resultMap id="orderMap" type="api.soldout.io.soldout.dtos.entity.OrderDto">
@@ -16,8 +16,9 @@
     <result property="size" column="size"></result>
     <result property="price" column="price"></result>
     <result property="type" column="order_type"></result>
-    <result property="period" column="expiration_period"></result>
     <result property="day" column="expiration_day"></result>
+    <result property="period" column="expiration_period"></result>
+    <result property="status" column="order_status"></result>
   </resultMap>
 
   <select id="findByUserId" parameterType="java.lang.String" resultMap="orderMap">
@@ -31,5 +32,11 @@
     FROM `order`
     WHERE product_id = #{productId};
   </select>
+
+  <update id="updateOrderStatus">
+    UPDATE `order`
+    SET order_status = #{status}
+    WHERE id = #{orderId};
+  </update>
 
 </mapper>

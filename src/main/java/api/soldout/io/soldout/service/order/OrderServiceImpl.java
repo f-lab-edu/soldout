@@ -1,7 +1,11 @@
 package api.soldout.io.soldout.service.order;
 
 
+import static api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus.ORDER_PROGRESS;
+import static api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus.ORDER_SIGNED;
+
 import api.soldout.io.soldout.dtos.entity.OrderDto;
+import api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus;
 import api.soldout.io.soldout.repository.order.OrderRepository;
 import api.soldout.io.soldout.service.order.command.OrderCommand;
 import api.soldout.io.soldout.service.trade.TradeService;
@@ -31,8 +35,9 @@ public class OrderServiceImpl implements OrderService {
         .productId(command.getProductId())
         .size(command.getSize())
         .price(command.getPrice())
-        .type(command.getType())
         .day(command.getPeriod())
+        .type(command.getType())
+        .status(ORDER_PROGRESS)
         .build();
 
     orderRepository.saveOrder(order);
@@ -40,6 +45,8 @@ public class OrderServiceImpl implements OrderService {
     tradeService.signTradeByOrder(
         order.getProductId(), order.getId(), order.getSize(), order.getPrice()
     );
+
+    orderRepository.updateOrderStatus(order.getId(), ORDER_SIGNED);
 
   }
 
@@ -54,6 +61,13 @@ public class OrderServiceImpl implements OrderService {
   public List<OrderDto> findByProductId(String productId) {
 
     return orderRepository.findByProductId(productId);
+
+  }
+
+  @Override
+  public void updateOrderStatus(int saleId, OrderStatus status) {
+
+    orderRepository.updateOrderStatus(saleId, status);
 
   }
 

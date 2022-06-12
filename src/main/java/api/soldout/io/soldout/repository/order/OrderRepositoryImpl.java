@@ -1,6 +1,7 @@
 package api.soldout.io.soldout.repository.order;
 
 import api.soldout.io.soldout.dtos.entity.OrderDto;
+import api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus;
 import api.soldout.io.soldout.mapper.OrderMapper;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,13 @@ public class OrderRepositoryImpl implements OrderRepository {
   public List<OrderDto> findByProductId(String productId) {
 
     return orderMapper.findByProductId(productId);
+
+  }
+
+  @Override
+  public void updateOrderStatus(int saleId, OrderStatus status) {
+
+    orderMapper.updateOrderStatus(saleId, status);
 
   }
 }
