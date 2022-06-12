@@ -70,7 +70,7 @@ public class TradeServiceImpl implements TradeService {
 
   private int findMatchedSaleDto(List<SaleDto> saleDtoList, int size, int price) {
 
-    // id가 기본적으로 인덱스로 사용되고 자동 증가로 입력되기 때문에 그 순서로 루프를 수행 -> 생성 시기가 빠른 녀석을 찾기 위한 로직이 굳이 필요할지?
+    // id가 기본적으로 인덱스로 사용되고 자동 증가로 입력되기 때문에 그 순서로 루프를 수행
     for (SaleDto tempSaleDto : saleDtoList) {
 
       if (tempSaleDto.getSize() == size && tempSaleDto.getPrice() == price) {
@@ -83,6 +83,7 @@ public class TradeServiceImpl implements TradeService {
 
     // 그래도 찾고자 하는 saleId가 없다면?
     // 어떠한 이유로 구매 버튼을 누른 시점에 존재했던 SaleId가 없어진 경우
+    // 에러 처리를 할 경우가 생길지 고민해 봐야 한다.
     throw new RuntimeException("판매 입찰 기간이 지나서 갑작스럽게 매칭 가능한 판매자가 사라진 경우");
 
   }
