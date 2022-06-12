@@ -4,6 +4,7 @@ package api.soldout.io.soldout.service.order;
 import api.soldout.io.soldout.dtos.entity.OrderDto;
 import api.soldout.io.soldout.repository.order.OrderRepository;
 import api.soldout.io.soldout.service.order.command.OrderCommand;
+import api.soldout.io.soldout.service.trade.TradeService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,8 @@ public class OrderServiceImpl implements OrderService {
 
   private final OrderRepository orderRepository;
 
+  private final TradeService tradeService;
+
   @Override
   public void orderNow(OrderCommand command) {
 
@@ -33,6 +36,10 @@ public class OrderServiceImpl implements OrderService {
         .build();
 
     orderRepository.saveOrder(order);
+
+    tradeService.signTradeByOrder(
+        order.getProductId(), order.getId(), order.getSize(), order.getPrice()
+    );
 
   }
 
