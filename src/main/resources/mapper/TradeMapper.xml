@@ -7,4 +7,27 @@
     INSERT INTO trade (product_id, order_id, sale_id, size, price, trade_status, signing_day)
     VALUES (#{productId}, #{orderId}, #{saleId}, #{size}, #{price}, #{status}, #{day});
   </insert>
+
+  <resultMap id="TradeMap" type="api.soldout.io.soldout.dtos.entity.TradeDto">
+    <id property="id" column="id"></id>
+    <result property="productId" column="product_id"></result>
+    <result property="orderId" column="order_id"></result>
+    <result property="saleId" column="sale_id"></result>
+    <result property="size" column="size"></result>
+    <result property="price" column="price"></result>
+    <result property="status" column="trade_status"></result>
+    <result property="day" column="signing_day"></result>
+  </resultMap>
+
+  <select id="findByOrderId" resultMap="TradeMap">
+    SELECT *
+    FROM Trade
+    WHERE order_id = #{orderId};
+  </select>
+
+  <select id="findBySaleId" resultMap="TradeMap">
+    SELECT *
+    FROM Trade
+    WHERE sale_id = #{saleId};
+  </select>
 </mapper>
