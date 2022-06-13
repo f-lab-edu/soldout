@@ -23,8 +23,8 @@ public class OrderDto {
   @AllArgsConstructor
   public enum OrderStatus {
 
-    ORDER_PROGRESS("입찰 진행중"),
-    ORDER_SIGNED("거래 완료");
+    BID_PROGRESS("입찰 진행 중"),
+    MATCHING_COMPLETE("거래 체결 완료");
 
     private final String text;
 
@@ -35,7 +35,7 @@ public class OrderDto {
   private int productId;
   private int size;
   private int price;
-  private LocalDateTime day;
+  private LocalDateTime date;
   private OrderType type;
   private OrderStatus status;
 
@@ -44,7 +44,7 @@ public class OrderDto {
    */
 
   @Builder
-  public OrderDto(int id, int userId, int productId, int size, int price, int day,
+  public OrderDto(int id, int userId, int productId, int size, int price, int date,
                   OrderType type, OrderStatus status) {
 
     this.id = id;
@@ -53,7 +53,7 @@ public class OrderDto {
     this.size = size;
     this.price = price;
     this.type = type;
-    this.day = LocalDateTime.now().plusDays(day);
+    this.date = LocalDateTime.now().plusDays(date);
     this.status = status;
 
   }

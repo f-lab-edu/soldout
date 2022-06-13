@@ -23,8 +23,8 @@ public class SaleDto {
   @AllArgsConstructor
   public enum SaleStatus {
 
-    SALE_PROGRESS("입찰 진행중"),
-    SALE_SIGNED("거래 완료");
+    BID_PROGRESS("입찰 진행 중"),
+    MATCHING_COMPLETE("거래 체결 완료");
 
     private final String text;
 
@@ -35,7 +35,7 @@ public class SaleDto {
   private int productId;
   private int size;
   private int price;
-  private LocalDateTime day;
+  private LocalDateTime date;
   private SaleType type;
   private SaleStatus status;
 
@@ -45,7 +45,7 @@ public class SaleDto {
    */
 
   @Builder
-  public SaleDto(int id, int userId, int productId, int size, int price, int day,
+  public SaleDto(int id, int userId, int productId, int size, int price, int date,
                  SaleType type, SaleStatus status) {
 
     this.id = id;
@@ -53,7 +53,7 @@ public class SaleDto {
     this.productId = productId;
     this.size = size;
     this.price = price;
-    this.day = LocalDateTime.now().plusDays(day);
+    this.date = LocalDateTime.now().plusDays(date);
     this.type = type;
     this.status = status;
 
