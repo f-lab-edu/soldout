@@ -28,7 +28,7 @@ public class TradeServiceImpl implements TradeService {
   private final SaleRepository saleRepository;
 
   @Override
-  public void signTradeByOrder(int productId, int orderId, int size, int price) {
+  public void matchTradeByOrder(int productId, int orderId, int size, int price) {
 
     List<SaleDto> saleDtoList = saleRepository.findByProductId(productId);
 

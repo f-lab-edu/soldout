@@ -72,7 +72,7 @@ class TradeServiceImplTest {
     when(saleRepository.findByProductId(productId))
         .thenReturn(saleDtoList);
 
-    tradeService.signTradeByOrder(productId, orderId, size, price);
+    tradeService.matchTradeByOrder(productId, orderId, size, price);
 
     // then
     assertThat(saleRepository.findByProductId(productId))

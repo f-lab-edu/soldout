@@ -56,9 +56,9 @@ class OrderServiceImplTest {
         .saveOrder(any());
 
     verify(tradeService)
-        .signTradeByOrder(anyInt(), anyInt(), anyInt(), anyInt());
+        .matchTradeByOrder(anyInt(), anyInt(), anyInt(), anyInt());
     verify(tradeService, times(1))
-        .signTradeByOrder(anyInt(), anyInt(), anyInt(), anyInt());
+        .matchTradeByOrder(anyInt(), anyInt(), anyInt(), anyInt());
 
     verify(orderRepository)
         .updateOrderStatus(anyInt(), any());

@@ -39,7 +39,7 @@ public class OrderServiceImpl implements OrderService {
 
     orderRepository.saveOrder(order);
 
-    tradeService.signTradeByOrder(
+    tradeService.matchTradeByOrder(
         order.getProductId(), order.getId(), order.getSize(), order.getPrice()
     );
 
