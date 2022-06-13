@@ -4,7 +4,7 @@
 
 <mapper namespace="api.soldout.io.soldout.mapper.TradeMapper">
   <insert id="insertTrade" parameterType="api.soldout.io.soldout.dtos.entity.TradeDto" useGeneratedKeys="true" keyProperty="id">
-    INSERT INTO trade (product_id, order_id, sale_id, size, price, trade_status, signing_date)
+    INSERT INTO trade (product_id, order_id, sale_id, size, price, trade_status, matching_date)
     VALUES (#{productId}, #{orderId}, #{saleId}, #{size}, #{price}, #{status}, #{date});
   </insert>
 
@@ -16,7 +16,7 @@
     <result property="size" column="size"></result>
     <result property="price" column="price"></result>
     <result property="status" column="trade_status"></result>
-    <result property="date" column="signing_date"></result>
+    <result property="date" column="matching_date"></result>
   </resultMap>
 
   <select id="findByOrderId" resultMap="TradeMap">
