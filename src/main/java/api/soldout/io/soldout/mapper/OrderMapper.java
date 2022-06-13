@@ -19,6 +19,6 @@ public interface OrderMapper {
 
   List<OrderDto> findByProductId(String productId);
 
-  void updateOrderStatus(@Param("orderId") int saleId, @Param("status") OrderStatus status);
+  void updateOrderStatus(@Param("orderId") int orderId, @Param("status") OrderStatus status);
 
 }

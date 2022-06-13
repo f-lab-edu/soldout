@@ -4,8 +4,8 @@
 
 <mapper namespace="api.soldout.io.soldout.mapper.TradeMapper">
   <insert id="insertTrade" parameterType="api.soldout.io.soldout.dtos.entity.TradeDto" useGeneratedKeys="true" keyProperty="id">
-    INSERT INTO trade (product_id, order_id, sale_id, size, price, trade_status, signing_day)
-    VALUES (#{productId}, #{orderId}, #{saleId}, #{size}, #{price}, #{status}, #{day});
+    INSERT INTO trade (product_id, order_id, sale_id, size, price, trade_status, signing_date)
+    VALUES (#{productId}, #{orderId}, #{saleId}, #{size}, #{price}, #{status}, #{date});
   </insert>
 
   <resultMap id="TradeMap" type="api.soldout.io.soldout.dtos.entity.TradeDto">
@@ -16,18 +16,18 @@
     <result property="size" column="size"></result>
     <result property="price" column="price"></result>
     <result property="status" column="trade_status"></result>
-    <result property="day" column="signing_day"></result>
+    <result property="date" column="signing_date"></result>
   </resultMap>
 
   <select id="findByOrderId" resultMap="TradeMap">
     SELECT *
-    FROM Trade
+    FROM trade
     WHERE order_id = #{orderId};
   </select>
 
   <select id="findBySaleId" resultMap="TradeMap">
     SELECT *
-    FROM Trade
+    FROM trade
     WHERE sale_id = #{saleId};
   </select>
 </mapper>

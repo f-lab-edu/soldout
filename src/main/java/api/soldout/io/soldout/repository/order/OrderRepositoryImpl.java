@@ -41,9 +41,9 @@ public class OrderRepositoryImpl implements OrderRepository {
   }
 
   @Override
-  public void updateOrderStatus(int saleId, OrderStatus status) {
+  public void updateOrderStatus(int orderId, OrderStatus status) {
 
-    orderMapper.updateOrderStatus(saleId, status);
+    orderMapper.updateOrderStatus(orderId, status);
 
   }
 }

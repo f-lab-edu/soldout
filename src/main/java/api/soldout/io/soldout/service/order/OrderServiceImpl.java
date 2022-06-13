@@ -1,9 +1,6 @@
 package api.soldout.io.soldout.service.order;
 
 
-import static api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus.ORDER_PROGRESS;
-import static api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus.ORDER_SIGNED;
-
 import api.soldout.io.soldout.dtos.entity.OrderDto;
 import api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus;
 import api.soldout.io.soldout.repository.order.OrderRepository;
@@ -35,9 +32,9 @@ public class OrderServiceImpl implements OrderService {
         .productId(command.getProductId())
         .size(command.getSize())
         .price(command.getPrice())
-        .day(command.getPeriod())
+        .date(command.getPeriod())
         .type(command.getType())
-        .status(ORDER_PROGRESS)
+        .status(OrderStatus.BID_PROGRESS)
         .build();
 
     orderRepository.saveOrder(order);
@@ -46,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
         order.getProductId(), order.getId(), order.getSize(), order.getPrice()
     );
 
-    orderRepository.updateOrderStatus(order.getId(), ORDER_SIGNED);
+    orderRepository.updateOrderStatus(order.getId(), OrderStatus.MATCHING_COMPLETE);
 
   }
 
@@ -65,9 +62,9 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
-  public void updateOrderStatus(int saleId, OrderStatus status) {
+  public void updateOrderStatus(int orderId, OrderStatus status) {
 
-    orderRepository.updateOrderStatus(saleId, status);
+    orderRepository.updateOrderStatus(orderId, status);
 
   }
 

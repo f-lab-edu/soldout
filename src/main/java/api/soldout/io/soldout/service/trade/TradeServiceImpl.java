@@ -1,16 +1,15 @@
 package api.soldout.io.soldout.service.trade;
 
-import static api.soldout.io.soldout.dtos.entity.SaleDto.SaleStatus.SALE_PROGRESS;
-import static api.soldout.io.soldout.dtos.entity.SaleDto.SaleStatus.SALE_SIGNED;
-import static api.soldout.io.soldout.dtos.entity.TradeDto.TradeStatus.TRADE_SIGNING;
-
 import api.soldout.io.soldout.dtos.entity.SaleDto;
+import api.soldout.io.soldout.dtos.entity.SaleDto.SaleStatus;
 import api.soldout.io.soldout.dtos.entity.TradeDto;
+import api.soldout.io.soldout.dtos.entity.TradeDto.TradeStatus;
 import api.soldout.io.soldout.exception.AlreadyMatchedException;
 import api.soldout.io.soldout.repository.sale.SaleRepository;
 import api.soldout.io.soldout.repository.trade.TradeRepository;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -41,13 +40,13 @@ public class TradeServiceImpl implements TradeService {
         .saleId(saleId)
         .size(size)
         .price(price)
-        .status(TRADE_SIGNING)
-        .day(LocalDateTime.now())
+        .status(TradeStatus.MATCHING_COMPLETE)
+        .date(LocalDateTime.now())
         .build();
 
     tradeRepository.saveTrade(tradeDto);
 
-    saleRepository.updateSaleStatus(saleId, SALE_SIGNED);
+    saleRepository.updateSaleStatus(saleId, SaleStatus.MATCHING_COMPLETE);
 
   }
 
@@ -69,19 +68,21 @@ public class TradeServiceImpl implements TradeService {
 
     // id가 기본적으로 인덱스로 사용되고 자동 증가로 입력되기 때문에 그 순서로 루프를 수행
     // 판매 상태가 상태 판매 입찰중이면서 가격과 사이즈가 같은 녀석을 조회
-    for (SaleDto tempSaleDto : saleDtoList) {
+    Optional<SaleDto> findSaleDto =  saleDtoList.stream()
+        .filter((saleDto) -> saleDto.getStatus().equals(SaleStatus.BID_PROGRESS)
+                          && saleDto.getPrice() == price
+                          && saleDto.getSize() == size)
+        .findFirst();
 
-      if (tempSaleDto.getStatus().equals(SALE_PROGRESS)
-          && (tempSaleDto.getSize() == size)
-          && (tempSaleDto.getPrice() == price)) {
+    if (findSaleDto.isPresent()) {
 
-        return tempSaleDto.getId();
+      return findSaleDto.get().getId();
 
-      }
+    } else {
+
+      throw new AlreadyMatchedException("찾는 판매 입찰가가 없습니다.");
 
     }
-
-    throw new AlreadyMatchedException("어떠한 이유로 매칭되어야 할 판매 입찰가가 사라진 경우");
 
   }
 

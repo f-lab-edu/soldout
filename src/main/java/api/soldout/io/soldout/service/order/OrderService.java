@@ -17,6 +17,6 @@ public interface OrderService {
 
   List<OrderDto> findByProductId(String productId);
 
-  void updateOrderStatus(int saleId, OrderStatus status);
+  void updateOrderStatus(int orderId, OrderStatus status);
 
 }
