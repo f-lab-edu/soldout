@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
     orderRepository.saveOrder(order);
 
     tradeService.matchTradeByOrder(
-        order.getProductId(), order.getId(), order.getSize(), order.getPrice()
+        order.getId(), order.getProductId(), order.getSize(), order.getPrice()
     );
 
     orderRepository.updateOrderStatus(order.getId(), OrderStatus.MATCHING_COMPLETE);

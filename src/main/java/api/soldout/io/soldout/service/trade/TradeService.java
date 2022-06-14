@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface TradeService {
 
-  void matchTradeByOrder(int productId, int orderId, int size, int price);
+  void matchTradeByOrder(int orderId, int productId, int size, int price);
 
   List<TradeDto> findByOrderId(int orderId);
 
