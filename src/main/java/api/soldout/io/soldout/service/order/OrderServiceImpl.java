@@ -2,8 +2,10 @@ package api.soldout.io.soldout.service.order;
 
 
 import api.soldout.io.soldout.dtos.entity.OrderDto;
+import api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus;
 import api.soldout.io.soldout.repository.order.OrderRepository;
 import api.soldout.io.soldout.service.order.command.OrderCommand;
+import api.soldout.io.soldout.service.trade.TradeService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +22,8 @@ public class OrderServiceImpl implements OrderService {
 
   private final OrderRepository orderRepository;
 
+  private final TradeService tradeService;
+
   @Override
   public void orderNow(OrderCommand command) {
 
@@ -28,11 +32,18 @@ public class OrderServiceImpl implements OrderService {
         .productId(command.getProductId())
         .size(command.getSize())
         .price(command.getPrice())
+        .date(command.getPeriod())
         .type(command.getType())
-        .day(command.getPeriod())
+        .status(OrderStatus.BID_PROGRESS)
         .build();
 
     orderRepository.saveOrder(order);
+
+    tradeService.matchTradeByOrder(
+        order.getId(), order.getProductId(), order.getSize(), order.getPrice()
+    );
+
+    orderRepository.updateOrderStatus(order.getId(), OrderStatus.MATCHING_COMPLETE);
 
   }
 
@@ -47,6 +58,13 @@ public class OrderServiceImpl implements OrderService {
   public List<OrderDto> findByProductId(String productId) {
 
     return orderRepository.findByProductId(productId);
+
+  }
+
+  @Override
+  public void updateOrderStatus(int orderId, OrderStatus status) {
+
+    orderRepository.updateOrderStatus(orderId, status);
 
   }
 

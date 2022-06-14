@@ -1,7 +1,7 @@
 package api.soldout.io.soldout.service.sale;
 
-
 import api.soldout.io.soldout.dtos.entity.SaleDto;
+import api.soldout.io.soldout.dtos.entity.SaleDto.SaleStatus;
 import api.soldout.io.soldout.repository.sale.SaleRepository;
 import api.soldout.io.soldout.service.sale.command.SaleBidCommand;
 import java.util.List;
@@ -32,8 +32,9 @@ public class SaleServiceImpl implements SaleService {
         .productId(command.getProductId())
         .size(command.getSize())
         .price(command.getPrice())
+        .date(command.getPeriod())
         .type(command.getType())
-        .day(command.getPeriod())
+        .status(SaleStatus.BID_PROGRESS)
         .build();
 
     saleRepository.saveSale(saleDto);
@@ -53,4 +54,12 @@ public class SaleServiceImpl implements SaleService {
     return saleRepository.findByProductId(productId);
 
   }
+
+  @Override
+  public void updateSaleStatus(int saleId, SaleStatus status) {
+
+    saleRepository.updateSaleStatus(saleId, status);
+
+  }
+
 }
