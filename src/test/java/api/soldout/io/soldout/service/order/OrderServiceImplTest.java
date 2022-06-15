@@ -1,22 +1,28 @@
 package api.soldout.io.soldout.service.order;
 
+import static org.assertj.core.api.Assertions.as;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import api.soldout.io.soldout.dtos.entity.OrderDto;
+import api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus;
+import api.soldout.io.soldout.listener.event.SaveOrderEvent;
 import api.soldout.io.soldout.repository.order.OrderRepository;
 import api.soldout.io.soldout.repository.order.OrderRepositoryImpl;
 import api.soldout.io.soldout.service.order.command.OrderCommand;
-import api.soldout.io.soldout.service.trade.TradeService;
-import api.soldout.io.soldout.service.trade.TradeServiceImpl;
 import api.soldout.io.soldout.util.enums.OrderType;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 
 @ExtendWith(MockitoExtension.class)
 class OrderServiceImplTest {
@@ -25,16 +31,22 @@ class OrderServiceImplTest {
 
   OrderRepository orderRepository;
 
-  TradeService tradeService;
+  ApplicationEventPublisher eventPublisher;
+
+  @Captor
+  ArgumentCaptor<OrderDto> orderCaptor;
+
+  @Captor
+  ArgumentCaptor<SaveOrderEvent> saveOrderEventArgumentCaptor;
 
   @BeforeEach
   void init() {
 
     orderRepository = mock(OrderRepositoryImpl.class);
 
-    tradeService = mock(TradeServiceImpl.class);
+    eventPublisher = mock(ApplicationEventPublisher.class);
 
-    orderService = new OrderServiceImpl(orderRepository, tradeService);
+    orderService = new OrderServiceImpl(orderRepository, eventPublisher);
 
   }
 
@@ -50,20 +62,27 @@ class OrderServiceImplTest {
     orderService.orderNow(command);
 
     // then
-    verify(orderRepository)
-        .saveOrder(any());
     verify(orderRepository, times(1))
-        .saveOrder(any());
+        .saveOrder(orderCaptor.capture());
 
-    verify(tradeService)
-        .matchTradeByOrder(anyInt(), anyInt(), anyInt(), anyInt());
-    verify(tradeService, times(1))
-        .matchTradeByOrder(anyInt(), anyInt(), anyInt(), anyInt());
+    OrderDto order = orderCaptor.getValue();
 
-    verify(orderRepository)
-        .updateOrderStatus(anyInt(), any());
-    verify(orderRepository, times(1))
-        .updateOrderStatus(anyInt(), any());
+    assertThat(order.getUserId()).isEqualTo(command.getUserId());
+    assertThat(order.getProductId()).isEqualTo(command.getProductId());
+    assertThat(order.getSize()).isEqualTo(command.getSize());
+    assertThat(order.getPrice()).isEqualTo(command.getPrice());
+    assertThat(order.getType()).isEqualTo(command.getType());
+    assertThat(order.getStatus()).isEqualTo(OrderStatus.BID_PROGRESS);
+
+    verify(eventPublisher, times(1))
+        .publishEvent(saveOrderEventArgumentCaptor.capture());
+
+    SaveOrderEvent event = saveOrderEventArgumentCaptor.getValue();
+
+    assertThat(event.getId()).isEqualTo(order.getId());
+    assertThat(event.getProductId()).isEqualTo(order.getProductId());
+    assertThat(event.getSize()).isEqualTo(order.getSize());
+    assertThat(event.getPrice()).isEqualTo(order.getPrice());
 
   }
 

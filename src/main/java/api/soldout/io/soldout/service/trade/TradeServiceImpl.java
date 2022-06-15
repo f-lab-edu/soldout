@@ -86,12 +86,6 @@ public class TradeServiceImpl implements TradeService {
 
     int saleId = findFirstSaleId(saleDtoList);
 
-    if (saleId == 0) {
-
-      throw new AlreadyMatchedException("찾는 판매 입찰가가 없습니다.");
-
-    }
-
     saveTrade(productId, orderId, saleId, size, price);
 
     orderRepository.updateOrderStatus(orderId, OrderStatus.MATCHING_COMPLETE);
