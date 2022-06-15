@@ -34,6 +34,14 @@ public class SaleRepositoryImpl implements SaleRepository {
   }
 
   @Override
+  public List<SaleDto> findByProductIdAndSizeAndPriceAndSaleStatus(int productId, int size,
+      int price, SaleStatus status) {
+
+    return saleMapper.findByProductIdAndSizeAndPriceAndSaleStatus(productId, size, price, status);
+
+  }
+
+  @Override
   public List<SaleDto> findByProductId(int productId) {
 
     return saleMapper.findByProductId(productId);

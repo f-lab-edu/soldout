@@ -62,4 +62,13 @@ public class SaleServiceImpl implements SaleService {
 
   }
 
+  @Override
+  public List<SaleDto> findByProductIdAndSizeAndPriceAndSaleStatus(int productId, int size,
+      int price, SaleStatus status) {
+
+    return saleRepository.findByProductIdAndSizeAndPriceAndSaleStatus(productId, size, price,
+        status);
+
+  }
+
 }

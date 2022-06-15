@@ -19,6 +19,12 @@ public interface SaleMapper {
 
   List<SaleDto> findByProductId(int productId);
 
+  List<SaleDto> findByProductIdAndSizeAndPriceAndSaleStatus(
+      @Param("productId") int productId,
+      @Param("size") int size,
+      @Param("price") int price,
+      @Param("status") SaleStatus status);
+
   void updateSaleStatus(@Param("saleId") int saleId, @Param("status") SaleStatus status);
 
 }

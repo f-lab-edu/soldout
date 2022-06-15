@@ -1,14 +1,14 @@
 package api.soldout.io.soldout.service.order;
 
-
 import api.soldout.io.soldout.dtos.entity.OrderDto;
 import api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus;
+import api.soldout.io.soldout.listener.event.SaveOrderEvent;
 import api.soldout.io.soldout.repository.order.OrderRepository;
 import api.soldout.io.soldout.service.order.command.OrderCommand;
-import api.soldout.io.soldout.service.trade.TradeService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,7 +22,7 @@ public class OrderServiceImpl implements OrderService {
 
   private final OrderRepository orderRepository;
 
-  private final TradeService tradeService;
+  private final ApplicationEventPublisher eventPublisher;
 
   @Override
   public void orderNow(OrderCommand command) {
@@ -39,12 +39,8 @@ public class OrderServiceImpl implements OrderService {
 
     orderRepository.saveOrder(order);
 
-    tradeService.matchTradeByOrder(
-        order.getId(), order.getProductId(), order.getSize(), order.getPrice()
-    );
-
-    orderRepository.updateOrderStatus(order.getId(), OrderStatus.MATCHING_COMPLETE);
-
+    eventPublisher.publishEvent(SaveOrderEvent.from(this,
+        order.getId(), order.getProductId(), order.getSize(), order.getPrice()));
   }
 
   @Override

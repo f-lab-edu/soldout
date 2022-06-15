@@ -1,10 +1,12 @@
 package api.soldout.io.soldout.service.trade;
 
+import api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus;
 import api.soldout.io.soldout.dtos.entity.SaleDto;
 import api.soldout.io.soldout.dtos.entity.SaleDto.SaleStatus;
 import api.soldout.io.soldout.dtos.entity.TradeDto;
 import api.soldout.io.soldout.dtos.entity.TradeDto.TradeStatus;
 import api.soldout.io.soldout.exception.AlreadyMatchedException;
+import api.soldout.io.soldout.repository.order.OrderRepository;
 import api.soldout.io.soldout.repository.sale.SaleRepository;
 import api.soldout.io.soldout.repository.trade.TradeRepository;
 import java.time.LocalDateTime;
@@ -27,12 +29,10 @@ public class TradeServiceImpl implements TradeService {
 
   private final SaleRepository saleRepository;
 
+  private final OrderRepository orderRepository;
+
   @Override
-  public void matchTradeByOrder(int orderId, int productId, int size, int price) {
-
-    List<SaleDto> saleDtoList = saleRepository.findByProductId(productId);
-
-    int saleId = findMatchedSaleDto(saleDtoList, size, price);
+  public void saveTrade(int productId, int orderId, int saleId, int size, int price) {
 
     TradeDto tradeDto = TradeDto.builder()
         .productId(productId)
@@ -45,8 +45,6 @@ public class TradeServiceImpl implements TradeService {
         .build();
 
     tradeRepository.saveTrade(tradeDto);
-
-    saleRepository.updateSaleStatus(saleId, SaleStatus.MATCHING_COMPLETE);
 
   }
 
@@ -64,25 +62,49 @@ public class TradeServiceImpl implements TradeService {
 
   }
 
-  private int findMatchedSaleDto(List<SaleDto> saleDtoList, int size, int price) {
+  /**
+   * saveOrder() 메소드 실행시, 리스너에 의해 실행되는 메소드.
+   * 구매 저장 요청과 동일한 구매 제품, 사이즈, 가격이면서 "판매 입찰 중"인 sale 개체를 찾고 매칭시켜주는 역할을 한다.
+   * 매칭에 성공할 경우, trade 개체를 생성해 테이블에 저장하고
+   * order, sale 개체의 상태를 "거래 완료"로 변경한다.
+   */
 
-    // id가 기본적으로 인덱스로 사용되고 자동 증가로 입력되기 때문에 그 순서로 루프를 수행
-    // 판매 상태가 상태 판매 입찰중이면서 가격과 사이즈가 같은 녀석을 조회
-    Optional<SaleDto> findSaleDto =  saleDtoList.stream()
-        .filter((saleDto) -> saleDto.getStatus().equals(SaleStatus.BID_PROGRESS)
-                          && saleDto.getPrice() == price
-                          && saleDto.getSize() == size)
-        .findFirst();
+  @Override
+  public void matchTradeByOrder(int orderId, int productId, int size, int price) {
 
-    if (findSaleDto.isPresent()) {
+    List<SaleDto> saleDtoList = saleRepository.findByProductIdAndSizeAndPriceAndSaleStatus(
 
-      return findSaleDto.get().getId();
+        productId, size, price, SaleStatus.BID_PROGRESS
 
-    } else {
+    );
+
+    if (saleDtoList.size() == 0) {
 
       throw new AlreadyMatchedException("찾는 판매 입찰가가 없습니다.");
 
     }
+
+    int saleId = findFirstSaleId(saleDtoList);
+
+    if (saleId == 0) {
+
+      throw new AlreadyMatchedException("찾는 판매 입찰가가 없습니다.");
+
+    }
+
+    saveTrade(productId, orderId, saleId, size, price);
+
+    orderRepository.updateOrderStatus(orderId, OrderStatus.MATCHING_COMPLETE);
+
+    saleRepository.updateSaleStatus(saleId, SaleStatus.MATCHING_COMPLETE);
+
+  }
+
+  private int findFirstSaleId(List<SaleDto> saleDtoList) {
+
+    Optional<SaleDto> findSaleDto = saleDtoList.stream().findFirst();
+
+    return findSaleDto.map(SaleDto::getId).orElse(0);
 
   }
 

@@ -32,6 +32,15 @@
     WHERE product_id = #{productId};
   </select>
 
+  <select id="findByProductIdAndSizeAndPriceAndSaleStatus" resultMap="SaleMap">
+    SELECT *
+    FROM sale
+    WHERE product_id = #{productId}
+    AND size = #{size}
+    AND price = #{price}
+    AND sale_status = #{status}
+  </select>
+
   <update id="updateSaleStatus">
     UPDATE sale
     SET sale_status = #{status}
