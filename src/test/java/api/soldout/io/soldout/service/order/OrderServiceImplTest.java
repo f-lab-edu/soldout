@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 
 import api.soldout.io.soldout.dtos.entity.OrderDto;
 import api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus;
+import api.soldout.io.soldout.listener.event.SaveOrderEvent;
 import api.soldout.io.soldout.repository.order.OrderRepository;
 import api.soldout.io.soldout.repository.order.OrderRepositoryImpl;
 import api.soldout.io.soldout.service.order.command.OrderCommand;
@@ -48,16 +49,19 @@ class OrderServiceImplTest {
         1, 1, 250, 100000, 3, OrderType.ORDER_NOW
     );
 
-    ArgumentCaptor<OrderDto> orderDtoCaptor = ArgumentCaptor.forClass(OrderDto.class);
+    final ArgumentCaptor<OrderDto> orderCap = ArgumentCaptor.forClass(OrderDto.class);
+
+    final ArgumentCaptor<SaveOrderEvent> eventCap = ArgumentCaptor.forClass(SaveOrderEvent.class);
+
 
     // when
     orderService.orderNow(command);
 
     // then
     verify(orderRepository, times(1))
-        .saveOrder(orderDtoCaptor.capture());
+        .saveOrder(orderCap.capture());
 
-    OrderDto order = orderDtoCaptor.getValue();
+    OrderDto order = orderCap.getValue();
 
     assertThat(order.getUserId()).isEqualTo(command.getUserId());
     assertThat(order.getProductId()).isEqualTo(command.getProductId());
@@ -67,9 +71,9 @@ class OrderServiceImplTest {
     assertThat(order.getStatus()).isEqualTo(OrderStatus.BID_PROGRESS);
 
     verify(eventPublisher, times(1))
-        .publishEvent(orderDtoCaptor.capture());
+        .publishEvent(eventCap.capture());
 
-    OrderDto event = orderDtoCaptor.getValue();
+    SaveOrderEvent event = eventCap.getValue();
 
     assertThat(event.getId()).isEqualTo(order.getId());
     assertThat(event.getProductId()).isEqualTo(order.getProductId());
