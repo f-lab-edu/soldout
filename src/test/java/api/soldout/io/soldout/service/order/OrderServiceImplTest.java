@@ -1,6 +1,5 @@
 package api.soldout.io.soldout.service.order;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -9,18 +8,15 @@ import static org.mockito.Mockito.verify;
 
 import api.soldout.io.soldout.dtos.entity.OrderDto;
 import api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus;
-import api.soldout.io.soldout.listener.event.SaveOrderEvent;
 import api.soldout.io.soldout.repository.order.OrderRepository;
 import api.soldout.io.soldout.repository.order.OrderRepositoryImpl;
 import api.soldout.io.soldout.service.order.command.OrderCommand;
 import api.soldout.io.soldout.util.enums.OrderType;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
 
@@ -32,12 +28,6 @@ class OrderServiceImplTest {
   OrderRepository orderRepository;
 
   ApplicationEventPublisher eventPublisher;
-
-  @Captor
-  ArgumentCaptor<OrderDto> orderCaptor;
-
-  @Captor
-  ArgumentCaptor<SaveOrderEvent> saveOrderEventArgumentCaptor;
 
   @BeforeEach
   void init() {
@@ -58,14 +48,16 @@ class OrderServiceImplTest {
         1, 1, 250, 100000, 3, OrderType.ORDER_NOW
     );
 
+    ArgumentCaptor<OrderDto> orderDtoCaptor = ArgumentCaptor.forClass(OrderDto.class);
+
     // when
     orderService.orderNow(command);
 
     // then
     verify(orderRepository, times(1))
-        .saveOrder(orderCaptor.capture());
+        .saveOrder(orderDtoCaptor.capture());
 
-    OrderDto order = orderCaptor.getValue();
+    OrderDto order = orderDtoCaptor.getValue();
 
     assertThat(order.getUserId()).isEqualTo(command.getUserId());
     assertThat(order.getProductId()).isEqualTo(command.getProductId());
@@ -75,9 +67,9 @@ class OrderServiceImplTest {
     assertThat(order.getStatus()).isEqualTo(OrderStatus.BID_PROGRESS);
 
     verify(eventPublisher, times(1))
-        .publishEvent(saveOrderEventArgumentCaptor.capture());
+        .publishEvent(orderDtoCaptor.capture());
 
-    SaveOrderEvent event = saveOrderEventArgumentCaptor.getValue();
+    OrderDto event = orderDtoCaptor.getValue();
 
     assertThat(event.getId()).isEqualTo(order.getId());
     assertThat(event.getProductId()).isEqualTo(order.getProductId());
