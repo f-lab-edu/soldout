@@ -39,8 +39,14 @@ public class OrderServiceImpl implements OrderService {
 
     orderRepository.saveOrder(order);
 
-    eventPublisher.publishEvent(SaveOrderEvent.from(this,
-        order.getId(), order.getProductId(), order.getSize(), order.getPrice()));
+    eventPublisher.publishEvent(
+
+        SaveOrderEvent.from(order.getId(), order.getProductId(), order.getSize(), order.getPrice()
+
+        )
+
+    );
+
   }
 
   @Override

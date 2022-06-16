@@ -1,14 +1,15 @@
 package api.soldout.io.soldout.listener.event;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.context.ApplicationEvent;
 
 /**
  * .
  */
 
 @Getter
-public class SaveOrderEvent extends ApplicationEvent {
+@AllArgsConstructor
+public class SaveOrderEvent {
 
   private int id;
   private int productId;
@@ -19,33 +20,9 @@ public class SaveOrderEvent extends ApplicationEvent {
    * .
    */
 
-  public SaveOrderEvent(Object source) {
+  public static SaveOrderEvent from(int id, int productId, int size, int price) {
 
-    super(source);
-
-  }
-
-  /**
-   * .
-   */
-
-  public SaveOrderEvent(Object source, int id, int productId, int size, int price) {
-
-    super(source);
-    this.id = id;
-    this.productId = productId;
-    this.size = size;
-    this.price = price;
-
-  }
-
-  /**
-   * .
-   */
-
-  public static SaveOrderEvent from(Object source, int id, int productId, int size, int price) {
-
-    return new SaveOrderEvent(source, id, productId, size, price);
+    return new SaveOrderEvent(id, productId, size, price);
 
   }
 
