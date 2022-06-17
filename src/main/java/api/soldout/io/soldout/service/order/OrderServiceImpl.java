@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * .
@@ -25,6 +26,7 @@ public class OrderServiceImpl implements OrderService {
   private final ApplicationEventPublisher eventPublisher;
 
   @Override
+  @Transactional
   public void orderNow(OrderCommand command) {
 
     OrderDto order = OrderDto.builder()
@@ -50,6 +52,7 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
+  @Transactional(readOnly = true)
   public List<OrderDto> findByUserId(String userId) {
 
     return orderRepository.findByUserId(userId);
@@ -57,6 +60,7 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
+  @Transactional(readOnly = true)
   public List<OrderDto> findByProductId(String productId) {
 
     return orderRepository.findByProductId(productId);
@@ -64,6 +68,7 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
+  @Transactional
   public void updateOrderStatus(int orderId, OrderStatus status) {
 
     orderRepository.updateOrderStatus(orderId, status);
