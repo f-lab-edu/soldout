@@ -8,7 +8,7 @@ import static org.mockito.Mockito.verify;
 
 import api.soldout.io.soldout.dtos.entity.OrderDto;
 import api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus;
-import api.soldout.io.soldout.listener.event.SaveOrderEvent;
+import api.soldout.io.soldout.listener.event.OrderCreated;
 import api.soldout.io.soldout.repository.order.OrderRepository;
 import api.soldout.io.soldout.repository.order.OrderRepositoryImpl;
 import api.soldout.io.soldout.service.order.command.OrderCommand;
@@ -51,7 +51,7 @@ class OrderServiceImplTest {
 
     final ArgumentCaptor<OrderDto> orderCap = ArgumentCaptor.forClass(OrderDto.class);
 
-    final ArgumentCaptor<SaveOrderEvent> eventCap = ArgumentCaptor.forClass(SaveOrderEvent.class);
+    final ArgumentCaptor<OrderCreated> eventCap = ArgumentCaptor.forClass(OrderCreated.class);
 
 
     // when
@@ -73,9 +73,9 @@ class OrderServiceImplTest {
     verify(eventPublisher, times(1))
         .publishEvent(eventCap.capture());
 
-    SaveOrderEvent event = eventCap.getValue();
+    OrderCreated event = eventCap.getValue();
 
-    assertThat(event.getId()).isEqualTo(order.getId());
+    assertThat(event.getOrderId()).isEqualTo(order.getId());
     assertThat(event.getProductId()).isEqualTo(order.getProductId());
     assertThat(event.getSize()).isEqualTo(order.getSize());
     assertThat(event.getPrice()).isEqualTo(order.getPrice());

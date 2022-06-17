@@ -4,7 +4,7 @@ import api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus;
 import api.soldout.io.soldout.dtos.entity.SaleDto;
 import api.soldout.io.soldout.dtos.entity.SaleDto.SaleStatus;
 import api.soldout.io.soldout.exception.AlreadyMatchedException;
-import api.soldout.io.soldout.listener.event.SaveOrderEvent;
+import api.soldout.io.soldout.listener.event.OrderCreated;
 import api.soldout.io.soldout.service.order.OrderService;
 import api.soldout.io.soldout.service.sale.SaleService;
 import api.soldout.io.soldout.service.trade.TradeService;
@@ -36,7 +36,7 @@ public class TradeEventListener {
    */
 
   @EventListener
-  public void matchTradeByOrder(SaveOrderEvent event) {
+  public void matchTradeByOrder(OrderCreated event) {
 
     List<SaleDto> saleDtoList = saleService.findByProductIdAndSizeAndPriceAndSaleStatus(
 
@@ -54,11 +54,11 @@ public class TradeEventListener {
 
     tradeService.saveTrade(
 
-        event.getProductId(), event.getId(), saleId, event.getSize(), event.getPrice()
+        event.getProductId(), event.getOrderId(), saleId, event.getSize(), event.getPrice()
 
     );
 
-    orderService.updateOrderStatus(event.getId(), OrderStatus.MATCHING_COMPLETE);
+    orderService.updateOrderStatus(event.getOrderId(), OrderStatus.MATCHING_COMPLETE);
 
     saleService.updateSaleStatus(saleId, SaleStatus.MATCHING_COMPLETE);
 

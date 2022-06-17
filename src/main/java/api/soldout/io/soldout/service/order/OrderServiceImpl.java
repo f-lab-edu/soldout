@@ -2,7 +2,7 @@ package api.soldout.io.soldout.service.order;
 
 import api.soldout.io.soldout.dtos.entity.OrderDto;
 import api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus;
-import api.soldout.io.soldout.listener.event.SaveOrderEvent;
+import api.soldout.io.soldout.listener.event.OrderCreated;
 import api.soldout.io.soldout.repository.order.OrderRepository;
 import api.soldout.io.soldout.service.order.command.OrderCommand;
 import java.util.List;
@@ -41,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
 
     eventPublisher.publishEvent(
 
-        SaveOrderEvent.from(order.getId(), order.getProductId(), order.getSize(), order.getPrice()
+        OrderCreated.from(order.getId(), order.getProductId(), order.getSize(), order.getPrice()
 
         )
 

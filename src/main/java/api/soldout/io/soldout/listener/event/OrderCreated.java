@@ -9,9 +9,9 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class SaveOrderEvent {
+public class OrderCreated {
 
-  private int id;
+  private int orderId;
   private int productId;
   private int size;
   private int price;
@@ -20,9 +20,9 @@ public class SaveOrderEvent {
    * .
    */
 
-  public static SaveOrderEvent from(int id, int productId, int size, int price) {
+  public static OrderCreated from(int orderId, int productId, int size, int price) {
 
-    return new SaveOrderEvent(id, productId, size, price);
+    return new OrderCreated(orderId, productId, size, price);
 
   }
 

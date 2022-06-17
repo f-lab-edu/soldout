@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 import api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus;
 import api.soldout.io.soldout.dtos.entity.SaleDto;
 import api.soldout.io.soldout.dtos.entity.SaleDto.SaleStatus;
-import api.soldout.io.soldout.listener.event.SaveOrderEvent;
+import api.soldout.io.soldout.listener.event.OrderCreated;
 import api.soldout.io.soldout.service.order.OrderService;
 import api.soldout.io.soldout.service.sale.SaleService;
 import api.soldout.io.soldout.service.trade.TradeService;
@@ -60,7 +60,7 @@ class TradeEventListenerTest {
     int price = 100000;
     int period = 3;
 
-    SaveOrderEvent event = SaveOrderEvent.from(productId, orderId, size, price);
+    OrderCreated event = OrderCreated.from(productId, orderId, size, price);
 
     SaleDto saleDto = SaleDto.builder()
         .id(saleId)
@@ -94,7 +94,7 @@ class TradeEventListenerTest {
         .updateSaleStatus(saleDto.getId(), SaleStatus.MATCHING_COMPLETE);
 
     verify(orderService, times(1))
-            .updateOrderStatus(event.getId(), OrderStatus.MATCHING_COMPLETE);
+            .updateOrderStatus(event.getOrderId(), OrderStatus.MATCHING_COMPLETE);
 
   }
 
