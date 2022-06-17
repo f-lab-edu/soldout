@@ -1,94 +1,64 @@
 package api.soldout.io.soldout.service.trade;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-import api.soldout.io.soldout.dtos.entity.SaleDto;
-import api.soldout.io.soldout.dtos.entity.SaleDto.SaleStatus;
-import api.soldout.io.soldout.repository.sale.SaleRepository;
-import api.soldout.io.soldout.repository.sale.SaleRepositoryImpl;
+import api.soldout.io.soldout.dtos.entity.TradeDto;
 import api.soldout.io.soldout.repository.trade.TradeRepository;
 import api.soldout.io.soldout.repository.trade.TradeRepositoryImpl;
-import api.soldout.io.soldout.util.enums.SaleType;
-import java.util.ArrayList;
-import java.util.List;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class TradeServiceImplTest {
 
-  private TradeService tradeService;
+  TradeService tradeService;
 
-  private SaleRepository saleRepository;
+  TradeRepository tradeRepository;
 
-  private TradeRepository tradeRepository;
+
 
   @BeforeEach
   void init() {
 
-    saleRepository = mock(SaleRepositoryImpl.class);
-
     tradeRepository = mock(TradeRepositoryImpl.class);
 
-    tradeService = new TradeServiceImpl(tradeRepository, saleRepository);
+    tradeService = new TradeServiceImpl(tradeRepository);
 
   }
 
   @Test
-  @DisplayName("즉시 구매 요청에 따른 거래 채결 테스트")
-  void signTradeByOrderTest() {
-    // given
+  @DisplayName("거래 체결 객체 저장 테스트")
+  void saveTradeTest() {
+    //given
     int productId = 1;
     int orderId = 1;
-    int size = 250;
-    int price = 100000;
+    int saleId = 1;
+    int size = 1;
+    int price = 1;
 
-    SaleDto saleDto = SaleDto.builder()
-        .id(1)
-        .productId(productId)
-        .userId(1)
-        .size(size)
-        .price(price)
-        .date(3)
-        .type(SaleType.SALE_BID)
-        .status(SaleStatus.BID_PROGRESS)
-        .build();
+    ArgumentCaptor<TradeDto> captor = ArgumentCaptor.forClass(TradeDto.class);
 
-    List<SaleDto> saleDtoList = new ArrayList<>();
-    saleDtoList.add(saleDto);
+    //when
+    tradeService.saveTrade(productId, orderId, saleId, size, price);
 
-
-    // when
-    when(saleRepository.findByProductId(productId))
-        .thenReturn(saleDtoList);
-
-    tradeService.matchTradeByOrder(productId, orderId, size, price);
-
-    // then
-    assertThat(saleRepository.findByProductId(productId))
-        .isEqualTo(saleDtoList);
-
-    verify(tradeRepository)
-        .saveTrade(any());
-
+    //then
     verify(tradeRepository, times(1))
-        .saveTrade(any());
+        .saveTrade(captor.capture());
 
-    verify(saleRepository)
-        .updateSaleStatus(saleDto.getId(), SaleStatus.MATCHING_COMPLETE);
+    TradeDto trade = captor.getValue();
 
-    verify(saleRepository, times(1))
-        .updateSaleStatus(saleDto.getId(), SaleStatus.MATCHING_COMPLETE);
+    assertThat(trade.getProductId()).isEqualTo(productId);
+    assertThat(trade.getOrderId()).isEqualTo(orderId);
+    assertThat(trade.getSaleId()).isEqualTo(saleId);
+    assertThat(trade.getSize()).isEqualTo(size);
+    assertThat(trade.getPrice()).isEqualTo(price);
 
   }
 

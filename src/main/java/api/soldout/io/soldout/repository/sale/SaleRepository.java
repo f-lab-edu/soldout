@@ -16,6 +16,9 @@ public interface SaleRepository {
 
   List<SaleDto> findByProductId(int productId);
 
+  List<SaleDto> findByProductIdAndSizeAndPriceAndSaleStatus(int productId, int size, int price,
+      SaleStatus status);
+
   void updateSaleStatus(int saleId, SaleStatus status);
 
 }
