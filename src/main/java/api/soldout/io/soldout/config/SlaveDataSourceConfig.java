@@ -1,5 +1,6 @@
 package api.soldout.io.soldout.config;
 
+import com.zaxxer.hikari.HikariDataSource;
 import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -18,35 +19,43 @@ import org.springframework.context.annotation.Configuration;
  */
 
 @Configuration
-@MapperScan(value = " api.soldout.io.soldout.mapper", sqlSessionFactoryRef = "SqlSessionFactory")
-public class MyBatisConfig {
+@MapperScan(value = " api.soldout.io.soldout.mapper",
+            sqlSessionFactoryRef = "slaveSqlSessionFactory")
+public class SlaveDataSourceConfig {
 
   @Value("${mybatis.mapper-locations}")
   String mapperPath;
 
-  @Bean(name = "dataSource")
-  @ConfigurationProperties(prefix = "spring.datasource")
-  public DataSource dataSource() {
-    return DataSourceBuilder.create().build();
+  /**
+   * .
+   */
+
+  @Bean(name = "slaveDataSource")
+  @ConfigurationProperties(prefix = "spring.datasource.slave.hikari")
+  public DataSource slaveDataSource() {
+
+    return DataSourceBuilder.create()
+        .type(HikariDataSource.class)
+        .build();
   }
 
   /**
    * .
    */
 
-  @Bean(name = "SqlSessionFactory")
-  public SqlSessionFactory sqlSessionFactory(@Qualifier("dataSource") DataSource dataSource,
-                                             ApplicationContext applicationContext)
-                                             throws Exception {
+  @Bean(name = "slaveSqlSessionFactory")
+  public SqlSessionFactory sqlSessionFactory(@Qualifier("slaveDataSource") DataSource dataSource,
+      ApplicationContext applicationContext)
+      throws Exception {
     SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
     sqlSessionFactoryBean.setDataSource(dataSource);
     sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources(mapperPath));
     return sqlSessionFactoryBean.getObject();
   }
 
-  @Bean(name = "SessionTemplate")
-  public SqlSessionTemplate sqlSessionTemplate(@Qualifier("SqlSessionFactory")
-                                               SqlSessionFactory firstSqlSessionFactory) {
+  @Bean(name = "slaveSessionTemplate")
+  public SqlSessionTemplate sqlSessionTemplate(@Qualifier("slaveSqlSessionFactory")
+      SqlSessionFactory firstSqlSessionFactory) {
     return new SqlSessionTemplate(firstSqlSessionFactory);
   }
 
