@@ -11,6 +11,7 @@ import api.soldout.io.soldout.service.trade.TradeService;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionalEventListener;
 
@@ -40,7 +41,8 @@ public class TradeEventListener {
      * 즉, saveOrder() 메소드가 정상적으로 동작하고 commit 한 이후에 event 를 발생시킨다는 의미이다.
    */
 
-  @TransactionalEventListener
+  @EventListener
+  // @TransactionalEventListener
   public void matchTradeByOrder(OrderCreated event) {
 
     List<SaleDto> saleDtoList = saleService.findByProductIdAndSizeAndPriceAndSaleStatus(
