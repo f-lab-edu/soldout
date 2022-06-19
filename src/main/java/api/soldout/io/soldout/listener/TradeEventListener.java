@@ -11,14 +11,15 @@ import api.soldout.io.soldout.service.trade.TradeService;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.event.TransactionalEventListener;
 
 /**
  * .
  */
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class TradeEventListener {

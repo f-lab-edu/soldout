@@ -11,7 +11,6 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -26,7 +25,7 @@ public class TradeServiceImpl implements TradeService {
   private final TradeRepository tradeRepository;
 
   @Override
-  @Transactional(propagation = Propagation.REQUIRES_NEW)
+  @Transactional
   public void saveTrade(int productId, int orderId, int saleId, int size, int price) {
 
     TradeDto tradeDto = TradeDto.builder()
