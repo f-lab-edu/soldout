@@ -35,6 +35,7 @@ public class JwtSecurityService implements SecurityService {
    * .
    */
 
+  @Override
   public void signIn(int userId) {
 
     HttpServletRequest request = getCurrentRequest();
@@ -57,6 +58,7 @@ public class JwtSecurityService implements SecurityService {
    * .
    */
 
+  @Override
   public void logOut() {
 
     HttpServletRequest request = getCurrentRequest();

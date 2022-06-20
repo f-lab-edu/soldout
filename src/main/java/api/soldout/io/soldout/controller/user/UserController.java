@@ -75,7 +75,7 @@ public class UserController {
   @PostMapping("/signin")
   public ResponseDto signIn(@Valid @RequestBody SignInRequest requestDto) {
 
-    UserDto user = userService.signIn(requestDto.getEmail(), requestDto.getPassword());
+    UserDto user = userService.checkEmailAndPw(requestDto.getEmail(), requestDto.getPassword());
 
     securityService.signIn(user.getId());
 

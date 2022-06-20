@@ -8,6 +8,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * .
@@ -24,7 +25,8 @@ public class SaleServiceImpl implements SaleService {
    * 판매 입찰 등록을 위한 엔티티 객체 생성.
    * .@param command
    */
-
+  @Override
+  @Transactional
   public void saleBid(SaleBidCommand command) {
 
     SaleDto saleDto = SaleDto.builder()
@@ -42,6 +44,7 @@ public class SaleServiceImpl implements SaleService {
   }
 
   @Override
+  @Transactional(readOnly = true)
   public List<SaleDto> findByUserId(int userId) {
 
     return saleRepository.findByUserId(userId);
@@ -49,6 +52,7 @@ public class SaleServiceImpl implements SaleService {
   }
 
   @Override
+  @Transactional(readOnly = true)
   public List<SaleDto> findByProductId(int productId) {
 
     return saleRepository.findByProductId(productId);
@@ -56,18 +60,20 @@ public class SaleServiceImpl implements SaleService {
   }
 
   @Override
-  public void updateSaleStatus(int saleId, SaleStatus status) {
-
-    saleRepository.updateSaleStatus(saleId, status);
-
-  }
-
-  @Override
+  @Transactional(readOnly = true)
   public List<SaleDto> findByProductIdAndSizeAndPriceAndSaleStatus(int productId, int size,
       int price, SaleStatus status) {
 
     return saleRepository.findByProductIdAndSizeAndPriceAndSaleStatus(productId, size, price,
         status);
+
+  }
+
+  @Override
+  @Transactional
+  public void updateSaleStatus(int saleId, SaleStatus status) {
+
+    saleRepository.updateSaleStatus(saleId, status);
 
   }
 

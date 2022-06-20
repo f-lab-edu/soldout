@@ -48,6 +48,7 @@ public class SessionSecurityService implements SecurityService {
    * .
    */
 
+  @Override
   public void signIn(int userId) {
 
     if (isAlreadySignInBrowser(getCurrentSessionId())) {
@@ -70,6 +71,7 @@ public class SessionSecurityService implements SecurityService {
    * .
    */
 
+  @Override
   public void logOut() {
 
     String sessionId = getCurrentSessionId();

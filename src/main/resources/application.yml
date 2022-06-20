@@ -1,9 +1,20 @@
 spring:
   datasource:
-    jdbc-url: jdbc:mysql://localhost:3306/soldout_db?characterEncoding=UTF-8
-    username: soldout
-    password: 1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    master:
+      hikari:
+        jdbc-url: jdbc:mysql://localhost:3306/soldout_db?characterEncoding=UTF-8
+        username: soldout
+        password: 1234
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        read-only: false
+
+    slave:
+      hikari:
+        jdbc-url: jdbc:mysql://localhost:3306/soldout_db?characterEncoding=UTF-8
+        username: soldout
+        password: 1234
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        read-only: true
 
   flyway:
     enabled: true

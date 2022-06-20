@@ -7,6 +7,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * .
@@ -20,6 +21,7 @@ public class ProductServiceImpl implements ProductService {
   private final ProductRepository productRepository;
 
   @Override
+  @Transactional
   public void addProduct(AddProductCommand command) {
 
     ProductDto product = ProductDto.builder()
@@ -40,6 +42,7 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
+  @Transactional(readOnly = true)
   public List<ProductDto> findAll() {
 
     return productRepository.findAll();

@@ -11,7 +11,7 @@ public interface UserService {
 
   void signUp(SignUpCommand commandDto);
 
-  UserDto signIn(String email, String password);
+  UserDto checkEmailAndPw(String email, String password);
 
   UserDto findByEmail(String email);
 

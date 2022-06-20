@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *.
@@ -25,6 +26,7 @@ public class UserServiceImpl implements UserService {
   private final PasswordEncoder passwordEncoder;
 
   @Override
+  @Transactional
   public void signUp(SignUpCommand commandDto) {
 
     if (isExistEmail(commandDto.getEmail())) {
@@ -48,7 +50,8 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public UserDto signIn(String email, String password) {
+  @Transactional(readOnly = true)
+  public UserDto checkEmailAndPw(String email, String password) {
 
     UserDto user = findByEmail(email);
 
@@ -68,20 +71,20 @@ public class UserServiceImpl implements UserService {
 
   }
 
+  @Override
+  @Transactional(readOnly = true)
+  public UserDto findByEmail(String email) {
+
+    return userRepository.findByEmail(email);
+
+  }
 
   @Override
+  @Transactional(readOnly = true)
   public boolean isExistEmail(String email) {
 
     return userRepository.isExistEmail(email);
 
   }
 
-  @Override
-  public UserDto findByEmail(String email) {
-
-    UserDto user = userRepository.findByEmail(email);
-
-    return user;
-
-  }
 }
