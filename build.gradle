@@ -14,10 +14,14 @@ repositories {
 }
 
 dependencies {
-	//
+	// Redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.session:spring-session-data-redis'
+
+	// MyBatis
 	testCompileOnly 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.2.0'
 
-	// flyway
+	// Flyway
 	implementation 'org.flywaydb:flyway-core:5.2.4'
 
 	// Database
