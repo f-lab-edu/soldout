@@ -14,3 +14,11 @@ services:
     ports:
       - "3306:3306"
     restart: always
+
+  redis-docker:
+    container_name: soldout-redis
+    image: redis:latest
+    volumes:
+      - ./example-docker-data/redis:/data
+    ports:
+      - "6379:6379"

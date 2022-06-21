@@ -20,6 +20,13 @@ spring:
     enabled: true
     baseline-on-migrate: true
 
+  redis:
+    host: localhost
+    port: 6379
+    session:
+      timeout: 10
+      store-type: redis
+
 mybatis:
   type-aliases-package: api.soldout.io.soldout.mapper
   mapper-locations: classpath:mapper/*.xml
