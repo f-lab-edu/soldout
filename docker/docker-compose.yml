@@ -22,3 +22,52 @@ services:
       - ./example-docker-data/redis:/data
     ports:
       - "6379:6379"
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.2.3
+    container_name: soldout-elastic
+    environment:
+      - node.name=elasticsearch
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=elasticsearch
+      - cluster.initial_master_nodes=elasticsearch
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./volume/elasticsearch-volume:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    networks:
+      - elastic
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.2.3
+    container_name: soldout-kibana
+    ports:
+      - "5601:5601"
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    networks:
+      - elastic
+
+  apm:
+    image: docker.elastic.co/apm/apm-server:8.2.3
+    ports:
+      - "8200:8200"
+    volumes:
+      - ./volume/apm-server:/usr/share/apm-server/data"
+    environment:
+      output.elasticsearch.hosts: '["elasticsearch:9200"]'
+
+volumes:
+  elasticsearch-volume:
+    driver: local
+
+networks:
+  elastic:
+    driver: bridge
