@@ -100,7 +100,7 @@ public class RedisSessionSecurityService implements SecurityService {
 
       return true;
 
-    } else if (redisTemplate.opsForValue().get(sessionId) != null) {
+    } else if (redisTemplate.opsForValue().get(SecurityUtil.SESSION_ID) != null) {
 
       return true;
 

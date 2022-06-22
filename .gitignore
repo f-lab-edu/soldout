@@ -27,3 +27,7 @@ hs_err_pid*
 build/
 out/
 docker/db
+docker/example-docker-data
+apm-server-7.15.0-darwin-x86_64
+elastic-apm-agent-1.32.0.jar
+apm-server-7.15.0-darwin-x86_64.tar.gz
