@@ -96,17 +96,17 @@ public class RedisSessionSecurityService implements SecurityService {
 
   private boolean isAlreadySignInBrowser(String sessionId) {
 
-    if (sessionId != null) {
+    if (sessionId == null) {
 
-      return true;
+      return false;
 
-    } else if (redisTemplate.opsForValue().get(SecurityUtil.SESSION_ID) != null) {
+    } else if (redisTemplate.opsForValue().get(sessionId) == null) {
 
-      return true;
+      return false;
 
     }
 
-    return false;
+    return true;
 
   }
 }
