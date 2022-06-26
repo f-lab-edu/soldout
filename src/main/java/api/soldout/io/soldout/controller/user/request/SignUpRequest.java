@@ -2,6 +2,7 @@ package api.soldout.io.soldout.controller.user.request;
 
 import api.soldout.io.soldout.service.user.command.SignUpCommand;
 import javax.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
@@ -12,6 +13,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class SignUpRequest {
 
   @NotBlank

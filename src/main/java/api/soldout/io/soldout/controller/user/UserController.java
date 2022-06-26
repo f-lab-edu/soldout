@@ -7,7 +7,7 @@ import api.soldout.io.soldout.controller.user.request.SignUpRequest;
 import api.soldout.io.soldout.dtos.entity.UserDto;
 import api.soldout.io.soldout.dtos.response.ResponseDto;
 import api.soldout.io.soldout.service.security.SecurityService;
-import api.soldout.io.soldout.service.user.UserServiceImpl;
+import api.soldout.io.soldout.service.user.UserService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserController {
 
-  private final UserServiceImpl userService;
+  private final UserService userService;
 
   private final SecurityService securityService;
 
