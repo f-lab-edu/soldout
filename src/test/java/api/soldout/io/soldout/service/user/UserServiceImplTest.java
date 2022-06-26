@@ -100,11 +100,20 @@ class UserServiceImplTest {
     // given
     String email = "email";
 
+    UserDto userDto = UserDto.builder()
+        .email(email)
+        .build();
+
+
     // when
-    userService.findByEmail(email);
+    when(userRepository.findByEmail(email)).thenReturn(userDto);
+
+    UserDto findUserDto = userService.findByEmail(email);
 
     // then
     verify(userRepository, times(1)).findByEmail(email);
+
+    assertThat(findUserDto.getEmail()).isEqualTo(userDto.getEmail());
 
   }
 
@@ -115,10 +124,15 @@ class UserServiceImplTest {
     String email = "email";
 
     // when
-    userService.isExistEmail(email);
+    when(userRepository.isExistEmail(email)).thenReturn(true);
+
+    boolean result = userService.isExistEmail(email);
 
     // then
     verify(userRepository, times(1)).isExistEmail(email);
 
+    assertThat(result).isTrue();
+
   }
+
 }

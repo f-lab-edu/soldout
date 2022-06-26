@@ -53,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<OrderDto> findByUserId(String userId) {
+  public List<OrderDto> findByUserId(int userId) {
 
     return orderRepository.findByUserId(userId);
 
@@ -61,7 +61,7 @@ public class OrderServiceImpl implements OrderService {
 
   @Override
   @Transactional(readOnly = true)
-  public List<OrderDto> findByProductId(String productId) {
+  public List<OrderDto> findByProductId(int productId) {
 
     return orderRepository.findByProductId(productId);
 

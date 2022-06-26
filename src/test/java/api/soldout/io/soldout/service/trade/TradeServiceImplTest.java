@@ -4,10 +4,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import api.soldout.io.soldout.dtos.entity.TradeDto;
 import api.soldout.io.soldout.repository.trade.TradeRepository;
 import api.soldout.io.soldout.repository.trade.TradeRepositoryImpl;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,8 +24,6 @@ class TradeServiceImplTest {
   TradeService tradeService;
 
   TradeRepository tradeRepository;
-
-
 
   @BeforeEach
   void init() {
@@ -59,6 +60,56 @@ class TradeServiceImplTest {
     assertThat(trade.getSaleId()).isEqualTo(saleId);
     assertThat(trade.getSize()).isEqualTo(size);
     assertThat(trade.getPrice()).isEqualTo(price);
+
+  }
+
+  @Test
+  @DisplayName("구매 Id로 조회 로직 테스트")
+  void findByOrderIdTest() {
+    //given
+    int orderId = 1;
+
+    TradeDto tradeDto = TradeDto.builder()
+        .orderId(orderId)
+        .build();
+
+    List<TradeDto> list = new ArrayList<>();
+    list.add(tradeDto);
+
+    //when
+    when(tradeRepository.findByOrderId(orderId)).thenReturn(list);
+
+    List<TradeDto> findList = tradeService.findByOrderId(orderId);
+
+    // then
+    verify(tradeRepository, times(1)).findByOrderId(orderId);
+
+    assertThat(findList.size()).isEqualTo(list.size());
+
+  }
+
+  @Test
+  @DisplayName("판매 Id로 조회 로직 테스트")
+  void findBySaleIdTest() {
+    //given
+    int saleId = 1;
+
+    TradeDto tradeDto = TradeDto.builder()
+        .saleId(saleId)
+        .build();
+
+    List<TradeDto> list = new ArrayList<>();
+    list.add(tradeDto);
+
+    //when
+    when(tradeRepository.findByOrderId(saleId)).thenReturn(list);
+
+    List<TradeDto> findList = tradeService.findByOrderId(saleId);
+
+    // then
+    verify(tradeRepository, times(1)).findByOrderId(saleId);
+
+    assertThat(findList.size()).isEqualTo(list.size());
 
   }
 

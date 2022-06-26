@@ -1,5 +1,6 @@
 package api.soldout.io.soldout.controller.sale;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -14,12 +15,17 @@ import api.soldout.io.soldout.dtos.response.ResponseDto;
 import api.soldout.io.soldout.interceptor.SessionSignInHandlerInterceptor;
 import api.soldout.io.soldout.resolver.SignInUserArgumentResolver;
 import api.soldout.io.soldout.service.sale.SaleServiceImpl;
+import api.soldout.io.soldout.service.sale.command.SaleBidCommand;
 import api.soldout.io.soldout.util.enums.SaleType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import net.bytebuddy.asm.Advice.Argument;
+import org.apache.ibatis.annotations.Arg;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -59,9 +65,9 @@ class SaleControllerTest {
   void saleBidTest() throws Exception {
     // given
     int userId = 1;
+    int productId = 1;
 
-    when(signInUserArgumentResolver.resolveArgument(any(), any(), any(), any()))
-        .thenReturn(userId);
+    ArgumentCaptor<SaleBidCommand> captor = ArgumentCaptor.forClass(SaleBidCommand.class);
 
     SaleBidRequest request =
         new SaleBidRequest(250, 100000, 3, SaleType.SALE_BID);
@@ -70,18 +76,28 @@ class SaleControllerTest {
         new ResponseDto(true, null, "판매 입찰 등록 성공", null);
 
     // when
-    ResultActions result = mockMvc.perform(post("/sale/bid/1")
+    when(signInUserArgumentResolver.resolveArgument(any(), any(), any(), any()))
+        .thenReturn(userId);
+
+    ResultActions result = mockMvc.perform(post("/sale/bid/" + productId)
         .param("userId", String.valueOf(userId))
         .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(request)));
+        .content(objectMapper.writeValueAsString(request)));
 
     //then
     result.andExpect(status().isOk())
           .andExpect(content().json(objectMapper.writeValueAsString(response)))
           .andDo(print());
 
-    verify(saleService).saleBid(any());
-    verify(saleService, times(1)).saleBid(any());
+    verify(saleService, times(1)).saleBid(captor.capture());
+
+    SaleBidCommand command = captor.getValue();
+
+    assertThat(command.getUserId()).isEqualTo(userId);
+    assertThat(command.getProductId()).isEqualTo(productId);
+    assertThat(command.getPeriod()).isEqualTo(request.getPeriod());
+    assertThat(command.getPrice()).isEqualTo(request.getPrice());
+    assertThat(command.getSize()).isEqualTo(request.getSize());
 
   }
 

@@ -1,5 +1,6 @@
 package api.soldout.io.soldout.controller.user;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -18,11 +19,14 @@ import api.soldout.io.soldout.interceptor.SessionSignInHandlerInterceptor;
 import api.soldout.io.soldout.resolver.SignInUserArgumentResolver;
 import api.soldout.io.soldout.service.security.SecurityService;
 import api.soldout.io.soldout.service.user.UserService;
+import api.soldout.io.soldout.service.user.command.SignUpCommand;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -64,6 +68,8 @@ class UserControllerTest {
   @DisplayName("회원가입 로직 테스트")
   void signUp() throws Exception {
     // given
+    ArgumentCaptor<SignUpCommand> captor = ArgumentCaptor.forClass(SignUpCommand.class);
+
     SignUpRequest request = new SignUpRequest(
         "email", "password", "name", "phone", "address"
     );
@@ -82,7 +88,16 @@ class UserControllerTest {
         .andExpect(content().json(objectMapper.writeValueAsString(response)))
         .andDo(print());
 
-    verify(userService, times(1)).signUp(any());
+    verify(userService, times(1)).signUp(captor.capture());
+
+    SignUpCommand command = captor.getValue();
+
+    assertThat(command.getEmail()).isEqualTo(request.getEmail());
+    assertThat(command.getPassword()).isEqualTo(request.getPassword());
+    assertThat(command.getName()).isEqualTo(request.getName());
+    assertThat(command.getPhone()).isEqualTo(request.getPhone());
+    assertThat(command.getAddress()).isEqualTo(request.getAddress());
+
   }
 
   @Test

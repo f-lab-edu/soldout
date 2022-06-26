@@ -27,14 +27,14 @@ public class OrderRepositoryImpl implements OrderRepository {
   }
 
   @Override
-  public List<OrderDto> findByUserId(String userId) {
+  public List<OrderDto> findByUserId(int userId) {
 
     return orderMapper.findByUserId(userId);
 
   }
 
   @Override
-  public List<OrderDto> findByProductId(String productId) {
+  public List<OrderDto> findByProductId(int productId) {
 
     return orderMapper.findByProductId(productId);
 
