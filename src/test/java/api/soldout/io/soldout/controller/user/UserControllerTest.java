@@ -1,5 +1,6 @@
 package api.soldout.io.soldout.controller.user;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -18,11 +19,13 @@ import api.soldout.io.soldout.interceptor.SessionSignInHandlerInterceptor;
 import api.soldout.io.soldout.resolver.SignInUserArgumentResolver;
 import api.soldout.io.soldout.service.security.SecurityService;
 import api.soldout.io.soldout.service.user.UserService;
+import api.soldout.io.soldout.service.user.command.SignUpCommand;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -50,6 +53,13 @@ class UserControllerTest {
 
   ObjectMapper objectMapper;
 
+  int userId = 1;
+  String email = "email";
+  String password = "password";
+  String name = "name";
+  String phone = "010-0000-0000";
+  String address = "address";
+
   @BeforeEach
   void init() throws Exception {
 
@@ -64,8 +74,10 @@ class UserControllerTest {
   @DisplayName("회원가입 로직 테스트")
   void signUp() throws Exception {
     // given
+    ArgumentCaptor<SignUpCommand> captor = ArgumentCaptor.forClass(SignUpCommand.class);
+
     SignUpRequest request = new SignUpRequest(
-        "email", "password", "name", "phone", "address"
+        email, password, name, phone, address
     );
 
     ResponseDto response =  new ResponseDto(
@@ -82,15 +94,22 @@ class UserControllerTest {
         .andExpect(content().json(objectMapper.writeValueAsString(response)))
         .andDo(print());
 
-    verify(userService, times(1)).signUp(any());
+    verify(userService, times(1)).signUp(captor.capture());
+
+    SignUpCommand command = captor.getValue();
+
+    assertThat(command.getEmail()).isEqualTo(request.getEmail());
+    assertThat(command.getPassword()).isEqualTo(request.getPassword());
+    assertThat(command.getName()).isEqualTo(request.getName());
+    assertThat(command.getPhone()).isEqualTo(request.getPhone());
+    assertThat(command.getAddress()).isEqualTo(request.getAddress());
+
   }
 
   @Test
   @DisplayName("이메일 검증 로직 테스트 : 이미 존재하는 경우")
   void checkEmailSuccessTest() throws Exception {
     // given
-    String email = "email";
-
     ResponseDto response = new ResponseDto(
         true, null, "이미 존재하는 이메일", null
     );
@@ -111,8 +130,6 @@ class UserControllerTest {
   @DisplayName("이메일 검증 로직 테스트 : 존재하는 이메일이 없는 경우")
   void checkEmailFailTest() throws Exception {
     // given
-    String email = "email";
-
     ResponseDto response = new ResponseDto(
         true, null, "사용 가능한 이메일", null
     );
@@ -133,7 +150,7 @@ class UserControllerTest {
   @DisplayName("로그인 로직 검증 테스트")
   void signInTest() throws Exception {
     // given
-    SignInRequest request = new SignInRequest("email", "password");
+    SignInRequest request = new SignInRequest(email, password);
 
     UserDto user = UserDto.builder()
         .id(1)
@@ -184,8 +201,6 @@ class UserControllerTest {
   @Test
   @DisplayName("로그인 검증 로직 테스트")
   void signInCheckTest() throws Exception {
-    int userId = 1;
-
     ResponseDto response = new ResponseDto(
         true, null, "로그인 체크", null
     );

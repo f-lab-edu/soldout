@@ -35,6 +35,14 @@ class TradeEventListenerTest {
 
   OrderService orderService;
 
+  int userId = 1;
+  int productId = 1;
+  int orderId = 1;
+  int saleId = 1;
+  int size = 250;
+  int price = 100000;
+  int period = 3;
+
   @BeforeEach
   void init() {
 
@@ -52,14 +60,6 @@ class TradeEventListenerTest {
   @DisplayName("즉시 구매 요청에 따른 거래 채결 로직 테스트")
   void matchTradeByOrderTest() {
     // given
-    int userId = 1;
-    int productId = 1;
-    int orderId = 1;
-    int saleId = 1;
-    int size = 250;
-    int price = 100000;
-    int period = 3;
-
     OrderCreated event = OrderCreated.from(productId, orderId, size, price);
 
     SaleDto saleDto = SaleDto.builder()

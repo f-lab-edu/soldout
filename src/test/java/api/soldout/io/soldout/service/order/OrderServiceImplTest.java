@@ -1,10 +1,10 @@
 package api.soldout.io.soldout.service.order;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import api.soldout.io.soldout.dtos.entity.OrderDto;
 import api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus;
@@ -13,6 +13,8 @@ import api.soldout.io.soldout.repository.order.OrderRepository;
 import api.soldout.io.soldout.repository.order.OrderRepositoryImpl;
 import api.soldout.io.soldout.service.order.command.OrderCommand;
 import api.soldout.io.soldout.util.enums.OrderType;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,6 +32,14 @@ class OrderServiceImplTest {
 
   ApplicationEventPublisher eventPublisher;
 
+  int orderId = 1;
+  int userId = 1;
+  int productId = 1;
+  int size = 250;
+  int price = 100000;
+  int period = 3;
+  OrderStatus status = OrderStatus.MATCHING_COMPLETE;
+
   @BeforeEach
   void init() {
 
@@ -46,18 +56,18 @@ class OrderServiceImplTest {
   void orderNowTest() {
     // given
     OrderCommand command = new OrderCommand(
-        1, 1, 250, 100000, 3, OrderType.ORDER_NOW
+        userId, productId, size, price, period, OrderType.ORDER_NOW
     );
 
     final ArgumentCaptor<OrderDto> orderCap = ArgumentCaptor.forClass(OrderDto.class);
 
     final ArgumentCaptor<OrderCreated> eventCap = ArgumentCaptor.forClass(OrderCreated.class);
 
-
     // when
     orderService.orderNow(command);
 
     // then
+
     verify(orderRepository, times(1))
         .saveOrder(orderCap.capture());
 
@@ -82,4 +92,63 @@ class OrderServiceImplTest {
 
   }
 
+  @Test
+  @DisplayName("사용자 Id로 구매 입찰 목록 조회")
+  void findByUserIdTest() throws Exception {
+    // given
+    OrderDto orderDto = OrderDto.builder()
+        .userId(userId)
+        .build();
+
+    List<OrderDto> list = new ArrayList<>();
+    list.add(orderDto);
+
+
+    // when
+    when(orderRepository.findByUserId(userId)).thenReturn(list);
+
+    List<OrderDto> findList = orderService.findByUserId(userId);
+
+    // then
+    verify(orderRepository, times(1)).findByUserId(userId);
+
+    assertThat(findList.size()).isEqualTo(list.size());
+
+  }
+
+  @Test
+  @DisplayName("제품 Id로 구매 입찰 목록 조회")
+  void findByProductIdTest() throws Exception {
+    // given
+    OrderDto orderDto = OrderDto.builder()
+        .productId(productId)
+        .build();
+
+    List<OrderDto> list = new ArrayList<>();
+    list.add(orderDto);
+
+    // when
+    when(orderRepository.findByProductId(productId)).thenReturn(list);
+
+    List<OrderDto> findList = orderService.findByProductId(productId);
+
+    // then
+    verify(orderRepository, times(1)).findByProductId(productId);
+
+    assertThat(findList.size()).isEqualTo(list.size());
+
+  }
+
+  @Test
+  @DisplayName("구매 상태 수정 로직 테스트")
+  void updateSaleStatusTest() throws Exception {
+    // given
+
+    // when
+    orderService.updateOrderStatus(orderId, status);
+
+    // then
+    verify(orderRepository, times(1)).updateOrderStatus(orderId, status);
+
+  }
 }

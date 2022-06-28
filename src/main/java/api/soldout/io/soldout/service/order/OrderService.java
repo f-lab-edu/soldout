@@ -13,9 +13,9 @@ public interface OrderService {
 
   void orderNow(OrderCommand command);
 
-  List<OrderDto> findByUserId(String userId);
+  List<OrderDto> findByUserId(int userId);
 
-  List<OrderDto> findByProductId(String productId);
+  List<OrderDto> findByProductId(int productId);
 
   void updateOrderStatus(int orderId, OrderStatus status);
 
