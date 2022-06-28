@@ -25,6 +25,14 @@ class TradeServiceImplTest {
 
   TradeRepository tradeRepository;
 
+  int productId = 1;
+  int orderId = 1;
+  int saleId = 1;
+  int size = 1;
+  int price = 1;
+
+  List<TradeDto> list;
+
   @BeforeEach
   void init() {
 
@@ -32,18 +40,14 @@ class TradeServiceImplTest {
 
     tradeService = new TradeServiceImpl(tradeRepository);
 
+    list = new ArrayList<>();
+
   }
 
   @Test
   @DisplayName("거래 체결 객체 저장 테스트")
   void saveTradeTest() {
     //given
-    int productId = 1;
-    int orderId = 1;
-    int saleId = 1;
-    int size = 1;
-    int price = 1;
-
     ArgumentCaptor<TradeDto> captor = ArgumentCaptor.forClass(TradeDto.class);
 
     //when
@@ -67,13 +71,10 @@ class TradeServiceImplTest {
   @DisplayName("구매 Id로 조회 로직 테스트")
   void findByOrderIdTest() {
     //given
-    int orderId = 1;
-
     TradeDto tradeDto = TradeDto.builder()
         .orderId(orderId)
         .build();
 
-    List<TradeDto> list = new ArrayList<>();
     list.add(tradeDto);
 
     //when
@@ -92,13 +93,10 @@ class TradeServiceImplTest {
   @DisplayName("판매 Id로 조회 로직 테스트")
   void findBySaleIdTest() {
     //given
-    int saleId = 1;
-
     TradeDto tradeDto = TradeDto.builder()
         .saleId(saleId)
         .build();
 
-    List<TradeDto> list = new ArrayList<>();
     list.add(tradeDto);
 
     //when

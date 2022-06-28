@@ -19,7 +19,6 @@ import api.soldout.io.soldout.service.order.command.OrderCommand;
 import api.soldout.io.soldout.util.enums.OrderType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -48,6 +47,12 @@ class OrderControllerTest {
 
   ObjectMapper objectMapper;
 
+  int userId = 1;
+  int size = 250;
+  int price = 100000;
+  int period = 3;
+  OrderType type = OrderType.ORDER_NOW;
+
   @BeforeEach
   void init() throws Exception {
 
@@ -62,12 +67,10 @@ class OrderControllerTest {
   @DisplayName("즉시 구매 등록 테스트")
   void orderNowTest() throws Exception {
     // given
-    int userId = 1;
-
     ArgumentCaptor<OrderCommand> orderCommandCap = ArgumentCaptor.forClass(OrderCommand.class);
 
     OrderNowRequest request =
-        new OrderNowRequest(250, 100000, 3, OrderType.ORDER_NOW);
+        new OrderNowRequest(size, price, period, type);
 
     ResponseDto response =
         new ResponseDto(true, null, "즉시 구매 등록 완료", null);

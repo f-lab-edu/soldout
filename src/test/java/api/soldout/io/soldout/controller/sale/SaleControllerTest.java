@@ -19,9 +19,6 @@ import api.soldout.io.soldout.service.sale.command.SaleBidCommand;
 import api.soldout.io.soldout.util.enums.SaleType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import net.bytebuddy.asm.Advice.Argument;
-import org.apache.ibatis.annotations.Arg;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -50,6 +47,13 @@ class SaleControllerTest {
 
   ObjectMapper objectMapper;
 
+  int userId = 1;
+  int productId = 1;
+  int size = 250;
+  int price = 100000;
+  int period = 3;
+  SaleType type = SaleType.SALE_BID;
+
   @BeforeEach
   void init() throws Exception {
 
@@ -64,13 +68,10 @@ class SaleControllerTest {
   @DisplayName("판매 입찰 등록 테스트")
   void saleBidTest() throws Exception {
     // given
-    int userId = 1;
-    int productId = 1;
-
     ArgumentCaptor<SaleBidCommand> captor = ArgumentCaptor.forClass(SaleBidCommand.class);
 
     SaleBidRequest request =
-        new SaleBidRequest(250, 100000, 3, SaleType.SALE_BID);
+        new SaleBidRequest(size, price, period, type);
 
     ResponseDto response =
         new ResponseDto(true, null, "판매 입찰 등록 성공", null);

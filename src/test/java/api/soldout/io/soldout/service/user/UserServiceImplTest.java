@@ -28,8 +28,14 @@ class UserServiceImplTest {
 
   PasswordEncoder passwordEncoder;
 
+  String email = "email";
+  String password = "password";
+  String name = "name";
+  String phone = "010-0000-0000";
+  String address = "address";
+
   @BeforeEach
-  void setUp() {
+  void init() {
 
     userRepository = mock(MybatisUserRepository.class);
 
@@ -43,9 +49,7 @@ class UserServiceImplTest {
   @DisplayName("회원가입 로직 테스트")
   void signUpTest() {
     // given
-    SignUpCommand command = new SignUpCommand(
-        "email", "password", "name", "phone", "address"
-    );
+    SignUpCommand command = new SignUpCommand(email, password, name, phone, address);
 
     final ArgumentCaptor<UserDto> userCap = ArgumentCaptor.forClass(UserDto.class);
 
@@ -73,9 +77,6 @@ class UserServiceImplTest {
   @DisplayName("이메일 및 비밀번호 일치 확인 로직 테스트")
   void checkEmailAndPwTest() {
     // given
-    String email = "email";
-    String password = "password";
-
     UserDto user = UserDto.builder()
         .email(email)
         .password(password)
@@ -98,8 +99,6 @@ class UserServiceImplTest {
   @DisplayName("이메일로 회원 정보 조회 로직 테스트")
   void findByEmailTest() {
     // given
-    String email = "email";
-
     UserDto userDto = UserDto.builder()
         .email(email)
         .build();
@@ -121,7 +120,6 @@ class UserServiceImplTest {
   @DisplayName("이메일 존재 여부 파악 로직 테스트")
   void isExistEmailTest() {
     // given
-    String email = "email";
 
     // when
     when(userRepository.isExistEmail(email)).thenReturn(true);

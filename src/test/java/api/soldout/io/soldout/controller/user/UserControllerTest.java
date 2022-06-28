@@ -22,7 +22,6 @@ import api.soldout.io.soldout.service.user.UserService;
 import api.soldout.io.soldout.service.user.command.SignUpCommand;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -54,6 +53,13 @@ class UserControllerTest {
 
   ObjectMapper objectMapper;
 
+  int userId = 1;
+  String email = "email";
+  String password = "password";
+  String name = "name";
+  String phone = "010-0000-0000";
+  String address = "address";
+
   @BeforeEach
   void init() throws Exception {
 
@@ -71,7 +77,7 @@ class UserControllerTest {
     ArgumentCaptor<SignUpCommand> captor = ArgumentCaptor.forClass(SignUpCommand.class);
 
     SignUpRequest request = new SignUpRequest(
-        "email", "password", "name", "phone", "address"
+        email, password, name, phone, address
     );
 
     ResponseDto response =  new ResponseDto(
@@ -104,8 +110,6 @@ class UserControllerTest {
   @DisplayName("이메일 검증 로직 테스트 : 이미 존재하는 경우")
   void checkEmailSuccessTest() throws Exception {
     // given
-    String email = "email";
-
     ResponseDto response = new ResponseDto(
         true, null, "이미 존재하는 이메일", null
     );
@@ -126,8 +130,6 @@ class UserControllerTest {
   @DisplayName("이메일 검증 로직 테스트 : 존재하는 이메일이 없는 경우")
   void checkEmailFailTest() throws Exception {
     // given
-    String email = "email";
-
     ResponseDto response = new ResponseDto(
         true, null, "사용 가능한 이메일", null
     );
@@ -148,7 +150,7 @@ class UserControllerTest {
   @DisplayName("로그인 로직 검증 테스트")
   void signInTest() throws Exception {
     // given
-    SignInRequest request = new SignInRequest("email", "password");
+    SignInRequest request = new SignInRequest(email, password);
 
     UserDto user = UserDto.builder()
         .id(1)
@@ -199,8 +201,6 @@ class UserControllerTest {
   @Test
   @DisplayName("로그인 검증 로직 테스트")
   void signInCheckTest() throws Exception {
-    int userId = 1;
-
     ResponseDto response = new ResponseDto(
         true, null, "로그인 체크", null
     );

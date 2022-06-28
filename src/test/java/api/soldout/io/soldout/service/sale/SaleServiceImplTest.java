@@ -32,6 +32,14 @@ class SaleServiceImplTest {
 
   SaleRepository saleRepository;
 
+  int productId = 1;
+  int userId = 1;
+  int saleId = 1;
+  int size = 1;
+  int price = 1;
+  int period = 3;
+  SaleStatus status = SaleStatus.BID_PROGRESS;
+
   @BeforeEach
   void init() throws Exception {
 
@@ -46,12 +54,6 @@ class SaleServiceImplTest {
   void saleBidTest() throws Exception {
     // given
     ArgumentCaptor<SaleDto> captor = ArgumentCaptor.forClass(SaleDto.class);
-
-    int userId = 1;
-    int productId = 1;
-    int size = 220;
-    int price = 100000;
-    int period = 3;
 
     SaleBidCommand command =  new SaleBidCommand(
         userId,
@@ -84,8 +86,6 @@ class SaleServiceImplTest {
   @DisplayName("사용자 Id로 판매 입찰 목록 조회")
   void findByUserIdTest() throws Exception {
     // given
-    int userId = 1;
-
     SaleDto saleDto = SaleDto.builder()
         .userId(userId)
         .build();
@@ -110,8 +110,6 @@ class SaleServiceImplTest {
   @DisplayName("제품 Id로 판매 입찰 목록 조회")
   void findByProductIdTest() throws Exception {
     // given
-    int productId = 1;
-
     SaleDto saleDto = SaleDto.builder()
         .productId(productId)
         .build();
@@ -135,11 +133,6 @@ class SaleServiceImplTest {
   @DisplayName("제품 Id & 사이즈 & 가격 & 상태로 판매 입찰 목록 조회")
   void findByProductIdAndSizeAndPriceAndSaleStatusTest() throws Exception {
     // given
-    int productId = 1;
-    int size = 1;
-    int price = 1;
-    SaleStatus status = SaleStatus.BID_PROGRESS;
-
     SaleDto saleDto = SaleDto.builder()
         .productId(productId)
         .size(size)
@@ -169,14 +162,12 @@ class SaleServiceImplTest {
   @DisplayName("판매 상태 수정 로직 테스트")
   void updateSaleStatusTest() throws Exception {
     // given
-    int saleId = 1;
-    SaleStatus status = SaleStatus.MATCHING_COMPLETE;
-
+    SaleStatus updateStatus = SaleStatus.MATCHING_COMPLETE;
     // when
-    saleService.updateSaleStatus(saleId, status);
+    saleService.updateSaleStatus(saleId, updateStatus);
 
     // then
-    verify(saleRepository, times(1)).updateSaleStatus(saleId, status);
+    verify(saleRepository, times(1)).updateSaleStatus(saleId, updateStatus);
 
   }
 }

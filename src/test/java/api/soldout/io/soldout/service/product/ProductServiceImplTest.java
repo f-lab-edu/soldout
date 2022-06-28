@@ -32,6 +32,27 @@ class ProductServiceImplTest {
 
   ProductRepository productRepository;
 
+  // productDto 객체
+  ProductCategory category = ProductCategory.SHOES;
+  String name = "name";
+  String brand = "brand";
+  String modelNumber = "modelNumber";
+  LocalDate day = LocalDate.of(22, 1, 1);
+  String color = "color";
+
+  // sizeInfo 객체
+  HashMap<String, Integer> sizeInfo;
+  int productId = 1;
+  int min = 210;
+  int max = 320;
+  int unit = 5;
+
+  // images 리스트
+  List<String> images;
+  String link1 = "link1";
+  String link2 = "link2";
+  String link3 = "link3";
+
   @BeforeEach
   void init() throws Exception {
 
@@ -39,28 +60,22 @@ class ProductServiceImplTest {
 
     productService = new ProductServiceImpl(productRepository);
 
+    sizeInfo = new HashMap<>();
+    sizeInfo.put("min", min);
+    sizeInfo.put("max", max);
+    sizeInfo.put("unit", unit);
+
+    images = new ArrayList<>();
+    images.add(link1);
+    images.add(link2);
+    images.add(link3);
+
   }
 
   @Test
   @DisplayName("제품 정보 저장 로직 테스트")
   void addProductTest() {
     // given
-    HashMap<String, Integer> sizeInfo = new HashMap<>();
-    sizeInfo.put("min", 0);
-    sizeInfo.put("max", 10);
-    sizeInfo.put("unit", 5);
-
-    List<String> images = new ArrayList<>();
-    images.add("testLink1");
-    images.add("testLink2");
-    images.add("testLink3");
-
-    String name = "testName";
-    String brand = "testBrand";
-    String modelNumber = "testModelNumber";
-    LocalDate day = LocalDate.of(22, 1, 1);
-    String color = "testColor";
-
     AddProductCommand command = new AddProductCommand(
         ProductCategory.SHOES, name, brand, modelNumber, day, color, sizeInfo, images
     );

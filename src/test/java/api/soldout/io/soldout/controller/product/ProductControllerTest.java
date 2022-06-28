@@ -25,7 +25,6 @@ import api.soldout.io.soldout.util.enums.ProductCategory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,6 +56,27 @@ class ProductControllerTest {
 
   ObjectMapper objectMapper;
 
+  // productDto 객체
+  ProductCategory category = ProductCategory.SHOES;
+  String name = "name";
+  String brand = "brand";
+  String modelNumber = "modelNumber";
+  LocalDate releaseDay = LocalDate.of(22, 1, 1);
+  String color = "color";
+
+  // sizeInfo 객체
+  HashMap<String, Integer> sizeInfo;
+  int productId = 1;
+  int min = 210;
+  int max = 320;
+  int unit = 5;
+
+  // images 리스트
+  List<String> images;
+  String link1 = "link1";
+  String link2 = "link2";
+  String link3 = "link3";
+
   @BeforeEach
   void setUp() throws Exception {
 
@@ -65,31 +85,23 @@ class ProductControllerTest {
 
     objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
+    sizeInfo = new HashMap<>();
+    sizeInfo.put("min", min);
+    sizeInfo.put("max", max);
+    sizeInfo.put("unit", unit);
+
+    images = new ArrayList<>();
+    images.add(link1);
+    images.add(link2);
+    images.add(link3);
   }
 
   @Test
   @DisplayName("제품 저장 테스트")
   void addProductTest() throws Exception {
     // given
-    HashMap<String, Integer> sizeInfo = new HashMap<>();
-    sizeInfo.put("min", 0);
-    sizeInfo.put("max", 10);
-    sizeInfo.put("unit", 5);
-
-    List<String> images = new ArrayList<>();
-    images.add("testLink1");
-    images.add("testLink2");
-    images.add("testLink3");
-
     AddProductRequest request = new AddProductRequest(
-        ProductCategory.SHOES,
-        "testName",
-        "testBrand",
-        "testModelNumber",
-        LocalDate.now(),
-        "testColor",
-        sizeInfo,
-        images
+        category, name, brand, modelNumber, releaseDay, color, sizeInfo, images
     );
 
     ResponseDto response = new ResponseDto(
@@ -127,23 +139,21 @@ class ProductControllerTest {
   @DisplayName("전체 제품 리스트 조회 테스트")
   void findAllProductsTest() throws Exception {
     // given
-    int productId = 1;
-
-    SizeInfoDto sizeInfoDto = new SizeInfoDto(1, productId, 210, 320, 5);
+    SizeInfoDto sizeInfoDto = new SizeInfoDto(1, productId, min, max, unit);
 
     List<ImageDto> imageDtoList = new ArrayList<>();
-    imageDtoList.add(new ImageDto(1, productId, "testLink1"));
-    imageDtoList.add(new ImageDto(2, productId, "testLink2"));
-    imageDtoList.add(new ImageDto(3, productId, "testLink3"));
+    imageDtoList.add(new ImageDto(1, productId, images.get(0)));
+    imageDtoList.add(new ImageDto(2, productId, images.get(1)));
+    imageDtoList.add(new ImageDto(3, productId, images.get(2)));
 
     ProductDto productDto = ProductDto.builder()
         .id(productId)
-        .category(ProductCategory.SHOES)
-        .name("testName")
-        .brand("testBrand")
-        .modelNumber("testModelNumber")
-        .releaseDay(null) // Json Array 로 나와
-        .color("testColor")
+        .category(category)
+        .name(name)
+        .brand(brand)
+        .modelNumber(modelNumber)
+        .releaseDay(null) // Json Array 로 나와 에러 발생
+        .color(color)
         .sizeInfo(sizeInfoDto)
         .images(imageDtoList)
         .build();

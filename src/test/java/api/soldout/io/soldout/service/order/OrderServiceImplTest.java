@@ -32,6 +32,14 @@ class OrderServiceImplTest {
 
   ApplicationEventPublisher eventPublisher;
 
+  int orderId = 1;
+  int userId = 1;
+  int productId = 1;
+  int size = 250;
+  int price = 100000;
+  int period = 3;
+  OrderStatus status = OrderStatus.MATCHING_COMPLETE;
+
   @BeforeEach
   void init() {
 
@@ -48,12 +56,12 @@ class OrderServiceImplTest {
   void orderNowTest() {
     // given
     OrderCommand command = new OrderCommand(
-        1, 1, 250, 100000, 3, OrderType.ORDER_NOW
+        userId, productId, size, price, period, OrderType.ORDER_NOW
     );
 
-    ArgumentCaptor<OrderDto> orderCap = ArgumentCaptor.forClass(OrderDto.class);
+    final ArgumentCaptor<OrderDto> orderCap = ArgumentCaptor.forClass(OrderDto.class);
 
-    ArgumentCaptor<OrderCreated> eventCap = ArgumentCaptor.forClass(OrderCreated.class);
+    final ArgumentCaptor<OrderCreated> eventCap = ArgumentCaptor.forClass(OrderCreated.class);
 
     // when
     orderService.orderNow(command);
@@ -88,8 +96,6 @@ class OrderServiceImplTest {
   @DisplayName("사용자 Id로 구매 입찰 목록 조회")
   void findByUserIdTest() throws Exception {
     // given
-    int userId = 1;
-
     OrderDto orderDto = OrderDto.builder()
         .userId(userId)
         .build();
@@ -114,15 +120,12 @@ class OrderServiceImplTest {
   @DisplayName("제품 Id로 구매 입찰 목록 조회")
   void findByProductIdTest() throws Exception {
     // given
-    int productId = 1;
-
     OrderDto orderDto = OrderDto.builder()
         .productId(productId)
         .build();
 
     List<OrderDto> list = new ArrayList<>();
     list.add(orderDto);
-
 
     // when
     when(orderRepository.findByProductId(productId)).thenReturn(list);
@@ -140,8 +143,6 @@ class OrderServiceImplTest {
   @DisplayName("구매 상태 수정 로직 테스트")
   void updateSaleStatusTest() throws Exception {
     // given
-    int orderId = 1;
-    OrderStatus status = OrderStatus.MATCHING_COMPLETE;
 
     // when
     orderService.updateOrderStatus(orderId, status);
