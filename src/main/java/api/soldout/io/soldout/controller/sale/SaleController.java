@@ -2,8 +2,8 @@ package api.soldout.io.soldout.controller.sale;
 
 import api.soldout.io.soldout.annotation.CheckSignIn;
 import api.soldout.io.soldout.annotation.SignInUserId;
-import api.soldout.io.soldout.controller.sale.request.SaleBidRequest;
-import api.soldout.io.soldout.dtos.response.ResponseDto;
+import api.soldout.io.soldout.controller.request.SaleBidRequest;
+import api.soldout.io.soldout.controller.response.ResponseDto;
 import api.soldout.io.soldout.service.sale.SaleService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;

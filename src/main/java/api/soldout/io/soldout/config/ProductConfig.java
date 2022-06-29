@@ -1,6 +1,6 @@
 package api.soldout.io.soldout.config;
 
-import api.soldout.io.soldout.dtos.entity.ProductDto;
+import api.soldout.io.soldout.domain.ProductDto;
 import api.soldout.io.soldout.mapper.ProductMapper;
 import api.soldout.io.soldout.repository.product.MybatisProductRepository;
 import api.soldout.io.soldout.repository.product.ProductRepository;

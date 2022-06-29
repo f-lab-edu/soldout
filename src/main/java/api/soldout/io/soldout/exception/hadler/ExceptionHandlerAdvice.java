@@ -1,7 +1,7 @@
 package api.soldout.io.soldout.exception.hadler;
 
-import api.soldout.io.soldout.dtos.response.ResponseDto;
-import api.soldout.io.soldout.dtos.response.ResponseDto.Error;
+import api.soldout.io.soldout.controller.response.ResponseDto;
+import api.soldout.io.soldout.controller.response.ResponseDto.Error;
 import api.soldout.io.soldout.exception.AlreadyExistEmailException;
 import api.soldout.io.soldout.exception.AlreadyMatchedException;
 import api.soldout.io.soldout.exception.AlreadySignInBrowserException;

@@ -1,6 +1,6 @@
 package api.soldout.io.soldout.repository.user;
 
-import api.soldout.io.soldout.dtos.entity.UserDto;
+import api.soldout.io.soldout.domain.UserDto;
 
 /**
  * .

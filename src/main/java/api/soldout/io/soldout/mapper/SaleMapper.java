@@ -1,7 +1,7 @@
 package api.soldout.io.soldout.mapper;
 
-import api.soldout.io.soldout.dtos.entity.SaleDto;
-import api.soldout.io.soldout.dtos.entity.SaleDto.SaleStatus;
+import api.soldout.io.soldout.domain.SaleDto;
+import api.soldout.io.soldout.domain.SaleDto.SaleStatus;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

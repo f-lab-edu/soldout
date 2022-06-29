@@ -1,9 +1,9 @@
 package api.soldout.io.soldout.controller.product;
 
-import api.soldout.io.soldout.controller.product.request.AddProductRequest;
-import api.soldout.io.soldout.dtos.entity.ProductDto;
-import api.soldout.io.soldout.dtos.response.ResponseDto;
-import api.soldout.io.soldout.dtos.response.data.GetAllProductsData;
+import api.soldout.io.soldout.controller.request.AddProductRequest;
+import api.soldout.io.soldout.controller.response.ResponseDto;
+import api.soldout.io.soldout.controller.response.data.GetAllProductsData;
+import api.soldout.io.soldout.domain.ProductDto;
 import api.soldout.io.soldout.service.product.ProductService;
 import java.util.List;
 import javax.validation.Valid;

@@ -6,7 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import api.soldout.io.soldout.dtos.entity.UserDto;
+import api.soldout.io.soldout.domain.UserDto;
 import api.soldout.io.soldout.repository.user.MybatisUserRepository;
 import api.soldout.io.soldout.repository.user.UserRepository;
 import api.soldout.io.soldout.service.user.command.SignUpCommand;

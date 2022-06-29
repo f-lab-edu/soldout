@@ -1,4 +1,4 @@
-package api.soldout.io.soldout.dtos.entity;
+package api.soldout.io.soldout.domain;
 
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;

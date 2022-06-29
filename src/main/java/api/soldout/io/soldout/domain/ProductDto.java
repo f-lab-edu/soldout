@@ -1,6 +1,6 @@
-package api.soldout.io.soldout.dtos.entity;
+package api.soldout.io.soldout.domain;
 
-import api.soldout.io.soldout.util.enums.ProductCategory;
+import api.soldout.io.soldout.enums.ProductCategory;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

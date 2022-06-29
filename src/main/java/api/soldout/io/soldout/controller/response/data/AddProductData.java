@@ -1,7 +1,7 @@
-package api.soldout.io.soldout.dtos.response.data;
+package api.soldout.io.soldout.controller.response.data;
 
-import api.soldout.io.soldout.dtos.entity.ImageDto;
-import api.soldout.io.soldout.dtos.entity.ProductDto;
+import api.soldout.io.soldout.domain.ImageDto;
+import api.soldout.io.soldout.domain.ProductDto;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
 package api.soldout.io.soldout.repository.trade;
 
-import api.soldout.io.soldout.dtos.entity.TradeDto;
+import api.soldout.io.soldout.domain.TradeDto;
 import api.soldout.io.soldout.mapper.TradeMapper;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

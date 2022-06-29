@@ -4,7 +4,7 @@
 
 <mapper namespace="api.soldout.io.soldout.mapper.ProductMapper">
 
-  <insert id="insertProduct" parameterType="api.soldout.io.soldout.dtos.entity.ProductDto" useGeneratedKeys = "true" keyProperty="id">
+  <insert id="insertProduct" parameterType="api.soldout.io.soldout.domain.ProductDto" useGeneratedKeys = "true" keyProperty="id">
     INSERT INTO product (category, name, brand, model_number, release_day, color)
     VALUES (#{category}, #{name}, #{brand}, #{modelNumber}, #{releaseDay}, #{color});
   </insert>
@@ -22,7 +22,7 @@
     VALUES (#{productId}, #{sizeInfo.min}, #{sizeInfo.max}, #{sizeInfo.unit});
   </insert>
 
-  <resultMap id="productMap" type="api.soldout.io.soldout.dtos.entity.ProductDto">
+  <resultMap id="productMap" type="api.soldout.io.soldout.domain.ProductDto">
     <id property="id" column="id"></id>
     <result property="category" column="category"></result>
     <result property="name" column="name"></result>
@@ -34,7 +34,7 @@
     <collection property="images" column="product_id" resultMap="imagesMap"></collection>
   </resultMap>
 
-  <resultMap id="sizeInfoMap" type="api.soldout.io.soldout.dtos.entity.SizeInfoDto">
+  <resultMap id="sizeInfoMap" type="api.soldout.io.soldout.domain.SizeInfoDto">
     <id property="id" column="id"></id>
     <result property="productId" column="product_id"></result>
     <result property="min" column="min"></result>
@@ -42,7 +42,7 @@
     <result property="unit" column="unit"></result>
   </resultMap>
 
-  <resultMap id="imagesMap" type="api.soldout.io.soldout.dtos.entity.ImageDto">
+  <resultMap id="imagesMap" type="api.soldout.io.soldout.domain.ImageDto">
     <id property="id" column="id"></id>
     <result property="productId" column="product_id"></result>
     <result property="link" column="link"></result>

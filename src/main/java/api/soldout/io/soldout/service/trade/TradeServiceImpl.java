@@ -1,10 +1,7 @@
 package api.soldout.io.soldout.service.trade;
 
-import api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus;
-import api.soldout.io.soldout.dtos.entity.SaleDto;
-import api.soldout.io.soldout.dtos.entity.SaleDto.SaleStatus;
-import api.soldout.io.soldout.dtos.entity.TradeDto;
-import api.soldout.io.soldout.dtos.entity.TradeDto.TradeStatus;
+import api.soldout.io.soldout.domain.TradeDto;
+import api.soldout.io.soldout.domain.TradeDto.TradeStatus;
 import api.soldout.io.soldout.repository.trade.TradeRepository;
 import java.time.LocalDateTime;
 import java.util.List;

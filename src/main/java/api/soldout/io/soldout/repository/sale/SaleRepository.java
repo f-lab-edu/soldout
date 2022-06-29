@@ -1,7 +1,7 @@
 package api.soldout.io.soldout.repository.sale;
 
-import api.soldout.io.soldout.dtos.entity.SaleDto;
-import api.soldout.io.soldout.dtos.entity.SaleDto.SaleStatus;
+import api.soldout.io.soldout.domain.SaleDto;
+import api.soldout.io.soldout.domain.SaleDto.SaleStatus;
 import java.util.List;
 
 /**
