@@ -1,4 +1,4 @@
-package api.soldout.io.soldout.util.enums;
+package api.soldout.io.soldout.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +18,6 @@ public enum ProductCategory {
   TECH("테크"),
   LIFE("라이프");
 
-  private String text;
+  private final String text;
 
 }

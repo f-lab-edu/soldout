@@ -1,4 +1,4 @@
-package api.soldout.io.soldout.util.enums;
+package api.soldout.io.soldout.enums;
 
 import lombok.Getter;
 
@@ -10,6 +10,6 @@ import lombok.Getter;
 public enum DataSourceType {
 
   MASTER,
-  SLAVE;
+  SLAVE
 
 }

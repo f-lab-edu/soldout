@@ -1,7 +1,7 @@
-package api.soldout.io.soldout.controller.product.request;
+package api.soldout.io.soldout.controller.request;
 
+import api.soldout.io.soldout.enums.ProductCategory;
 import api.soldout.io.soldout.service.product.command.AddProductCommand;
-import api.soldout.io.soldout.util.enums.ProductCategory;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;

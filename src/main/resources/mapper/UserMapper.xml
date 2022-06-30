@@ -4,18 +4,18 @@
 
 <mapper namespace="api.soldout.io.soldout.mapper.UserMapper">
 
-  <insert id="save" parameterType="api.soldout.io.soldout.dtos.entity.UserDto" useGeneratedKeys = "true" keyProperty="id">
+  <insert id="save" parameterType="api.soldout.io.soldout.domain.UserDto" useGeneratedKeys = "true" keyProperty="id">
     INSERT INTO user (email, password, name, phone, address)
     VALUES (#{email}, #{password}, #{name}, #{phone}, #{address});
   </insert>
 
-  <select id="findById" parameterType="int" resultType="api.soldout.io.soldout.dtos.entity.UserDto">
+  <select id="findById" parameterType="int" resultType="api.soldout.io.soldout.domain.UserDto">
     SELECT *
     FROM user
     WHERE user.id = #{userId};
   </select>
 
-  <select id="findByEmail" parameterType="java.lang.String" resultType="api.soldout.io.soldout.dtos.entity.UserDto">
+  <select id="findByEmail" parameterType="java.lang.String" resultType="api.soldout.io.soldout.domain.UserDto">
     SELECT *
     FROM user
     WHERE user.email = #{email};

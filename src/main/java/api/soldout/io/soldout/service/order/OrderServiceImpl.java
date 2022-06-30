@@ -1,7 +1,7 @@
 package api.soldout.io.soldout.service.order;
 
-import api.soldout.io.soldout.dtos.entity.OrderDto;
-import api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus;
+import api.soldout.io.soldout.domain.OrderDto;
+import api.soldout.io.soldout.domain.OrderDto.OrderStatus;
 import api.soldout.io.soldout.listener.event.OrderCreated;
 import api.soldout.io.soldout.repository.order.OrderRepository;
 import api.soldout.io.soldout.service.order.command.OrderCommand;

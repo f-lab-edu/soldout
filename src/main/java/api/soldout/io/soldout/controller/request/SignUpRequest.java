@@ -1,4 +1,4 @@
-package api.soldout.io.soldout.controller.user.request;
+package api.soldout.io.soldout.controller.request;
 
 import api.soldout.io.soldout.service.user.command.SignUpCommand;
 import javax.validation.constraints.NotBlank;

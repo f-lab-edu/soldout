@@ -4,12 +4,12 @@
 
 <mapper namespace="api.soldout.io.soldout.mapper.SaleMapper">
 
-  <insert id="insertSale" parameterType="api.soldout.io.soldout.dtos.entity.SaleDto" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSale" parameterType="api.soldout.io.soldout.domain.SaleDto" useGeneratedKeys="true" keyProperty="id">
     INSERT INTO sale (user_id, product_id, size, price, expiration_date, sale_type, sale_status)
     VALUES (#{userId}, #{productId}, #{size}, #{price},#{date}, #{type}, #{status});
   </insert>
 
-  <resultMap id="SaleMap" type="api.soldout.io.soldout.dtos.entity.SaleDto">
+  <resultMap id="SaleMap" type="api.soldout.io.soldout.domain.SaleDto">
     <id property="id" column="id"></id>
     <result property="userId" column="user_id"></result>
     <result property="productId" column="product_id"></result>

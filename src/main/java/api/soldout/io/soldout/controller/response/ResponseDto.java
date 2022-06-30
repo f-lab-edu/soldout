@@ -1,4 +1,4 @@
-package api.soldout.io.soldout.dtos.response;
+package api.soldout.io.soldout.controller.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

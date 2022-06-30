@@ -11,17 +11,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import api.soldout.io.soldout.controller.product.request.AddProductRequest;
-import api.soldout.io.soldout.dtos.entity.ImageDto;
-import api.soldout.io.soldout.dtos.entity.ProductDto;
-import api.soldout.io.soldout.dtos.entity.SizeInfoDto;
-import api.soldout.io.soldout.dtos.response.ResponseDto;
-import api.soldout.io.soldout.dtos.response.data.GetAllProductsData;
+import api.soldout.io.soldout.controller.request.AddProductRequest;
+import api.soldout.io.soldout.controller.response.ResponseDto;
+import api.soldout.io.soldout.controller.response.data.GetAllProductsData;
+import api.soldout.io.soldout.domain.ImageDto;
+import api.soldout.io.soldout.domain.ProductDto;
+import api.soldout.io.soldout.domain.SizeInfoDto;
+import api.soldout.io.soldout.enums.ProductCategory;
 import api.soldout.io.soldout.interceptor.SessionSignInHandlerInterceptor;
 import api.soldout.io.soldout.resolver.SignInUserArgumentResolver;
 import api.soldout.io.soldout.service.product.ProductService;
 import api.soldout.io.soldout.service.product.command.AddProductCommand;
-import api.soldout.io.soldout.util.enums.ProductCategory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.time.LocalDate;

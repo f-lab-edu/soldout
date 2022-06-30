@@ -1,6 +1,6 @@
 package api.soldout.io.soldout.config;
 
-import api.soldout.io.soldout.util.enums.DataSourceType;
+import api.soldout.io.soldout.enums.DataSourceType;
 import java.util.HashMap;
 import java.util.Map;
 import javax.sql.DataSource;

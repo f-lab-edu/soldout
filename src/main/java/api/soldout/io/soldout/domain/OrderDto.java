@@ -1,6 +1,5 @@
-package api.soldout.io.soldout.dtos.entity;
+package api.soldout.io.soldout.domain;
 
-import api.soldout.io.soldout.util.enums.OrderType;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +13,21 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class OrderDto {
+
+  /**
+   * .
+   */
+
+  @Getter
+  @AllArgsConstructor
+  public enum OrderType {
+
+    ORDER_NOW("즉시 구매"),
+    ORDER_BID("구매 입찰");
+
+    private final String text;
+
+  }
 
   /**
    * .

@@ -1,7 +1,7 @@
-package api.soldout.io.soldout.controller.order.request;
+package api.soldout.io.soldout.controller.request;
 
+import api.soldout.io.soldout.domain.OrderDto.OrderType;
 import api.soldout.io.soldout.service.order.command.OrderCommand;
-import api.soldout.io.soldout.util.enums.OrderType;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;

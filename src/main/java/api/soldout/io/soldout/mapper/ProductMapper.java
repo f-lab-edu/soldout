@@ -1,8 +1,8 @@
 package api.soldout.io.soldout.mapper;
 
-import api.soldout.io.soldout.dtos.entity.ImageDto;
-import api.soldout.io.soldout.dtos.entity.ProductDto;
-import api.soldout.io.soldout.dtos.entity.SizeInfoDto;
+import api.soldout.io.soldout.domain.ImageDto;
+import api.soldout.io.soldout.domain.ProductDto;
+import api.soldout.io.soldout.domain.SizeInfoDto;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

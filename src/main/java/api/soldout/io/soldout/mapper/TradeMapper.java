@@ -1,6 +1,6 @@
 package api.soldout.io.soldout.mapper;
 
-import api.soldout.io.soldout.dtos.entity.TradeDto;
+import api.soldout.io.soldout.domain.TradeDto;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 

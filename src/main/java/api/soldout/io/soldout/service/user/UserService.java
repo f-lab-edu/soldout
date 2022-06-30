@@ -1,6 +1,6 @@
 package api.soldout.io.soldout.service.user;
 
-import api.soldout.io.soldout.dtos.entity.UserDto;
+import api.soldout.io.soldout.domain.UserDto;
 import api.soldout.io.soldout.service.user.command.SignUpCommand;
 
 /**

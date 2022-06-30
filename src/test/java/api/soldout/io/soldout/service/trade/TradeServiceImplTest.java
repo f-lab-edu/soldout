@@ -6,7 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import api.soldout.io.soldout.dtos.entity.TradeDto;
+import api.soldout.io.soldout.domain.TradeDto;
 import api.soldout.io.soldout.repository.trade.TradeRepository;
 import api.soldout.io.soldout.repository.trade.TradeRepositoryImpl;
 import java.util.ArrayList;

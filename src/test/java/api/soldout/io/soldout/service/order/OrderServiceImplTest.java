@@ -6,13 +6,13 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import api.soldout.io.soldout.dtos.entity.OrderDto;
-import api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus;
+import api.soldout.io.soldout.domain.OrderDto;
+import api.soldout.io.soldout.domain.OrderDto.OrderStatus;
+import api.soldout.io.soldout.domain.OrderDto.OrderType;
 import api.soldout.io.soldout.listener.event.OrderCreated;
 import api.soldout.io.soldout.repository.order.OrderRepository;
 import api.soldout.io.soldout.repository.order.OrderRepositoryImpl;
 import api.soldout.io.soldout.service.order.command.OrderCommand;
-import api.soldout.io.soldout.util.enums.OrderType;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;

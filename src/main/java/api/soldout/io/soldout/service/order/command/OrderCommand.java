@@ -1,6 +1,6 @@
 package api.soldout.io.soldout.service.order.command;
 
-import api.soldout.io.soldout.util.enums.OrderType;
+import api.soldout.io.soldout.domain.OrderDto.OrderType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

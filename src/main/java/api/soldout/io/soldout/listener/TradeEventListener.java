@@ -1,8 +1,8 @@
 package api.soldout.io.soldout.listener;
 
-import api.soldout.io.soldout.dtos.entity.OrderDto.OrderStatus;
-import api.soldout.io.soldout.dtos.entity.SaleDto;
-import api.soldout.io.soldout.dtos.entity.SaleDto.SaleStatus;
+import api.soldout.io.soldout.domain.OrderDto.OrderStatus;
+import api.soldout.io.soldout.domain.SaleDto;
+import api.soldout.io.soldout.domain.SaleDto.SaleStatus;
 import api.soldout.io.soldout.exception.AlreadyMatchedException;
 import api.soldout.io.soldout.listener.event.OrderCreated;
 import api.soldout.io.soldout.service.order.OrderService;

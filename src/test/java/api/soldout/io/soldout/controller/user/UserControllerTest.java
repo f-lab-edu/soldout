@@ -11,10 +11,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import api.soldout.io.soldout.controller.user.request.SignInRequest;
-import api.soldout.io.soldout.controller.user.request.SignUpRequest;
-import api.soldout.io.soldout.dtos.entity.UserDto;
-import api.soldout.io.soldout.dtos.response.ResponseDto;
+import api.soldout.io.soldout.controller.request.SignInRequest;
+import api.soldout.io.soldout.controller.request.SignUpRequest;
+import api.soldout.io.soldout.controller.response.ResponseDto;
+import api.soldout.io.soldout.domain.UserDto;
 import api.soldout.io.soldout.interceptor.SessionSignInHandlerInterceptor;
 import api.soldout.io.soldout.resolver.SignInUserArgumentResolver;
 import api.soldout.io.soldout.service.security.SecurityService;

@@ -10,13 +10,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import api.soldout.io.soldout.controller.order.request.OrderNowRequest;
-import api.soldout.io.soldout.dtos.response.ResponseDto;
+import api.soldout.io.soldout.controller.request.OrderNowRequest;
+import api.soldout.io.soldout.controller.response.ResponseDto;
+import api.soldout.io.soldout.domain.OrderDto.OrderType;
 import api.soldout.io.soldout.interceptor.SessionSignInHandlerInterceptor;
 import api.soldout.io.soldout.resolver.SignInUserArgumentResolver;
 import api.soldout.io.soldout.service.order.OrderService;
 import api.soldout.io.soldout.service.order.command.OrderCommand;
-import api.soldout.io.soldout.util.enums.OrderType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;

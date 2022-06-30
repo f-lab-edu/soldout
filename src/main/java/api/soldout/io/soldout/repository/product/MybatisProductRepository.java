@@ -1,6 +1,6 @@
 package api.soldout.io.soldout.repository.product;
 
-import api.soldout.io.soldout.dtos.entity.ProductDto;
+import api.soldout.io.soldout.domain.ProductDto;
 import api.soldout.io.soldout.mapper.ProductMapper;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

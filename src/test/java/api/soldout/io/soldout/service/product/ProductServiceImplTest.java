@@ -6,12 +6,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import api.soldout.io.soldout.dtos.entity.ImageDto;
-import api.soldout.io.soldout.dtos.entity.ProductDto;
-import api.soldout.io.soldout.dtos.entity.SizeInfoDto;
+import api.soldout.io.soldout.domain.ImageDto;
+import api.soldout.io.soldout.domain.ProductDto;
+import api.soldout.io.soldout.domain.SizeInfoDto;
+import api.soldout.io.soldout.enums.ProductCategory;
 import api.soldout.io.soldout.repository.product.ProductRepository;
 import api.soldout.io.soldout.service.product.command.AddProductCommand;
-import api.soldout.io.soldout.util.enums.ProductCategory;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;

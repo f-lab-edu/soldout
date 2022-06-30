@@ -1,6 +1,5 @@
-package api.soldout.io.soldout.dtos.entity;
+package api.soldout.io.soldout.domain;
 
-import api.soldout.io.soldout.util.enums.SaleType;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +13,20 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class SaleDto {
+
+  /**
+   * .
+   */
+
+  @Getter
+  @AllArgsConstructor
+  public enum SaleType {
+
+    SALE_NOW("즉시 판매"),
+    SALE_BID("판매 입찰");
+
+    private final String text;
+  }
 
   /**
    * .
@@ -41,7 +54,6 @@ public class SaleDto {
 
   /**
    * .
-   *
    */
 
   @Builder
