@@ -7,10 +7,6 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-/**
- * .
- */
-
 @Getter
 @AllArgsConstructor
 public class AddProductData {
@@ -21,10 +17,6 @@ public class AddProductData {
   private LocalDate releaseDay;
   private String color;
   private List<ImageDto> images;
-
-  /**
-   * .
-   */
 
   public static AddProductData from(ProductDto product) {
 

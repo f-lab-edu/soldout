@@ -9,10 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-/**
- * .
- */
-
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,10 +26,6 @@ public class SaleBidRequest {
 
   @NotNull
   private SaleType type;
-
-  /**
-   * .
-   */
 
   public static SaleBidCommand toCommand(SaleBidRequest request, int userId, int productId) {
 

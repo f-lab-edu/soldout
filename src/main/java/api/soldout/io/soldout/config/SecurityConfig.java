@@ -54,7 +54,7 @@ public class SecurityConfig implements WebMvcConfigurer {
   /**
    * Jwt 인증 방식 사용시 로그인 검증을 담당하는 인터셉터 객체.
    * 객체 빈 등록 단계에서 secretKey 를 주입받는다.
-  */
+   */
 
   @Bean
   public JwtSignInHandlerInterceptor jwtSignInHandlerInterceptor() {

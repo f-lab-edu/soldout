@@ -5,10 +5,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- *.
- */
-
 @Slf4j
 public class HashMapUserRepository {
 
@@ -16,19 +12,11 @@ public class HashMapUserRepository {
 
   private AtomicLong sequence = new AtomicLong(0L);
 
-  /**
-   * .
-   */
-
   public void save(UserDto user) {
 
     database.put(sequence.incrementAndGet(), user);
 
   }
-
-  /**
-   * .
-   */
 
   public boolean isExistEmail(String email) {
 
@@ -43,10 +31,6 @@ public class HashMapUserRepository {
     return false;
 
   }
-
-  /**
-   * .
-   */
 
   public UserDto findByEmail(String email) {
 

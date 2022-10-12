@@ -8,16 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
-/**
- * .
- */
-
 @Configuration
 public class DataSourceConfig {
-
-  /**
-   * .
-   */
 
   @Primary
   @Bean(name = "masterDataSource")
@@ -28,10 +20,6 @@ public class DataSourceConfig {
         .type(HikariDataSource.class)
         .build();
   }
-
-  /**
-   * .
-   */
 
   @Bean(name = "slaveDataSource")
   @ConfigurationProperties(prefix = "spring.datasource.slave.hikari")

@@ -10,16 +10,8 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * .
- */
-
 @Configuration
 public class ProductConfig {
-
-  /**
-   * .
-   */
 
   @Bean
   public ProductRepository productRepository(ProductMapper productMapper) {
@@ -28,20 +20,12 @@ public class ProductConfig {
 
   }
 
-  /**
-   * .
-   */
-
   @Bean
   public Map<Long, ProductDto> productDatabase() {
 
     return new ConcurrentHashMap<>();
 
   }
-
-  /**
-   * .
-   */
 
   @Bean
   public AtomicLong productSequence() {

@@ -5,7 +5,6 @@ import lombok.Getter;
 
 /**
  * 상품 카테고리를 구분하기 위한 Enum 클래스.
- * 신발
  */
 
 @Getter

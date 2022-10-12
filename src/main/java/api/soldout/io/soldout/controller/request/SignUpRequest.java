@@ -7,10 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
-/**
- *.
- */
-
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,10 +23,6 @@ public class SignUpRequest {
   private String phone;
   @NotBlank
   private String address;
-
-  /**
-   * .
-   */
 
   public static SignUpCommand toCommand(SignUpRequest requestDto) {
     return new SignUpCommand(

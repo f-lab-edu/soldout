@@ -10,10 +10,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-/**
- * ProductDto.
- */
-
 @Getter
 @Builder
 @AllArgsConstructor
@@ -29,10 +25,6 @@ public class ProductDto {
   private String color;
   private SizeInfoDto sizeInfo;
   private List<ImageDto> images;
-
-  /**
-   * .
-   */
 
   public void buildToImageDto(List<String> images) {
 
@@ -51,10 +43,6 @@ public class ProductDto {
     this.images = imageList;
 
   }
-
-  /**
-   * .
-   */
 
   public void buildToSizeDto(Map<String, Integer> sizeInfo) {
 

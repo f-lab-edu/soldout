@@ -10,10 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * .
- */
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -23,7 +19,6 @@ public class SaleServiceImpl implements SaleService {
 
   /**
    * 판매 입찰 등록을 위한 엔티티 객체 생성.
-   * .@param command
    */
   @Override
   @Transactional

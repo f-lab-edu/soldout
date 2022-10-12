@@ -5,10 +5,6 @@ import api.soldout.io.soldout.domain.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-/**
- *.
- */
-
 @Getter
 @AllArgsConstructor
 public class SignUpData {
@@ -17,10 +13,6 @@ public class SignUpData {
   private String name;
   private String phone;
   private String address;
-
-  /**
-   *.
-   */
 
   public static SignUpData from(UserDto user) {
 

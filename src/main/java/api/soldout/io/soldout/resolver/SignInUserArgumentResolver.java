@@ -10,19 +10,11 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-/**
- * .
- */
-
 @Component
 @RequiredArgsConstructor
 public class SignInUserArgumentResolver implements HandlerMethodArgumentResolver {
 
   private final SecurityService securityService;
-
-  /**
-   * .
-   */
 
   @Override
   public boolean supportsParameter(MethodParameter parameter) {

@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
  * SessionSecurityService : 세션 방식의 인증 로직 구현
  * JwtSecurityService : 토큰 방식의 인증 로직 구현
-
  */
 
 @Slf4j
@@ -36,10 +35,6 @@ public class UserController {
 
   private final SecurityService securityService;
 
-  /**
-   *.
-   */
-
   @PostMapping("/signup")
   public ResponseDto signUp(@Valid @RequestBody SignUpRequest requestDto) {
 
@@ -48,10 +43,6 @@ public class UserController {
     return new ResponseDto(true, null, "회원가입 성공", null);
 
   }
-
-  /**
-   *.
-   */
 
   @GetMapping("/{email}/exists")
   public ResponseDto checkEmail(@PathVariable String email) {
@@ -68,10 +59,6 @@ public class UserController {
 
   }
 
-  /**
-   *.
-   */
-
   @PostMapping("/signin")
   public ResponseDto signIn(@Valid @RequestBody SignInRequest requestDto) {
 
@@ -83,10 +70,6 @@ public class UserController {
 
   }
 
-  /**
-   *.
-   */
-
   @PostMapping("/logout")
   public ResponseDto logOut() {
 
@@ -95,10 +78,6 @@ public class UserController {
     return new ResponseDto(true, null, "로그아웃 성공", null);
 
   }
-
-  /**
-   * .
-   */
 
   @GetMapping("/signin/check")
   @CheckSignIn

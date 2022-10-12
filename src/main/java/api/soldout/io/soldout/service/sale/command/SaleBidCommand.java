@@ -4,10 +4,6 @@ import api.soldout.io.soldout.domain.SaleDto.SaleType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-/**
- * .
- */
-
 @Getter
 @AllArgsConstructor
 public class SaleBidCommand {

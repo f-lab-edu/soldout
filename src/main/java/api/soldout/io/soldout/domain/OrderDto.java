@@ -6,17 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-/**
- * .
- */
-
 @Getter
 @NoArgsConstructor
 public class OrderDto {
-
-  /**
-   * .
-   */
 
   @Getter
   @AllArgsConstructor
@@ -28,10 +20,6 @@ public class OrderDto {
     private final String text;
 
   }
-
-  /**
-   * .
-   */
 
   @Getter
   @AllArgsConstructor
@@ -52,10 +40,6 @@ public class OrderDto {
   private LocalDateTime date;
   private OrderType type;
   private OrderStatus status;
-
-  /**
-   * .
-   */
 
   @Builder
   public OrderDto(int id, int userId, int productId, int size, int price, int date,

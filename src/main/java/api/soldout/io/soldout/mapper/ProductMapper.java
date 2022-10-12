@@ -9,7 +9,6 @@ import org.apache.ibatis.annotations.Param;
 
 /**
  * ProductMapper.
- * 상품 엔티티에 대한 Sql문을 담당할 객체
  */
 
 @Mapper

@@ -5,10 +5,6 @@ import api.soldout.io.soldout.domain.SaleDto.SaleStatus;
 import api.soldout.io.soldout.service.sale.command.SaleBidCommand;
 import java.util.List;
 
-/**
- * .
- */
-
 public interface SaleService {
 
   void saleBid(SaleBidCommand command);
