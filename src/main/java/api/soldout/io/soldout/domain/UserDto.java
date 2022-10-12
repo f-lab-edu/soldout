@@ -5,10 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-/**
- *.
- */
-
 @Getter
 @Builder
 @AllArgsConstructor
@@ -21,10 +17,6 @@ public class UserDto {
   private String name;
   private String phone;
   private String address;
-
-  /**
-   *.
-   */
 
   public boolean isSameEmail(String email) {
 

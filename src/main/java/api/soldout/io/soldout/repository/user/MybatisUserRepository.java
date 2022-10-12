@@ -5,10 +5,6 @@ import api.soldout.io.soldout.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * .
- */
-
 @Slf4j
 @RequiredArgsConstructor
 public class MybatisUserRepository implements UserRepository {

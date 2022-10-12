@@ -43,10 +43,6 @@ public class SessionSecurityService implements SecurityService {
                                                               .variableExpiration()
                                                               .build();
 
-  /**
-   * .
-   */
-
   @Override
   public void signIn(int userId) {
 
@@ -65,10 +61,6 @@ public class SessionSecurityService implements SecurityService {
     session.setMaxInactiveInterval(interval);
 
   }
-
-  /**
-   * .
-   */
 
   @Override
   public void logOut() {
@@ -96,20 +88,11 @@ public class SessionSecurityService implements SecurityService {
 
   }
 
-
-  /**
-   * .
-   */
-
   private String getCurrentSessionId() {
 
     return (String) session.getAttribute(SESSION_ID);
 
   }
-
-  /**
-   * .
-   */
 
   private boolean isAlreadySignInBrowser(String sessionId) {
 

@@ -4,10 +4,6 @@ import api.soldout.io.soldout.domain.TradeDto;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
-/**
- * .
- */
-
 @Mapper
 public interface TradeMapper {
 

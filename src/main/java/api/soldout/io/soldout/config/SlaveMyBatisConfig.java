@@ -11,10 +11,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * .
- */
-
 @Configuration
 @MapperScan(value = " api.soldout.io.soldout.mapper",
             sqlSessionFactoryRef = "slaveSqlSessionFactory")
@@ -22,10 +18,6 @@ public class SlaveMyBatisConfig {
 
   @Value("${mybatis.mapper-locations}")
   String mapperPath;
-
-  /**
-   * .
-   */
 
   @Bean(name = "slaveSqlSessionFactory")
   public SqlSessionFactory sqlSessionFactory(@Qualifier("slaveDataSource") DataSource dataSource,

@@ -5,19 +5,11 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-/**
- * .
- */
-
 @Getter
 @AllArgsConstructor
 public class GetOrderByIdData {
 
   private List<OrderDto> orderList;
-
-  /**
-   * .
-   */
 
   public static GetOrderByIdData from(List<OrderDto> orderList) {
 

@@ -9,10 +9,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-/**
- * .
- */
-
 @Configuration
 public class RedisConfig {
 
@@ -22,20 +18,12 @@ public class RedisConfig {
   @Value("${spring.redis.port}")
   private int redisPort;
 
-  /**
-   * .
-   */
-
   @Bean
   public RedisConnectionFactory redisConnectionFactory() {
 
     return new LettuceConnectionFactory(redisHost, redisPort);
 
   }
-
-  /**
-   * .
-   */
 
   @Bean
   public RedisTemplate<String, Object> redisTemplate() {
@@ -45,4 +33,5 @@ public class RedisConfig {
     redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(String.class));
     return redisTemplate;
   }
+
 }

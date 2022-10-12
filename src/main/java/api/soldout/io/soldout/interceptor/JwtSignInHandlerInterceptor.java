@@ -18,18 +18,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-/**
- * .
- */
-
 @Slf4j
 public class JwtSignInHandlerInterceptor implements HandlerInterceptor {
 
   private String secretKey;
-
-  /**
-   * .
-   */
 
   public JwtSignInHandlerInterceptor(String secretKey) {
 

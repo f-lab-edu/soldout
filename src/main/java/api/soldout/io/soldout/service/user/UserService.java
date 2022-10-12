@@ -3,10 +3,6 @@ package api.soldout.io.soldout.service.user;
 import api.soldout.io.soldout.domain.UserDto;
 import api.soldout.io.soldout.service.user.command.SignUpCommand;
 
-/**
- *.
- */
-
 public interface UserService {
 
   void signUp(SignUpCommand commandDto);

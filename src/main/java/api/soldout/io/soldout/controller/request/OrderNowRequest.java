@@ -9,10 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-/**
- * .
- */
-
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,10 +26,6 @@ public class OrderNowRequest {
 
   @NotNull
   private OrderType type;
-
-  /**
-   * .
-   */
 
   public static OrderCommand toCommand(OrderNowRequest request, int userId, int productId) {
 

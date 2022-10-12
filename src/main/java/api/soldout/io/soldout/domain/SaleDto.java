@@ -6,17 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-/**
- * .
- */
-
 @Getter
 @NoArgsConstructor
 public class SaleDto {
-
-  /**
-   * .
-   */
 
   @Getter
   @AllArgsConstructor
@@ -27,10 +19,6 @@ public class SaleDto {
 
     private final String text;
   }
-
-  /**
-   * .
-   */
 
   @Getter
   @AllArgsConstructor
@@ -51,10 +39,6 @@ public class SaleDto {
   private LocalDateTime date;
   private SaleType type;
   private SaleStatus status;
-
-  /**
-   * .
-   */
 
   @Builder
   public SaleDto(int id, int userId, int productId, int size, int price, int date,

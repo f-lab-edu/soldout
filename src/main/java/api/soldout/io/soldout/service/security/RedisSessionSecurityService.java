@@ -13,10 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-/**
- * .
- */
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -80,19 +76,11 @@ public class RedisSessionSecurityService implements SecurityService {
 
   }
 
-  /**
-   * .
-   */
-
   private String getCurrentSessionId() {
 
     return (String) session.getAttribute(SecurityUtil.SESSION_ID);
 
   }
-
-  /**
-   * .
-   */
 
   private boolean isAlreadySignInBrowser(String sessionId) {
 

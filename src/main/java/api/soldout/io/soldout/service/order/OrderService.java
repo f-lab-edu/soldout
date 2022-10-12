@@ -5,10 +5,6 @@ import api.soldout.io.soldout.domain.OrderDto.OrderStatus;
 import api.soldout.io.soldout.service.order.command.OrderCommand;
 import java.util.List;
 
-/**
- * .
- */
-
 public interface OrderService {
 
   void orderNow(OrderCommand command);

@@ -4,10 +4,6 @@ import api.soldout.io.soldout.domain.OrderDto;
 import api.soldout.io.soldout.domain.OrderDto.OrderStatus;
 import java.util.List;
 
-/**
- * .
- */
-
 public interface OrderRepository {
 
   void saveOrder(OrderDto order);

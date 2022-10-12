@@ -18,10 +18,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-/**
- * .
- */
-
 @Slf4j
 public class JwtSecurityService implements SecurityService {
 
@@ -30,10 +26,6 @@ public class JwtSecurityService implements SecurityService {
 
   @Value("${jwt.ttlMillis}")
   private int ttlMillis;
-
-  /**
-   * .
-   */
 
   @Override
   public void signIn(int userId) {
@@ -53,10 +45,6 @@ public class JwtSecurityService implements SecurityService {
     response.setHeader(TOKEN_ID, token);
 
   }
-
-  /**
-   * .
-   */
 
   @Override
   public void logOut() {

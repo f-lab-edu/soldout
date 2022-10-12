@@ -14,10 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * .
- */
-
 @Slf4j
 @RestController
 @RequestMapping("/sale")
@@ -28,10 +24,6 @@ public class SaleController {
 
   /**
    * 판매 입찰 등록.
-   * .@param request
-   * .@paran UserDto
-   * .@param productId
-   * .@return
    */
 
   @PostMapping("/bid/{productId}")

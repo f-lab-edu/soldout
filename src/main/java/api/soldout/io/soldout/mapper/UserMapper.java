@@ -3,10 +3,6 @@ package api.soldout.io.soldout.mapper;
 import api.soldout.io.soldout.domain.UserDto;
 import org.apache.ibatis.annotations.Mapper;
 
-/**
- * .
- */
-
 @Mapper
 public interface UserMapper {
 

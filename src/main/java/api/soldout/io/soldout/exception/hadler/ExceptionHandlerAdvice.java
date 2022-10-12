@@ -13,10 +13,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-/**
- *.
- */
-
 @RestControllerAdvice(basePackages = "api.soldout.io.soldout.controller")
 public class ExceptionHandlerAdvice {
 

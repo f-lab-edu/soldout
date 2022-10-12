@@ -4,10 +4,6 @@ import api.soldout.io.soldout.domain.OrderDto.OrderType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-/**
- * .
- */
-
 @Getter
 @AllArgsConstructor
 public class OrderCommand {

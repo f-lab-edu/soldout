@@ -10,10 +10,6 @@ import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
-/**
- * .
- */
-
 public class RoutingDataSourceConfig {
 
   static class ReplicationRoutingDataSource extends AbstractRoutingDataSource {
@@ -27,10 +23,6 @@ public class RoutingDataSourceConfig {
     }
 
   }
-
-  /**
-   * .
-   */
 
   @Bean(name = "routingDataSource")
   public DataSource routingDataSource(
@@ -50,10 +42,6 @@ public class RoutingDataSourceConfig {
     return routingDataSource;
 
   }
-
-  /**
-   * .
-   */
 
   @Bean(name = "dataSource")
   public DataSource dataSource(@Qualifier("routingDataSource") DataSource routingDataSource) {

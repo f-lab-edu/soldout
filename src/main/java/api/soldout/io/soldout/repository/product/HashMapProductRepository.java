@@ -8,10 +8,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * .
- */
-
 @Slf4j
 @RequiredArgsConstructor
 public class HashMapProductRepository {
@@ -20,19 +16,11 @@ public class HashMapProductRepository {
 
   private final AtomicLong productSequence;
 
-  /**
-   * .
-   */
-
   public void save(ProductDto product) {
 
     productDatabase.put(productSequence.incrementAndGet(), product);
 
   }
-
-  /**
-   * .
-   */
 
   public List<ProductDto> findAll() {
 

@@ -1,9 +1,5 @@
 package api.soldout.io.soldout.util;
 
-/**
- *.
- */
-
 public class SecurityUtil {
 
   public static final String SESSION_ID = "SESSION_ID";

@@ -4,10 +4,6 @@ import api.soldout.io.soldout.domain.SaleDto;
 import api.soldout.io.soldout.domain.SaleDto.SaleStatus;
 import java.util.List;
 
-/**
- * .
- */
-
 public interface SaleRepository {
 
   void saveSale(SaleDto saleDto);
