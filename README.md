@@ -25,12 +25,12 @@ soldout 프로젝트는 최근 신발과 같은 의류에 대한 리셀 문화�
 > 모든 트러블 슈팅 내용이 궁금하다면! [링크](https://github.com/f-lab-edu/soldout/wiki/Trouble-Shooting)로 이동해주세요.
 
 ### ‼️ 핵심 트러블 슈팅
-- **서버 확장에 따른 session 구성 방법에 대한 고민** ➡️ [상세설명](https://kimcno3.github.io/f-lab/2022/06/20/%EC%84%9C%EB%B2%84-%ED%99%95%EC%9E%A5%EC%97%90-%EB%94%B0%EB%A5%B8-session-%EA%B5%AC%EC%84%B1-%EB%B0%A9%EB%B2%95%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B3%A0%EB%AF%BC.html)
+- **서버 확장에 따른 session 구성 방법에 대한 고민** ➡️ [상세설명](https://kimcno3.github.io/posts/%EC%84%9C%EB%B2%84-%ED%99%95%EC%9E%A5%EC%97%90-%EB%94%B0%EB%A5%B8-session-%EA%B5%AC%EC%84%B1-%EB%B0%A9%EB%B2%95%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B3%A0%EB%AF%BC/)
 
-- **Docker를 활용한 개발 환경 관리** ➡️ [상세설명](https://kimcno3.github.io/f-lab/2022/06/22/Docker%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD-%EA%B4%80%EB%A6%AC.html)
+- **Docker를 활용한 개발 환경 관리** ➡️ [상세설명](https://kimcno3.github.io/posts/Docker%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD-%EA%B4%80%EB%A6%AC/)
 
-- **DB Replication(복제) 구현** ➡️ [상세설명](https://kimcno3.github.io/f-lab/2022/07/05/DB-Replication-%EC%A0%81%EC%9A%A9.html)
+- **DB Replication 구현** ➡️ [상세설명](https://kimcno3.github.io/posts/DB-Replication-%EC%A0%81%EC%9A%A9/)
 
-- **스키마 변경을 최소화하는 데이터 모델링에 대한 고민** ➡️ [상세설명](https://kimcno3.github.io/f-lab/2022/07/07/%EC%8A%A4%ED%82%A4%EB%A7%88-%EB%B3%80%EA%B2%BD%EC%9D%84-%EC%B5%9C%EC%86%8C%ED%99%94%ED%95%98%EB%8A%94-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%AA%A8%EB%8D%B8%EB%A7%81%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B3%A0%EB%AF%BC.html)
+- **스키마 변경을 최소화하는 데이터 모델링에 대한 고민** ➡️ [상세설명](https://kimcno3.github.io/posts/%EC%8A%A4%ED%82%A4%EB%A7%88-%EB%B3%80%EA%B2%BD%EC%9D%84-%EC%B5%9C%EC%86%8C%ED%99%94%ED%95%98%EB%8A%94-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%AA%A8%EB%8D%B8%EB%A7%81%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B3%A0%EB%AF%BC/)
 
-- **JUnit5, Mockito를 활용한 효율적인 단위 테스트** ➡️ [상세설명](https://kimcno3.github.io/f-lab/2022/07/08/JUnit5,-Mokito%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9D%B8-%EB%8B%A8%EC%9C%84-%ED%85%8C%EC%8A%A4%ED%8A%B8.html)
+- **JUnit5, Mockito를 활용한 효율적인 단위 테스트** ➡️ [상세설명](https://kimcno3.github.io/posts/JUnit5,-Mokito%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9D%B8-%EB%8B%A8%EC%9C%84-%ED%85%8C%EC%8A%A4%ED%8A%B8/)
